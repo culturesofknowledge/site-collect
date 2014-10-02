@@ -1,0 +1,35 @@
+extends layout
+
+block headjs
+  script(type="text/javascript").
+      var fullname = "#{name}";
+      var email    = "#{email}";
+      var username = "#{username}";
+      var userID   = "#{userID}";
+  //script(type="text/javascript", src="/javascripts/user.js")
+
+block content
+  //p Upload for Username: #{username}
+  //p= title
+  // USER DATATABLE
+  //h3 Upload Table
+  #uploadTableDiv
+    p To add records to a dataset click 'Edit'. To change description or delete entire dataset, click on dataset name to select row, then click 'Rename dataset' or 'Delete' buttons.
+    table#uploadTable
+      thead
+        th Edit
+        th Dataset
+        th Source of data
+        //th upload_username
+        th Status
+        th Total works
+        //th Accepted
+        //th Rejected
+        //th uploader_email
+        //th upload_timestamp
+        //th header
+      tbody
+  // /USER DATATABLE
+
+block footjs
+  script(src='/javascripts/upload.js')

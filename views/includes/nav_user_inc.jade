@@ -1,0 +1,14 @@
+li.has-dropdown
+  a(href='#') #{username}
+  ul.dropdown
+    li.active
+      a(href='/user/') Datasets
+    if (uploadName)
+      li
+        a.editor_create(href="") New work
+      li
+        a(href='/admin/repo/byupload/#{uploadName}') Add Repository
+    li
+      a(href="/user/edit") Edit user info
+    li
+      a(href="/user/logout") Logout

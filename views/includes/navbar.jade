@@ -1,0 +1,47 @@
+- var thelogged= loggedIn
+//if (thesession === undefined)
+//  - var thesession = {loggedIn : false, user : {username : ''} }
+//else
+//  p= thesession.loggedIn 
+#navbar.fixed
+  nav.top-bar(data-topbar='data-topbar')
+    ul.title-area
+      li.name
+        h1
+          a(href='#') EmloCollect - #{title}
+      //
+        Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone 
+      li.toggle-topbar.menu-icon
+        a(href='#')
+          span Menu
+    section.top-bar-section
+      // Right Nav Section 
+      ul.right
+        unless ( loggedIn == true )
+          li.active
+            a(href='/user/login') Login
+        else
+          li.active
+            a(href='/user/') Datasets
+          include nav_user_inc.jade
+          if ( username == 'cofkrenhart')
+            include nav_admin_inc.jade
+          li
+            a(href="/user/logout") Logout
+      //
+        Left Nav Section 
+      ul.left
+        if (uploadName)
+          li.active
+            a(href='/work/byupload/#{uploadUuid}/#{uploadName}') [#{uploadName}]
+        if (workID)
+          li.active
+            a#work-save-link.saveform(href='#') Save
+        if ( username == 'cofkrenhart')
+            li.active 
+              a(href='/user/') Datasets
+            li.active
+              a(href='/user/') b #{loggedIn}
+            li.active
+              a(href='/user/') c #{thelogged}
+          

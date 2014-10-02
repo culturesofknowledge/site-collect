@@ -1,0 +1,37 @@
+.row.collapse
+    label(for='origin') Origin
+    .large-10.small-10.columns
+      input#origin.srchloc(type='text', name='origin',placeholder='Search EMLO Locations')
+    .large-2.small-2.columns
+      a#origin_add.item_editor_create.button.postfix(href='#') Add new
+    table#origin_id.display(cellspacing='0', width='100%')
+      thead
+        tr
+          th Names of Origin(s)
+          th origin_location_ids
+          th origin_ids 
+          th origin_uids 
+          th
+      tbody
+        for item, i in work.origin_id
+          include dtab_item
+.row.collapse
+    label(for='origin_as_marked') Origin as marked
+    input#origin_as_marked(type='text', name='origin_as_marked', value="#{work.origin_as_marked}",placeholder='Origin as marked')
+.row.collapse
+  .large-2.small-2.columns
+    label Is:
+  .large-4.small-4.columns
+    label(for='originbox1')
+      input#originbox1(name='origin_uncertain',type='checkbox', checked=("true"=== "#{work.origin_uncertain}" ? "checked" : undefined) )
+      span.custom.checkbox
+      | Uncertain
+  .large-3.small-3.columns
+    label(for='originbox2')
+      input#originbox2(name='origin_inferred',type='checkbox', checked=("true"=== "#{work.origin_inferred}" ? "checked" : undefined) )
+      span.custom.checkbox.checked
+      | Inferred
+  .large-2.small-2.columns
+.row.collapse
+    label(for='notes_on_origin') Notes
+    textarea#notes_on_origin(name='notes_on_origin',placeholder='Notes on origin') #{work.notes_on_origin}

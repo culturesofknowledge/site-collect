@@ -1,0 +1,59 @@
+extends ../layout
+
+block head
+  title= title
+  link(rel='stylesheet', href='/stylesheets/admin/datatables.css')
+block content
+  h1= title
+  p Person Administration
+  #demo_info
+  // USER DATATABLE
+  h2 Person Table
+  #personTableDiv
+    table#personTable
+      thead
+        th upload_name
+        th iperson_id
+        th union_iperson_id
+        th primary_name
+        th alternative_names
+        th roles_or_titles
+        th gender
+        th is_organisation
+        th organisation_type
+        th date_of_birth_year
+        th date_of_birth_month
+        th date_of_birth_day
+        th date_of_birth_is_range
+        th date_of_birth2_year
+        th date_of_birth2_month
+        th date_of_birth2_day
+        th date_of_birth_inferred
+        th date_of_birth_uncertain
+        th date_of_birth_approx
+        th date_of_death_year
+        th date_of_death_month
+        th date_of_death_day
+        th date_of_death_is_range
+        th date_of_death2_year
+        th date_of_death2_month
+        th date_of_death2_day
+        th date_of_death_inferred
+        th date_of_death_uncertain
+        th date_of_death_approx
+        th flourished_year
+        th flourished_month
+        th flourished_day
+        th flourished_is_range
+        th flourished2_year
+        th flourished2_month
+        th flourished2_day
+        th notes_on_person
+        th editors_notes
+        th Edit / Delete
+        th header
+      tbody
+  // /USER DATATABLE
+block footjs
+  //script(src='/javascripts/jquery.js')
+  script(src='/javascripts/admin/person.js')

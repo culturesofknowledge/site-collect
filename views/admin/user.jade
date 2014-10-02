@@ -1,0 +1,24 @@
+extends ../layout
+
+block head
+  title= title
+  link(rel='stylesheet', href='/stylesheets/admin/datatables.css')
+block content
+  h1= title
+  p Welcome to our test
+  // USER DATATABLE
+  h2 User Table
+  #userTableDiv
+    table#userTable
+      thead
+        th UserName
+        th Email
+        th Password
+        th Name
+        th Edit / Delete
+        th header
+      tbody
+  // /USER DATATABLE
+block footjs
+  //script(src='/javascripts/jquery.js')
+  script(src='/javascripts/admin/user.js')

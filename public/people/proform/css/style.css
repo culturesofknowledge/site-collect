@@ -1,0 +1,131 @@
+
+svg {
+    
+    background-color:whitesmoke;
+    
+}
+
+.link {
+
+  stroke: silver;
+  stroke-width: 2.5px;
+}
+
+
+
+circle {
+fill-opacity:1;
+  fill: silver;
+  stroke: slategray;
+  stroke-width: 1.5px;
+}
+
+
+html,body{background:white;font-size:10pt !important;}
+.row .one,
+.row .two,
+.row .three,
+.row .four,
+.row .five,
+.row .six,
+.row .seven,
+.row .eight,
+.row .nine,
+.row .ten,
+.row .eleven,
+.row .twelve,
+.row .offset-by-one,
+.row .offset-by-two,
+.row .offset-by-three,
+.row .offset-by-four,
+.row .offset-by-five,
+.row .offset-by-six,
+.row .offset-by-seven,
+.row .offset-by-eight,
+.row .offset-by-nine,
+.row .offset-by-ten,
+.row .centered,
+.row .offset-by-one:first-child,
+.row .offset-by-two:first-child,
+.row .offset-by-three:first-child,
+.row .offset-by-four:first-child,
+.row .offset-by-five:first-child,
+.row .offset-by-six:first-child,
+.row .offset-by-seven:first-child,
+.row .offset-by-eight:first-child,
+.row .offset-by-nine:first-child,
+.row .offset-by-ten:first-child,
+.row .offset-by-eleven:first-child{margin:0 !important;width:auto !important; float:left !important;}
+.print-only{display:none !important;}
+a:link,a:visited{color: !important;}
+
+
+ dl.tabs dd a {    
+    background-color:whitesmoke;
+}
+
+.assertion {
+    color:red;
+    font-weight:bold;    
+}
+  
+  
+.svgmodal {
+}
+  
+ 
+.linklabel {
+  font-size: 12px;  
+  font-family:courier, fixed, monospace;  
+    color:black;
+}
+
+.linklabelholder{
+fill:none; 
+stroke:blue; 
+
+ font-size: 14px;  
+  font-family:courier, fixed, monospace; 
+font-weight:200;
+color:black;
+}
+
+
+.addRemove {
+text-align:right;
+color:red;    
+}
+
+.delete {
+ margin-left: 20px;   
+}
+  
+
+/* autocomplete style  */
+.ui-helper-hidden-accessible{display:none}  
+
+.ui-menu {
+    background-color:whitesmoke;
+    border: 1px;
+    width:100px;
+}
+
+.ui-menu .ui-menu-item {
+     list-style-type: none;
+    background: whitesmoke;
+padding-left:10px;
+}
+
+.ui-menu .ui-menu-item a:hover{
+    
+   color:red;
+  background-color:white;
+   
+}
+
+ label {
+      font-weight:bold;
+      color:blue;
+      }
+
+

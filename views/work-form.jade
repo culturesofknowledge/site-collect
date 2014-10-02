@@ -1,0 +1,70 @@
+extends layout
+
+block headjs
+  script(type="text/javascript").
+    console.log("readying headjs");
+    var uploadName = "#{uploadName}";
+    var uploadName1= "#{work.upload_uuid.upload_name}";
+    var uploadUuid = "#{uploadUuid}";
+    var uploadUuid1= "#{work.upload_uuid._id}";
+    var workID   = "#{work._id}";
+    var iworkID  = "#{work.iwork_id}";
+    var fullname = "#{name}";
+    var email    = "#{email}";
+    var username = "#{username}";
+    var userID   = "#{userID }";
+
+  //script(type="text/javascript", src="/javascripts/user.js")
+
+block content
+  section
+    if errors.length > 0
+      ul(class="errors")
+        each error in errors
+          li= error
+    p.title(data-section-title='')
+      a(href='#section0') Section 1
+    .content(data-slug='section1', data-section-content='')
+      form.custom(data-abide='data-abide',id="frmWork",method="post", action="")
+        include ../partials.emlo/dates_edit
+        if work._id
+          include ../partials.emlo/people_edit
+          include ../partials.emlo/places_edit
+          include ../partials.emlo/manifestations2_edit
+        else    
+          p ( please save work as id is still #{work.iwork_id} )
+        include ../partials.emlo/content_edit
+        //include ../partials.emlo/manifestations_edit
+        include ../partials.emlo/languages_edit
+        include ../partials.emlo/resources_edit
+        //include ../partials.emlo/general_edit
+        //include ../partials.emlo/standalone
+
+        //p Work owner: #{username}
+        input(type="hidden", name="userid", id="userid", value="#{userID}")
+        input(type="hidden", name="workID", id="workID", value="#{workID}")
+
+        //label(for="upload_uuid") upload_uuid
+        if work.upload_uuid
+          input(type="hidden", name="upload_uuid", id="upload_uuid", value="#{work.upload_uuid._id}")
+        else 
+          input(type="hidden", name="upload_uuid", id="upload_name", value="#{username}")
+        //label(for="iwork_id") iWork_id
+        input(type="hidden", name="iwork_id", id="iwork_id", value="#{work.iwork_id}")
+        input.button.small.saveform(type='submit', id="saveform2" , value='#{buttonText}')
+        p Once the letter record has been saved   
+          a(href='/work/byupload/#{uploadUuid}/#{uploadName}') [click here then select New Work to add another record]
+  #renhart
+  #targetDiv
+   //include exampleperson
+block footjs
+  script(src='/javascripts/workedit.js')
+  script(src='/javascripts/manifestation.js')
+  script(src='/javascripts/language.js')
+  script(src='/javascripts/resource.js')
+  script(src='/javascripts/person.js')
+  script(src='/javascripts/place.js')
+
+
+
+

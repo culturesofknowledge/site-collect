@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .row.collapse
+    .large-6.small-6.columns
+      h1= title
+      if errors.length > 0
+        ul(class="errors")
+          each error in errors
+            li= error
+
+      form(id="formUserProfile", method="post", action="")
+        label(for="username") Username<br />
+        input#username(name="username", value="#{username}")
+        label(for="password") Password<br />
+        input#password(type="password", name="password", value="#{password}")
+        label(for="FullName") Full name
+        input(type="text", name="FullName", id="FullName", value="#{name}")
+        label(for="Email") Email
+        input(type="email", name="Email", id="Email", value="#{email}")
+        input(type="submit", value="#{buttonText}")
+        input.button(type='submit', value='#{buttonText}')
+

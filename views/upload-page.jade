@@ -1,0 +1,43 @@
+extends layout
+
+block headjs
+  script(type="text/javascript").
+    console.log("readying headjs - upload-page");
+    var uploadName = "#{uploadName}";
+    var uploadUuid = "#{uploadUuid}";
+    var fullname = "#{name}";
+    var email    = "#{email}";
+    var username = "#{username}";
+    var userID   = "#{userID }";
+
+  //script(type="text/javascript", src="/javascripts/user.js")
+
+block content
+  // DATATABLE
+  //a.editor_create New Work
+  #workTableDiv
+    table#workTable
+      thead
+        tr
+          th(rowspan='2') Edit
+          th(colspan='1') 
+          th.center(colspan='3') Date of Work
+          th(colspan='2') 
+        tr
+          th Work id
+          //th date_of_work
+          th year
+          th month
+          th day
+          //th authors
+          //th addressees
+          //th origin_id
+          //th destination_id
+          th Letter notes
+          th Editors notes
+          //th header
+      tbody
+  // /DATATABLE
+  //include inform-page
+block footjs
+  script(src='/javascripts/work.js')

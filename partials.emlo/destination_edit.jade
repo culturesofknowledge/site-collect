@@ -1,0 +1,37 @@
+.row.collapse
+    label(for='destination') Destination
+    .large-10.small-10.columns
+      input#destination.srchloc(type='text', name='destination',placeholder='Search EMLO Locations')
+    .large-2.small-2.columns
+      a#destination_add.item_editor_create.button.postfix(href='#') Add new
+    table#destination_id.display(cellspacing='0', width='100%')
+      thead
+        tr
+          th Names of Destination(s)
+          th destination_location_ids
+          th destination_ids 
+          th destination_uids 
+          th
+      tbody
+        for item, i in work.destination_id
+          include dtab_item
+.row.collapse
+    label(for='destination_as_marked') Destination as marked
+    input#destination_as_marked(type='text', name='destination_as_marked', value="#{work.destination_as_marked}",placeholder='Destination as marked')
+.row.collapse
+  .large-2.small-2.columns
+    label Is:
+  .large-4.small-4.columns
+    label(for='destinationbox1')
+      input#destinationbox1(name='destination_uncertain',type='checkbox', checked=("true"=== "#{work.destination_uncertain}" ? "checked" : undefined) )
+      span.custom.checkbox
+      | Uncertain
+  .large-3.small-3.columns
+    label(for='destinationbox2')
+      input#destinationbox2(name='destination_inferred',type='checkbox', checked=("true"=== "#{work.destination_inferred}" ? "checked" : undefined) )
+      span.custom.checkbox.checked
+      | Inferred
+  .large-2.small-2.columns
+.row.collapse
+    label(for='notes_on_destination') Notes
+    textarea#notes_on_destination(name='notes_on_destination',placeholder='Notes on destination') #{work.notes_on_destination}

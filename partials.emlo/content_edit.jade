@@ -1,0 +1,35 @@
+fieldset
+  legend.radius.secondary.label CONTENT
+  .row
+    .large-9.columns
+      .row.collapse
+        .large-2.small-2.columns
+          label(for='abstract') Abstract
+        .large-7.small-7
+          textarea#abstract(name='abstract',placeholder='Abstract') #{work.abstract}
+      .row.collapse
+        .large-2.small-2.columns
+          label(for='keywords') Keywords
+        .large-7.small-7
+          textarea#keywords(name='keywords',placeholder='Keywords') #{work.keywords}
+      .row.collapse
+        .large-2.small-2.columns
+          label(for='incipit') Incipit
+        .large-7.small-7
+          textarea#incipit(name='incipit',placeholder='Incipit') #{work.incipit}
+      .row.collapse
+        .large-2.small-2.columns
+          label(for='explicit') Explicit
+        .large-7.small-7
+          textarea#explicit(name='explicit',placeholder='Explicit') #{work.explicit}
+      .row.collapse
+        .large-2.small-2.columns
+          label(for='notes_on_letter') Notes on letter
+        .large-7.small-7
+          textarea#notes_on_letter(name='notes_on_letter',placeholder='Notes on letter') #{work.notes_on_letter}
+      .row.collapse
+        .large-2.small-2.columns
+          label(for='editors_notes') Editors notes
+        .large-7.small-7
+          textarea#editors_notes(name='editors_notes',placeholder='Editors notes') #{work.editors_notes}
+          //input.button.small.saveform(type='submit', id="saveform3" , value='#{buttonText}')

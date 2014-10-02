@@ -1,0 +1,1116 @@
+[                
+
+{"id": "acquaintanceOf", "text": "acquaintanceOf", "children": [
+
+{"id": "Acquaintance", "text": "Acquaintance"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "addresseeOf", "text": "addresseeOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "attendeeOf", "text": "attendeeOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "authorOf", "text": "authorOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "buyerOf", "text": "buyerOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "buysFrom", "text": "buysFrom", "children": [
+
+{"id": "Seller", "text": "Seller"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "causedDeathOf", "text": "causedDeathOf", "children": [
+
+{"id": "Deceased", "text": "Deceased"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "contributorOf", "text": "contributorOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "creatorOf", "text": "creatorOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "dedicateeOf", "text": "dedicateeOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "dedicatorOf", "text": "dedicatorOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "engraverOf", "text": "engraverOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "giverOf", "text": "giverOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "givesTo", "text": "givesTo", "children": [
+
+{"id": "Recipient", "text": "Recipient"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasAcademicSupervisor", "text": "hasAcademicSupervisor", "children": [
+
+{"id": "AcademicSupervisor", "text": "AcademicSupervisor"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasAttendee", "text": "hasAttendee", "children": [
+
+{"id": "Attendee", "text": "Attendee"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasAuthor", "text": "hasAuthor", "children": [
+
+{"id": "Author", "text": "Author"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasBuyer", "text": "hasBuyer", "children": [
+
+{"id": "Buyer", "text": "Buyer"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasCauseOfDeath", "text": "hasCauseOfDeath", "children": [
+
+{"id": "CauseOfDeath", "text": "CauseOfDeath"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasCollaborator", "text": "hasCollaborator", "children": [
+
+{"id": "Collaborator", "text": "Collaborator"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasColleague", "text": "hasColleague", "children": [
+
+{"id": "Colleague", "text": "Colleague"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasContributor", "text": "hasContributor", "children": [
+
+{"id": "Contributor", "text": "Contributor"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasCorrespondent", "text": "hasCorrespondent", "children": [
+
+{"id": "Correspondent", "text": "Correspondent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasCreator", "text": "hasCreator", "children": [
+
+{"id": "Creator", "text": "Creator"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasDedicatee", "text": "hasDedicatee", "children": [
+
+{"id": "Dedicatee", "text": "Dedicatee"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasDedicator", "text": "hasDedicator", "children": [
+
+{"id": "Dedicator", "text": "Dedicator"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasDisputationRespondent", "text": "hasDisputationRespondent", "children": [
+
+{"id": "DisputationRespondent", "text": "DisputationRespondent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasEmployee", "text": "hasEmployee", "children": [
+
+{"id": "Employee", "text": "Employee"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasEmployer", "text": "hasEmployer", "children": [
+
+{"id": "Employer", "text": "Employer"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasEngraver", "text": "hasEngraver", "children": [
+
+{"id": "Engraver", "text": "Engraver"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasFunder", "text": "hasFunder", "children": [
+
+{"id": "Funder", "text": "Funder"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGiver", "text": "hasGiver", "children": [
+
+{"id": "Giver", "text": "Giver"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGodchild", "text": "hasGodchild", "children": [
+
+{"id": "Godchild", "text": "Godchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGodparent", "text": "hasGodparent", "children": [
+
+{"id": "Godparent", "text": "Godparent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGuest", "text": "hasGuest", "children": [
+
+{"id": "Guest", "text": "Guest"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasIllustrator", "text": "hasIllustrator", "children": [
+
+{"id": "Ilustrator", "text": "Ilustrator"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasInscriber", "text": "hasInscriber", "children": [
+
+{"id": "Inscriber", "text": "Inscriber"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasIntermediary", "text": "hasIntermediary", "children": [
+
+{"id": "Intermediary", "text": "Intermediary"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasMember", "text": "hasMember", "children": [
+
+{"id": "Member", "text": "Member"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasOffice", "text": "hasOffice", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasOwner", "text": "hasOwner", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasParticipant", "text": "hasParticipant", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasPatron", "text": "hasPatron", "children": [
+
+{"id": "Patron", "text": "Patron"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasPraeses", "text": "hasPraeses", "children": [
+
+{"id": "Praeses", "text": "Praeses"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasPrinter", "text": "hasPrinter", "children": [
+
+{"id": "Printer", "text": "Printer"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasPublisher", "text": "hasPublisher", "children": [
+
+{"id": "Printer", "text": "Printer"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasRecipient", "text": "hasRecipient", "children": [
+
+{"id": "Recipient", "text": "Recipient"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasReviewer", "text": "hasReviewer", "children": [
+
+{"id": "Reviewer", "text": "Reviewer"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSeller", "text": "hasSeller", "children": [
+
+{"id": "Seller", "text": "Seller"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasStudent", "text": "hasStudent", "children": [
+
+{"id": "Student", "text": "Student"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSupervisor", "text": "hasSupervisor", "children": [
+
+{"id": "Supervisor", "text": "Supervisor"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasTeacher", "text": "hasTeacher", "children": [
+
+{"id": "Teacher", "text": "Teacher"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasTranscriber", "text": "hasTranscriber", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasTutor", "text": "hasTutor", "children": [
+
+{"id": "Tutor", "text": "Tutor"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hostOf", "text": "hostOf", "children": [
+
+{"id": "Guest", "text": "Guest"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "illustratorOf", "text": "illustratorOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "immigrantTo", "text": "immigrantTo", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "inscriberOf", "text": "inscriberOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "intermediaryOf", "text": "intermediaryOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "interviewedBy", "text": "interviewedBy", "children": [
+
+{"id": "Interviewer", "text": "Interviewer"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "interviews", "text": "interviews", "children": [
+
+{"id": "Interviewee", "text": "Interviewee"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "memberOf", "text": "memberOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "movesTo", "text": "movesTo", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "ownerOf", "text": "ownerOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "participantOf", "text": "participantOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "preachedAt", "text": "preachedAt", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "printerOf", "text": "printerOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "publisherOf", "text": "publisherOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "receivesFrom", "text": "receivesFrom", "children": [
+
+{"id": "Giver", "text": "Giver"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "recipientOf", "text": "recipientOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "residentOf", "text": "residentOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "residesWith", "text": "residesWith", "children": [
+
+{"id": "Housemate", "text": "Housemate"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "reviewerOf", "text": "reviewerOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "sellerOf", "text": "sellerOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "sellsTo", "text": "sellsTo", "children": [
+
+{"id": "Buyer", "text": "Buyer"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "senderOf", "text": "senderOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "sendsTo", "text": "sendsTo", "children": [
+
+{"id": "Recipient", "text": "Recipient"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "traderOf", "text": "traderOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "tradesWith", "text": "tradesWith", "children": [
+
+{"id": "Trader", "text": "Trader"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "transcriberOf", "text": "transcriberOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "adoptiveFatherOf", "text": "adoptiveFatherOf", "children": [
+
+{"id": "http://www.vocab.ox.ac.uk/camelot/Person#Child", "text": "http://www.vocab.ox.ac.uk/camelot/Person#Child"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "adoptiveMotherOf", "text": "adoptiveMotherOf", "children": [
+
+{"id": "http://www.vocab.ox.ac.uk/camelot/Person#Child", "text": "http://www.vocab.ox.ac.uk/camelot/Person#Child"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "ancestorOf", "text": "ancestorOf", "children": [
+
+{"id": "Descendent", "text": "Descendent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "auntOf", "text": "auntOf", "children": [
+
+{"id": "Nephew", "text": "Nephew"},
+
+{"id": "Niece", "text": "Niece"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "biologicalFatherOf", "text": "biologicalFatherOf", "children": [
+
+{"id": "http://www.vocab.ox.ac.uk/camelot/Person#Child", "text": "http://www.vocab.ox.ac.uk/camelot/Person#Child"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "biologicalMotherOf", "text": "biologicalMotherOf", "children": [
+
+{"id": "http://www.vocab.ox.ac.uk/camelot/Person#Child", "text": "http://www.vocab.ox.ac.uk/camelot/Person#Child"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "brotherInLawOf", "text": "brotherInLawOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "brotherOf", "text": "brotherOf", "children": [
+
+{"id": "Sibling", "text": "Sibling"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "daughterOf", "text": "daughterOf", "children": [
+
+{"id": "Parent", "text": "Parent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "deathOf", "text": "deathOf", "children": [
+
+{"id": "Deceased", "text": "Deceased"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "descendentOf", "text": "descendentOf", "children": [
+
+{"id": "Ancestor", "text": "Ancestor"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "fatherInLawOf", "text": "fatherInLawOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "fatherOf", "text": "fatherOf", "children": [
+
+{"id": "http://www.vocab.ox.ac.uk/camelot/Person#Child", "text": "http://www.vocab.ox.ac.uk/camelot/Person#Child"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "grandParentOf", "text": "grandParentOf", "children": [
+
+{"id": "Grandchild", "text": "Grandchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "grandfatherOf", "text": "grandfatherOf", "children": [
+
+{"id": "Grandchild", "text": "Grandchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "grandmotherOf", "text": "grandmotherOf", "children": [
+
+{"id": "Grandchild", "text": "Grandchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "greatGrandParentOf", "text": "greatGrandParentOf", "children": [
+
+{"id": "GreatGrandchild", "text": "GreatGrandchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "greatGrandfatherOf", "text": "greatGrandfatherOf", "children": [
+
+{"id": "GreatGrandchild", "text": "GreatGrandchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "greatGrandmotherOf", "text": "greatGrandmotherOf", "children": [
+
+{"id": "GreatGrandchild", "text": "GreatGrandchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasAdoptiveFather", "text": "hasAdoptiveFather", "children": [
+
+{"id": "AdoptiveFather", "text": "AdoptiveFather"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasAdoptiveMother", "text": "hasAdoptiveMother", "children": [
+
+{"id": "AdoptiveMother", "text": "AdoptiveMother"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasAncestor", "text": "hasAncestor", "children": [
+
+{"id": "Ancestor", "text": "Ancestor"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasAunt", "text": "hasAunt", "children": [
+
+{"id": "Aunt", "text": "Aunt"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasBiologicalFather", "text": "hasBiologicalFather", "children": [
+
+{"id": "BirthFather", "text": "BirthFather"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasBiologicalMother", "text": "hasBiologicalMother", "children": [
+
+{"id": "BirthMother", "text": "BirthMother"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasBrother", "text": "hasBrother", "children": [
+
+{"id": "Brother", "text": "Brother"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasBrotherInLaw", "text": "hasBrotherInLaw", "children": [
+
+{"id": "BrotherInLaw", "text": "BrotherInLaw"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasChild", "text": "hasChild", "children": [
+
+{"id": "http://www.vocab.ox.ac.uk/camelot/Person#Child", "text": "http://www.vocab.ox.ac.uk/camelot/Person#Child"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasCousin", "text": "hasCousin", "children": [
+
+{"id": "Cousin", "text": "Cousin"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasCousinInLaw", "text": "hasCousinInLaw", "children": [
+
+{"id": "CousinInLaw", "text": "CousinInLaw"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasDaughter", "text": "hasDaughter", "children": [
+
+{"id": "Daughter", "text": "Daughter"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasDeath", "text": "hasDeath", "children": [
+
+{"id": "Death", "text": "Death"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasDescendent", "text": "hasDescendent", "children": [
+
+{"id": "Descendent", "text": "Descendent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasDoubleCousin", "text": "hasDoubleCousin", "children": [
+
+{"id": "DoubleCousin", "text": "DoubleCousin"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasFather", "text": "hasFather", "children": [
+
+{"id": "Father", "text": "Father"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasFatherinLaw", "text": "hasFatherinLaw", "children": [
+
+{"id": "FatherInLaw", "text": "FatherInLaw"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasFirstCousin", "text": "hasFirstCousin", "children": [
+
+{"id": "FirstCousin", "text": "FirstCousin"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasFirstCousinOnceRemoved", "text": "hasFirstCousinOnceRemoved", "children": [
+
+{"id": "FirstCousinOnceRemoved", "text": "FirstCousinOnceRemoved"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasFirstCousinTwiceRemoved", "text": "hasFirstCousinTwiceRemoved", "children": [
+
+{"id": "FirstCousinTwiceRemoved", "text": "FirstCousinTwiceRemoved"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGrandParent", "text": "hasGrandParent", "children": [
+
+{"id": "GrandParent", "text": "GrandParent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGrandchild", "text": "hasGrandchild", "children": [
+
+{"id": "Grandchild", "text": "Grandchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGranddaughter", "text": "hasGranddaughter", "children": [
+
+{"id": "Granddaughter", "text": "Granddaughter"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGrandfather", "text": "hasGrandfather", "children": [
+
+{"id": "Grandfather", "text": "Grandfather"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGrandmother", "text": "hasGrandmother", "children": [
+
+{"id": "Grandmother", "text": "Grandmother"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGrandson", "text": "hasGrandson", "children": [
+
+{"id": "Grandson", "text": "Grandson"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGreatAunt", "text": "hasGreatAunt", "children": [
+
+{"id": "GreatAunt", "text": "GreatAunt"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGreatGrandParent", "text": "hasGreatGrandParent", "children": [
+
+{"id": "GreatGrandParent", "text": "GreatGrandParent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGreatGrandchild", "text": "hasGreatGrandchild", "children": [
+
+{"id": "GreatGrandchild", "text": "GreatGrandchild"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGreatGrandfather", "text": "hasGreatGrandfather", "children": [
+
+{"id": "GreatGrandfather", "text": "GreatGrandfather"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGreatGrandmother", "text": "hasGreatGrandmother", "children": [
+
+{"id": "GreatGrandmother", "text": "GreatGrandmother"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasGreatUncle", "text": "hasGreatUncle", "children": [
+
+{"id": "GreatUncle", "text": "GreatUncle"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasHusband", "text": "hasHusband", "children": [
+
+{"id": "Husband", "text": "Husband"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasInLaw", "text": "hasInLaw", "children": [
+
+{"id": "InLaw", "text": "InLaw"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasMaternalCousin", "text": "hasMaternalCousin", "children": [
+
+{"id": "MaternalCousin", "text": "MaternalCousin"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasMother", "text": "hasMother", "children": [
+
+{"id": "Mother", "text": "Mother"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasMotherInLaw", "text": "hasMotherInLaw", "children": [
+
+{"id": "MotherInLaw", "text": "MotherInLaw"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasNephew", "text": "hasNephew", "children": [
+
+{"id": "Nephew", "text": "Nephew"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasNiece", "text": "hasNiece", "children": [
+
+{"id": "Niece", "text": "Niece"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasParent", "text": "hasParent", "children": [
+
+{"id": "Parent", "text": "Parent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasPaternalCousin", "text": "hasPaternalCousin", "children": [
+
+{"id": "PaternalCousin", "text": "PaternalCousin"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasRelation", "text": "hasRelation", "children": [
+
+{"id": "", "text": ""},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSecondCousin", "text": "hasSecondCousin", "children": [
+
+{"id": "SecondCousin", "text": "SecondCousin"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSecondCousinOnceRemoved", "text": "hasSecondCousinOnceRemoved", "children": [
+
+{"id": "SecondCousinOnceRemoved", "text": "SecondCousinOnceRemoved"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSibling", "text": "hasSibling", "children": [
+
+{"id": "Sibling", "text": "Sibling"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSister", "text": "hasSister", "children": [
+
+{"id": "Sister", "text": "Sister"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSisterInLaw", "text": "hasSisterInLaw", "children": [
+
+{"id": "SisterInLaw", "text": "SisterInLaw"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSon", "text": "hasSon", "children": [
+
+{"id": "Son", "text": "Son"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasSpouse", "text": "hasSpouse", "children": [
+
+{"id": "Spouse", "text": "Spouse"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasThirdCousin", "text": "hasThirdCousin", "children": [
+
+{"id": "ThirdCousin", "text": "ThirdCousin"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasUncle", "text": "hasUncle", "children": [
+
+{"id": "Uncle", "text": "Uncle"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "hasWife", "text": "hasWife", "children": [
+
+{"id": "Wife", "text": "Wife"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "husbandOf", "text": "husbandOf", "children": [
+
+{"id": "Wife", "text": "Wife"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "isBloodRelationOf", "text": "isBloodRelationOf", "children": [
+
+{"id": "BloodRelation", "text": "BloodRelation"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "isChildOf", "text": "isChildOf", "children": [
+
+{"id": "Parent", "text": "Parent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "isFamilyRelationOf", "text": "isFamilyRelationOf", "children": [
+
+{"id": "FamilyRelation", "text": "FamilyRelation"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "isGrandchildOf", "text": "isGrandchildOf", "children": [
+
+{"id": "GrandParent", "text": "GrandParent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "isGranddaughterOf", "text": "isGranddaughterOf", "children": [
+
+{"id": "GrandParent", "text": "GrandParent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "isGrandsonOf", "text": "isGrandsonOf", "children": [
+
+{"id": "GrandParent", "text": "GrandParent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "motherInLawOf", "text": "motherInLawOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "motherOf", "text": "motherOf", "children": [
+
+{"id": "http://www.vocab.ox.ac.uk/camelot/Person#Child", "text": "http://www.vocab.ox.ac.uk/camelot/Person#Child"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "nephewOf", "text": "nephewOf", "children": [
+
+{"id": "Aunt", "text": "Aunt"},
+
+{"id": "Uncle", "text": "Uncle"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "nieceOf", "text": "nieceOf", "children": [
+
+{"id": "Aunt", "text": "Aunt"},
+
+{"id": "Uncle", "text": "Uncle"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "parentOf", "text": "parentOf", "children": [
+
+{"id": "http://www.vocab.ox.ac.uk/camelot/Person#Child", "text": "http://www.vocab.ox.ac.uk/camelot/Person#Child"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "sisterInLawOf", "text": "sisterInLawOf", "children": [
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "sisterOf", "text": "sisterOf", "children": [
+
+{"id": "Sibling", "text": "Sibling"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "sonOf", "text": "sonOf", "children": [
+
+{"id": "Parent", "text": "Parent"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "uncleOf", "text": "uncleOf", "children": [
+
+{"id": "Nephew", "text": "Nephew"},
+
+{"id": "Niece", "text": "Niece"},
+{"id": "", "text": ""}
+
+]},    
+
+{"id": "wifeOf", "text": "wifeOf", "children": [
+
+{"id": "Husband", "text": "Husband"},
+{"id": "", "text": ""}
+
+]},    
+   
+     
+{}      ]

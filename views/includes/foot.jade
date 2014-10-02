@@ -1,0 +1,13 @@
+// includes/foot.jade
+#foot
+  script(type='text/javascript', language='javascript', charset='utf-8', src='/DataTables/media/js/jquery.js')
+  script(src="/javascripts/js/jquery.serialize-object.min.js")
+  script(src='/f5/js/vendor/fastclick.js')
+  script(src='/f5/js/foundation.min.js')
+  script(src='/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js')
+  include foot2data.jade
+  block footjs
+  script.
+    $(document).foundation()
+  p: small 2013 &copy; #{site_name} 
+  

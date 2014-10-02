@@ -1,0 +1,29 @@
+extends ../layout
+
+block head
+  title= title
+  link(rel='stylesheet', href='/stylesheets/admin/datatables.css')
+block content
+  h1= title
+  p Upload Administration
+  // USER DATATABLE
+  h2 Upload Table
+  #uploadTableDiv
+    table#uploadTable
+      thead
+        th upload_name
+        th upload_username
+        th upload_status
+        th total_works
+        th works_accepted
+        th works_rejected
+        th uploader_email
+        th upload_description
+        th upload_timestamp
+        th Edit / Delete
+        th header
+      tbody
+  // /USER DATATABLE
+block footjs
+  //script(src='/javascripts/jquery.js')
+  script(src='/javascripts/admin/upload.js')

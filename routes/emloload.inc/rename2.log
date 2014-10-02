@@ -1,0 +1,10 @@
+MongoDB shell version: 2.4.10
+Thu Jun 26 00:01:19.807 versionArrayTest passed
+connecting to: emlo-edit
+Thu Jun 26 00:01:19.854 creating new connection to:127.0.0.1:27017
+Thu Jun 26 00:01:19.854 BackgroundJob starting: ConnectBG
+Thu Jun 26 00:01:19.855 connected connection!
+bye
+Thu Jun 26 00:01:34.573 freeing 56 uncollected N5mongo14DBClientCursorE objects
+Thu Jun 26 00:01:34.573 freeing 1 uncollected N5mongo20DBClientWithCommandsE objects
+Thu Jun 26 00:01:34.573 freeing 122 uncollected N5mongo10BSONHolderE objects

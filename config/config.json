@@ -1,0 +1,29 @@
+{
+  "development": {
+    "dbURL"       : "mongodb://localhost:27017/emlo-edit",
+    "serverPgSQL" : "192.168.56.1:5432",
+    "pg_host"     : "192.168.56.1",
+    "pg_user"     : "cofkrenhart",
+    "pg_pass"     : "Sperry95",
+    "host"        : "192.168.56.101",
+    "conString"   : "postgres://cofkrenhart:Sperry95@192.168.56.1/ouls"
+  },
+  "emlo-edit-dev": {
+    "dbURL"       : "mongodb://localhost:27017/emlo-edit",
+    "serverPgSQL" : "localhost:5432",
+    "pg_host"     : "localhost",
+    "pg_user"     : "cofkrenhart",
+    "pg_pass"     : "Sperry95",
+    "host"        : "emlo-edit-dev.bodleian.ox.ac.uk",
+    "conString"   : "postgres://cofkrenhart:Sperry95@localhost/ouls"
+  },
+  "production": {
+    "dbURL"       : "mongodb://localhost:27017/emlo-edit",
+    "serverPgSQL" : "localhost:5432",
+    "pg_host"     : "localhost",
+    "pg_user"     : "cofkrenhart",
+    "pg_pass"     : "Sperry95",
+    "host"        : "emlo-edit.bodleian.ox.ac.uk",
+    "conString"   : "postgres://cofkrenhart:Sperry95@localhost/ouls"
+  }
+}

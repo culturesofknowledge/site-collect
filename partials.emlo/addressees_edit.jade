@@ -1,0 +1,37 @@
+.row.collapse
+    label(for='addressee') Recipient
+    .large-10.small-10.columns
+      input#addressee.searchp(type='text', name='addressee',placeholder='Search EMLO Recipient')
+    .large-2.small-2.columns
+      a#addressee_add.pers_editor_create.button.postfix(href='#') Add new
+    table#addressees.display(cellspacing='0', width='100%')
+      thead
+        tr
+          th Names of recipient(s)
+          th addressee_person_ids
+          th addressee_ids 
+          th addressee_uids 
+          th
+      tbody
+        for item, i in work.addressees
+          include dtab_person
+.row.collapse
+    label(for='addressees_as_marked') Recipients as marked
+    input#addressees_as_marked(type='text', name='addressees_as_marked', value="#{work.addressees_as_marked}",placeholder='Recipients as marked')
+.row.collapse
+  .large-2.small-2.columns
+    label Is:
+  .large-4.small-4.columns
+    label(for='addresseesbox1')
+      input#addresseesbox1(name='addressees_uncertain',type='checkbox', checked=("true"=== "#{work.addressees_uncertain}" ? "checked" : undefined) )
+      span.custom.checkbox
+      | Uncertain
+  .large-3.small-3.columns
+    label(for='addresseesbox2')
+      input#addresseesbox2(name='addressees_inferred',type='checkbox', checked=("true"=== "#{work.addressees_inferred}" ? "checked" : undefined) )
+      span.custom.checkbox.checked
+      | Inferred
+  .large-2.small-2.columns
+.row.collapse
+    label(for='notes_on_addressees') Notes
+    textarea#notes_on_addressees(name='notes_on_addressees',placeholder='Notes on recipients') #{work.notes_on_addressees}

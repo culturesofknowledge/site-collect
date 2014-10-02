@@ -1,0 +1,37 @@
+.row.collapse
+    label(for='author') Author/Sender
+    .large-10.small-10.columns
+      input#author.searchp(type='text', name='author',placeholder='Search EMLO Author/Sender')
+    .large-2.small-2.columns
+      a#author_add.pers_editor_create.button.postfix(href='#') Add new
+    table#authors.display(cellspacing='0', width='100%')
+      thead
+        tr
+          th Names of author(s)
+          th author_person_ids
+          th author_ids
+          th author_uids
+          th 
+      tbody
+        for item, i in work.authors
+          include dtab_person
+.row.collapse
+    label(for='authors_as_marked') Authors as marked
+    input#authors_as_marked(type='text', name='authors_as_marked', value="#{work.authors_as_marked}",placeholder='Authors as marked')
+.row.collapse
+  .large-2.small-2.columns
+    label Is:
+  .large-4.small-4.columns
+    label(for='authorsbox1')
+      input#authorsbox1(name='authors_uncertain',type='checkbox', checked=("true"=== "#{work.authors_uncertain}" ? "checked" : undefined) )
+      span.custom.checkbox
+      | Uncertain
+  .large-3.small-3.columns
+    label(for='authorsbox2')
+      input#authorsbox2(name='authors_inferred',type='checkbox', checked=("true"=== "#{work.authors_inferred}" ? "checked" : undefined) )
+      span.custom.checkbox.checked
+      | Inferred
+  .large-2.small-2.columns
+.row.collapse
+    label(for='notes_on_authors') Notes
+    textarea#notes_on_authors(name='notes_on_authors',placeholder='Notes on authors') #{work.notes_on_authors}

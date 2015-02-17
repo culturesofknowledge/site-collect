@@ -50,6 +50,7 @@ var workMap = {
   date_of_work_std_year:  'date_of_work_std_year',
   upload_id:  'upload_id',
   upload_name:  'upload_name',
+  upload_status : 'upload_status',
   _id:  '_id'
 };
 

@@ -94,6 +94,10 @@ doProcessRecords = function(data, callback) {
       data.obj= data.mapping.pgMap(data.mapping.pgTable, item);
       data.obj['upload_name']  = data.upload_name ;
       data.obj['upload_id']    = data.pgUploadId;
+      if( data.mapping.pgTable.upload_status ) {
+        data.obj['upload_status']    = '1'; // set status in collect to "Awaiting review" (It may have been set to "Rejected" (5) before.)
+      }
+
       if (data.mapping.field_key) {
         data.obj[data.mapping.field_key] = i++;
         console.log("\nlog: data.mapping.field_key -->",i,

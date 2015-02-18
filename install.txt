@@ -1,0 +1,27 @@
+Get up and running
+==================
+
+A list of things you'll need to get the EMLO web-form up and running
+
+These notes are for opensuse but it should be obvious how to switch them over (zypper==apt-get)
+
+You'll need a postgres and mongo database:
+docker pull mongo
+docker pull postgres
+
+# You'll need some dev files
+zypper in nodejs-devel		# On Ubuntu possibly: apt-get install nodejs-dev
+zypper in postgresql-devel
+
+# Install this one to global
+sudo npm install sql-generate@0.3.0 -g
+
+# Install modules
+npm install # ignore warniong about sql-generate
+
+# Setup which config (choose in config/config.js or create a new one)
+export NODE_ENV='development'
+
+# run it
+node server.js
+

@@ -49,7 +49,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({
   secret: confstore.cookie_secret,
   store: new MongoStore({
-    db : confstore.db,
+      url : config.dbURL,
+    db : confstore.db
   })
 }));
 /**/

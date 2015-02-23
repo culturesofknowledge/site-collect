@@ -170,30 +170,90 @@ doProcessWorks = function(data, callback) {
 
 
 doProcessItems = function(data, callback) {
+  //
+  // Loop through fields of data.itemTab in work
+  // Add links between objects (e.g. person is author of work)
+  //
   console.log("doProcessItems -3 for iwork_id-> ", data.itemWork.iwork_id);
   var i = 0;
   async.eachSeries(
-    data.itemTab, 
-    function(item,callback) {
+    data.itemTab,
+    function(item, callback) {
+
       console.log("\ndoProcessItems -3a record -->",++i,"\t",item);
+
       data.mapping = data.itemMappings[item];
-      console.log("\ndoProcessItems -3b for item ",data.mapping.field);
-      console.log("\ndoProcessItems -3c for fields \n",data.itemWork[data.mapping.field]);
-      if(data.itemWork[data.mapping.field].length > 0){
-        doProcessItemRows(data, function(err, data) {
-          if (err) {
-            console.log('Ahh! An -----1 Error!');
-            callback(err);
+
+      async.series(
+          [
+              function (callback) {
+                // Delete existing links
+                console.log( "MATTT: Delete existing links" );
+                workClearLinks( data.mapping.pgTable, data.pgUploadId, function(error) {
+                  callback(error)
+                } );
+              },
+
+              function (callback) {
+                // Make the new links
+
+                console.log("\ndoProcessItems -3b for item ",data.mapping.field);
+                console.log("\ndoProcessItems -3c for fields \n",data.itemWork[data.mapping.field]);
+
+                if( data.itemWork[data.mapping.field].length > 0 ) {
+
+                  doProcessItemRows( data, function(err, data) {
+                    if (err) {
+                      console.log('Ahh! An -----1 Error!');
+                      callback(err);
+                    }
+                    callback(null, data);
+                  });
+
+                } else {
+                  callback();
+                }
+
+              }
+
+          ],
+
+          function(err, data ) {
+            if (err) {
+              callback( err );
+            }
+            else {
+              console.log('doProcessItems(for each of authors addressees mentioned etc ) \n');
+              callback(null,data);
+            }
           }
-          callback(null, data);
-        });
-      } else {
-        callback();
-      }
+      );
     },
     callback
   );
 };
+
+
+workClearLinks = function( table, uploadId, callReturn ) {
+    var q = table.delete()
+        .where(table.upload_id.equals(uploadId))
+        .toQuery();
+
+	if (uploadId > 0) {
+        console.log("workClearLinks deleting links with Query", q);
+
+        client.query( q , function( error, result ) {
+            if( result && result.rowCount > 0 ) {
+                var i = -1;
+            }
+            callReturn( error, result );
+        });
+    }
+    else {
+        callReturn( new Error( "Invalid uploadId" ) );
+    }
+
+}
 
 doProcessItemRows = function(data, callback) {
   console.log("doProcessItemRows -3d for item ",data.mapping.field);
@@ -258,7 +318,9 @@ doWorkUpsertTable = function(table, data, callback) {
   .and(table.iwork_id.equals(data.iwork_id))
   .and(table.upload_id.equals(data.upload_id))
   .toQuery();
-  console.log("\ndoWorkUpsertTable query :",q); 
+
+  console.log("\ndoWorkUpsertTable query :",q);
+
   client.query( q , function(error, result) {
     if(error) { callback(error); }
     console.log("\ndoWorkUpsertTable " +result.rows.length + ' rows were received');

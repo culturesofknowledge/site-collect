@@ -107,6 +107,11 @@ doRepositories = function(data, callback) {
 }
 
 function doDistinct(data, callback) {
+  //
+  // Get all distinct values in data.projection field under query data.query .
+  // i.e. find the repos in manifestation collection for this upload
+  // Return results to callback
+  //
   console.log("doDistinct -4: ",data.projection," query-> " ,data.query);
   data.mapping.collection.distinct(
     data.projection,
@@ -120,6 +125,9 @@ function doDistinct(data, callback) {
 }
 
 function doFetchRepos(data, callback) {
+  //
+  // Loop around repos found in doDistinct, if any and call doQueryRepo
+  //
   console.log("doFetchRepos -8: ", data.reposTab);
   data.reposTab2 = [];
   var i = 8;
@@ -139,6 +147,9 @@ function doFetchRepos(data, callback) {
 }
 
 doQueryRepo = function(data , callback){
+  //
+  // Find repo in cofk_union_institutions with institution_id = data.search_id
+  //
   console.log('\ndoQueryRepo-11');
   var client = new pg.Client(config.conString);
   console.log("\nbefore connect-12: "+data.search_id);

@@ -136,6 +136,10 @@ doSeries = function(req, res, next) {
 };
 
 function dofindUpload(uuid, callback) {
+  //
+  // Get upload model from uuid (upload_uuid)
+  //
+
   console.log("log: Get(2) Request for Upload transfer: ", uuid);
   Upload.findById(
     uuid,
@@ -151,8 +155,11 @@ function dofindUpload(uuid, callback) {
   });
 }
 
-// Check for Upload in PG database
 function dofindUploadPG(uuid, callback) {
+  //
+  // Check for Upload in PG database
+  //
+
   console.log("log: dofindUploadPG","\nuuid:",uuid);
   client = new pg.Client(config.conString);
   console.log("log: before connect "+uuid);
@@ -195,26 +202,27 @@ function dofindUploadPG(uuid, callback) {
 };      
 
 function doinsertUpload(data, callback) {
-  console.log("log: doinsertUpload Received with data" 
-  , "\nrows\n["
-  , data.result.rows[0] 
-  , "]\nCount\n["
-  , data.result.rows.length 
-  , "]\nUpload\n"
-  , data.upload
-  );
-  var pgUploadId;
+  //
+  // Create or update if we already have this upload in collect.
+  //
+
+  console.log("log: doinsertUpload Received with data"  , "\nrows\n[" , data.result.rows[0] , "]\nCount\n[" , data.result.rows.length  , "]\nUpload\n" , data.upload );
+
   var obj = doPgSqlMap(cofk_collect_upload, data.upload);
-  obj['_id'] = data.upload['_id'].toString() ;
+
+  obj._id = data.upload['_id'].toString() ;
+
   // This is overwritten to a late change in instruction and upload name is ignored for now.
-  obj['upload_description'] = data.upload['upload_name'] ;
+  obj.upload_description = data.upload['upload_name'] ;
   //obj['upload_name'] = data.upload['upload_description'] ;
 
   obj.upload_timestamp = (obj.upload_timestamp == null) ? new Date() : obj.upload_timestamp ;
   obj.upload_status = (obj.upload_status < 1) ? 1 : obj.upload_status ;
+
   delete obj.upload_id;
-  
-  if (data.result.rows < 1) {
+
+  var pgUploadId;
+  if (data.result.rows < 1) { // i.e. equal to zero...!?
     console.log('upload for insert \n',obj);  
     var q = cofk_collect_upload
     .insert(obj)
@@ -263,6 +271,9 @@ function doinsertUpload(data, callback) {
 };
 
 processUpload = function(data, callback) {
+  //
+  // Loop around creating the objects we need in the postgress collect table
+  //
   var locals = data;
   var mappings = { };
   mappings["Institution"] = { 
@@ -331,6 +342,9 @@ processUpload = function(data, callback) {
 }
 
 toPg = function(x) {
+  //
+  // Convert javascript values to postgress
+  //
   switch (x) {
     case undefined :
       return "";
@@ -343,25 +357,28 @@ toPg = function(x) {
   }
 };
 
-doPgSqlMap = function(table, data ) {
+doPgSqlMap = function( table, data ) {
+  //
+  // Create an object with column name members
+  //
   console.log("log: process doPgSqlMap ");
-  var x = table.columns;
-  var theName ;
-  var obj = {};
-  for (var i=0;i<x.length;i++) {
-    theName = x[i].name;
-    theValue = data[theName]
-    if ( theValue !== undefined ) {
-      obj[theName] = toPg(theValue) ;
-      console.log(
-        "theName [", i , 
-        "] --> ", theName, 
-        " --> " , theValue,
-        " --> " , obj[theName]
-      );
-      if (theName === 'image_filenames') {
+  var columns = table.columns,
+    name, value,
+    obj = {};
+
+  for (var i=0;i<columns.length;i++) {
+    name = columns[i].name;
+    value = data[name];
+
+    if ( value !== undefined ) {
+
+      if (name !== 'image_filenames') {
+        obj[name] = toPg(value);
+        console.log("name [", i, "] --> ", name, " --> ", value, " --> ", obj[name]);
+      }
+      else {
         console.log("nulling image_filenames from manifestation");
-        obj[theName] = null;
+        obj[name] = null;
       }
     }
   }
@@ -407,7 +424,7 @@ doPgWorkSqlMap = function(table, data ) {
       //console.log("handle data ",data);
       console.log("log: handle workMap[theName] ",workMap[theName]);
       console.log("log: handle data[workMap[theName]]",data[workMap[theName]]);
-      theValue = data[workMap[theName]][0]; 
+      theValue = data[workMap[theName]][0];
       if (theValue) {
         theValue = data[workMap[theName]][0].location_id;
       }

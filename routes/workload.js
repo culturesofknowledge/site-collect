@@ -63,11 +63,11 @@ doFindWork = function(data, callback) {
   .populate('place_mentioned', 'location_name location_id union_location_id _id')
   .populate('upload_uuid', 'upload_name _id')
   .exec(function(err, records) {
-      if (err) { callback(err) };
+      if (err) { callback(err) }
       console.log("doFindWork -2 count -> ",records.length);
       callback(null, records);
   });
-}
+};
 
 doProcessWorks = function(data, callback) {
   console.log("doProcessWorks -3");
@@ -166,7 +166,7 @@ doProcessWorks = function(data, callback) {
       callback();
     }
   );  
-}
+};
 
 
 doProcessItems = function(data, callback) {
@@ -244,7 +244,7 @@ workClearLinks = function( table, uploadId, callReturn ) {
 
         client.query( q , function( error, result ) {
             if( result && result.rowCount > 0 ) {
-                var i = -1;
+
             }
             callReturn( error, result );
         });
@@ -253,7 +253,7 @@ workClearLinks = function( table, uploadId, callReturn ) {
         callReturn( new Error( "Invalid uploadId" ) );
     }
 
-}
+};
 
 doProcessItemRows = function(data, callback) {
   console.log("doProcessItemRows -3d for item ",data.mapping.field);
@@ -289,11 +289,11 @@ doProcessItemRows = function(data, callback) {
 doPSqlMap = function(table, data ) {
   console.log("\nprocess doPSqlMap \n", data);
   var x = table.columns;
-  var theName ;
+  var theName, theValue ;
   var obj = {};
   for (var i=0;i<x.length;i++) {
     theName = x[i].name;
-    theValue = data[theName]
+    theValue = data[theName];
     if ( theValue !== undefined ) {
       obj[theName] = toPg(theValue) ;
       console.log(

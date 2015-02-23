@@ -15,7 +15,7 @@
     "pg_user"     : "cofkrenhart",
     "pg_pass"     : "Sperry95",
     "host"        : "localhost",
-    "conString"   : "postgres://postgres:postgres@172.17.0.15/ouls"
+    "conString"   : "postgres://postgres:postgres@172.17.0.15/postgres"
   },
   "emlo-edit-dev": {
     "dbURL"       : "mongodb://localhost:27017/emlo-edit",

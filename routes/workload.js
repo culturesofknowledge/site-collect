@@ -333,6 +333,7 @@ doWorkUpsertTable = function(table, data, callback) {
         callback(null, data);
       });
     } else {
+        // TODO: MATTT: I don't think it does this anymore as I'm removing the entries everytime.
       doWorkUpdateTable(table, data, function(err, data) {
         if (err) {
           console.log('Ahh! An Update Error!');

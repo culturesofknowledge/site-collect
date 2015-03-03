@@ -424,9 +424,14 @@ doPgWorkSqlMap = function(table, data ) {
       //console.log("handle data ",data);
       console.log("log: handle workMap[theName] ",workMap[theName]);
       console.log("log: handle data[workMap[theName]]",data[workMap[theName]]);
-      theValue = data[workMap[theName]][0];
-      if (theValue) {
-        theValue = data[workMap[theName]][0].location_id;
+      if( data[workMap[theName]].length > 0 ) {
+          theValue = data[workMap[theName]][0];
+          if (theValue) {
+              theValue = data[workMap[theName]][0].location_id;
+          }
+      }
+      else {
+          theValue = null;
       }
     } else {
       theValue = data[workMap[theName]];

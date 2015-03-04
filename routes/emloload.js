@@ -339,7 +339,7 @@ processUpload = function(data, callback) {
       callback();
     }
   );  
-}
+};
 
 toPg = function(x) {
   //
@@ -431,6 +431,7 @@ doPgWorkSqlMap = function(table, data ) {
           }
       }
       else {
+          // Setting to null means we get a NULL value in database (i.e. replacing anything that may be there already)
           theValue = null;
       }
     } else {

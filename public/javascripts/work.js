@@ -139,6 +139,7 @@ $(document).ready(function() {
       .edit( $(this).closest('tr') );
   } );
 */
+
   // Delete a record (without asking a user for confirmation for this example)
   $('#workTable').on('click', 'a.editor_remove', function (e) {
     e.preventDefault();
@@ -153,7 +154,7 @@ $(document).ready(function() {
     dom        : "T<clear>lfrtip",
     processing : true,
     serverSide : true,
-    ajax: {
+     ajax: {
       "url" : "/work/forupload/" + uploadUuid,
       "data" : {
           "sSearch_1" : ""
@@ -189,12 +190,21 @@ $(document).ready(function() {
       //{ data: "date_of_work_uncertain", "defaultContent": ""  },
       //{ data: "date_of_work_approx", "defaultContent": ""  },
       //{ data: "notes_on_date_of_work", "defaultContent": ""  },
-      //{ data: "authors", "defaultContent": ""  },
+      { data: function (row, type, set, meta) {
+                        var newVal = "";
+			$.each(row.authors, function(key, obj){ newVal += obj.primary_name + "<br/>";	});
+			return newVal; }},
+
+
       //{ data: "authors_as_marked", "defaultContent": ""  },
       //{ data: "authors_inferred", "defaultContent": ""  },
       //{ data: "authors_uncertain", "defaultContent": ""  },
       //{ data: "notes_on_authors", "defaultContent": ""  },
-      //{ data: "addressees", "defaultContent": ""  },
+	{ data: function (row, type, set, meta) {
+                        var newVal = "";
+                        $.each(row.addressees, function(key, obj){ newVal += obj.primary_name + "<br/>";   });
+                        return newVal; }},
+ 
       //{ data: "addressees_as_marked", "defaultContent": ""  },
       //{ data: "addressees_inferred", "defaultContent": ""  },
       //{ data: "addressees_uncertain", "defaultContent": ""  },

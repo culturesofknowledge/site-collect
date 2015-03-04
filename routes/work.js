@@ -35,7 +35,7 @@ router.route('/forupload/:upload_uuid')
 .get(function (req, res) {
   console.log("log: Getting work by uploads");
   if (req.params.upload_uuid){
-    Work.findByUploadUuid(
+    Work.findByUploadUuidWithNames(
       req.params.upload_uuid,
       function (err, works) {
         if(!err){
@@ -57,6 +57,13 @@ router.route('/forupload/:upload_uuid')
     res.json({"status":"error", "error":"No uploadName supplied"});
   }
 });
+
+
+
+
+
+
+
 
 // on routes that end in /work
 // ----------------------------------------------------

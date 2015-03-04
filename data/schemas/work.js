@@ -29,7 +29,7 @@ var workSchema = new Schema({
   date_of_work2_approx:   { type: Boolean, default : ""  },
 //  },
   notes_on_date_of_work:    { type: String, default : "" },
-  authors:                  [{type: Schema.Types.ObjectId, ref: 'Person' }],
+  authors:                  [{type: Schema.Types.ObjectId, ref: 'Person'}],
   authors_as_marked:        { type: String, default : "" },
   authors_inferred:         { type: Boolean, default : "" },
   authors_uncertain:        { type: Boolean, default : "" },
@@ -78,12 +78,26 @@ var workSchema = new Schema({
 
 workSchema.plugin(autoIncrement.plugin, { model: 'Work', field: 'iwork_id' });
 
+workSchema.statics.findByUploadUuidWithNames = function (uploadUuid, callback) {
+  this
+        .find(
+                { upload_uuid: uploadUuid },
+                {},
+                {sort: 'iwork_id'},
+                callback)
+        .populate("authors", "primary_name _id")
+        .populate("addressees", "primary_name _id")     ;
+};
+
+
+
 workSchema.statics.findByUploadUuid = function (uploadUuid, callback) {
-  this.find(
-    { upload_uuid: uploadUuid },
-    {},
-    {sort: 'iwork_id'},
-    callback);
+  this
+	.find(
+    		{ upload_uuid: uploadUuid },
+    		{},
+    		{sort: 'iwork_id'},
+    		callback)
 };
 
 workSchema.index({ upload_uuid: 1, iwork_id: 1 }, { unique: true })

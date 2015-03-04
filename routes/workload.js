@@ -189,7 +189,7 @@ doProcessItems = function(data, callback) {
               function (callback) {
                 // Delete existing links
                 console.log( "MATTT: Delete existing links" );
-                workClearLinks( data.mapping.pgTable, data.pgUploadId, function(error) {
+                workClearLinks( data.mapping.pgTable, data.pgUploadId, data.itemWork.iwork_id, function(error) {
                   callback(error)
                 } );
               },
@@ -234,17 +234,18 @@ doProcessItems = function(data, callback) {
 };
 
 
-workClearLinks = function( table, uploadId, callReturn ) {
-    var q = table.delete()
+workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
+   var q = table.delete()
         .where(table.upload_id.equals(uploadId))
+        .and(table.iwork_id.equals(iWorkId))
         .toQuery();
 
 	if (uploadId > 0) {
-        console.log("workClearLinks deleting links with Query", q);
+        console.log( "workClearLinks deleting links with Query", q );
 
         client.query( q , function( error, result ) {
             if( result && result.rowCount > 0 ) {
-
+                console.log("workClearLinks - Deleted rows count =",result.rowCount);
             }
             callReturn( error, result );
         });
@@ -252,10 +253,10 @@ workClearLinks = function( table, uploadId, callReturn ) {
     else {
         callReturn( new Error( "Invalid uploadId" ) );
     }
-
 };
 
 doProcessItemRows = function(data, callback) {
+
   console.log("doProcessItemRows -3d for item ",data.mapping.field);
   var i = 1;
   async.eachSeries(
@@ -361,9 +362,12 @@ doWorkInsertTable = function(table, data, callback) {
     callback(error);
   })
   .on("end", function (result) {
-    console.log("\ndoWorkInsertTable do insert end  ", result.rowCount
-      //result.command, " rowCount ", result.rowCount , "\n"
-    );
+          if( result ) {
+              /// MATTT : TODO: This seems to crash a lot when result is null - I think it might be to do with an auto save... if there is one... or maybe calling the wrong callback at some point...
+              console.log("\ndoWorkInsertTable do insert end  ", result.rowCount
+                  //result.command, " rowCount ", result.rowCount , "\n"
+              );
+          }
     callback(null, result);
   });
 };

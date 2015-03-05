@@ -32,7 +32,7 @@ var selectorMap = { };
     ""     : ""
     , "Male"  : "M"
     , "Female": "F"
-    , "Other" : "O"
+    , "Other or Unknown" : ""
   };
   
   var tEditor = { }; // need dynamic tables editor here

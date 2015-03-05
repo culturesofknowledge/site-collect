@@ -47,15 +47,15 @@ $(document).ready(function() {
       },
       { "label": "Room:", "name": "room" },
       { "label": "Building:", "name": "building" },
-      { "label": "Parish:", "name": "parish" },
-      { "label": "City:", "name": "city" },
+      { "label": "Parish/district of city/street:", "name": "parish" },
+      { "label": "<b>City/Village/Town</b>:", "name": "city" },
       { "label": "County:", "name": "county" },
       { "label": "Country:", "name": "country" },
       { "label": "Empire:", "name": "empire" },
       { "label": "Latitude:", "name": "latitude" },
       { "label": "Longitude:", "name": "longitude" },
-      { "label": "Notes on place:", "name": "notes_on_place" },
-      { "label": "Editor's notes:", "name": "editors_notes" },
+//      { "label": "Notes on place (for public display):", "name": "notes_on_place" },
+      { "label": "Editor's notes (hidden):", "name": "editors_notes" },
       { "label": "Location synonyms:", "name": "location_synonyms" },
       { "label": "Location name:", "type": "hidden" , "name": "location_name" }
     ]
@@ -209,7 +209,7 @@ $('#placeTable').on( 'click', 'tbody td', function (e) {
             { data: "county" },
             { data: "country" },
             { data: "empire" },
-            { data: "notes_on_place" },
+ //           { data: "notes_on_place" },
             { data: "editors_notes" }
         ],
         order: [ 1, 'asc' ],

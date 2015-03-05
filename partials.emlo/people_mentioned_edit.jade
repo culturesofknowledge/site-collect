@@ -13,25 +13,8 @@
           th mentioned_uids
           th 
       tbody
-        for item, i in work.people_mentioned
+         for item, i in work.people_mentioned
           include dtab_person
 .row.collapse
-    label(for='mentioned_as_marked') People mentioned as marked
-    input#mentioned_as_marked(type='text', name='mentioned_as_marked', value="#{work.mentioned_as_marked}",placeholder='Mentioned as marked')
-.row.collapse
-  .large-2.small-2.columns
-    label Is:
-  .large-4.small-4.columns
-    label(for='mentionedbox1')
-      input#mentionedbox1(name='mentioned_uncertain',type='checkbox', checked=("true"=== "#{work.mentioned_uncertain}" ? "checked" : undefined) )
-      span.custom.checkbox
-      | Uncertain
-  .large-3.small-3.columns
-    label(for='mentionedbox2')
-      input#mentionedbox2(name='mentioned_inferred',type='checkbox', checked=("true"=== "#{work.mentioned_inferred}" ? "checked" : undefined) )
-      span.custom.checkbox.checked
-      | Inferred
-  .large-2.small-2.columns
-.row.collapse
     label(for='notes_on_mentioned') Notes
-    textarea#notes_on_mentioned(name='notes_on_people_mentioned',placeholder='Notes on people mentioned') #{work.notes_on_people_mentioned}
+    textarea#notes_on_mentioned(name='notes_on_people_mentioned',placeholder='Notes on people mentioned (for public display)') #{work.notes_on_people_mentioned}

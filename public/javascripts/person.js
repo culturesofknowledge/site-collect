@@ -66,7 +66,7 @@ $(document).ready(function() {
       //{ "label": "date_of_birth_inferred:", "name": "date_of_birth_inferred" },
       //{ "label": "date_of_birth_uncertain:", "name": "date_of_birth_uncertain" },
       //{ "label": "date_of_birth_approx:"  , "name": "date_of_birth_approx" },
-      { "label": "Year of_death_year:"    , "name": "date_of_death_year" },
+      { "label": "Year of death:"    , "name": "date_of_death_year" },
       //{ "label": "date_of_death_month:"   , "name": "date_of_death_month" },
       //{ "label": "date_of_death_day:"     , "name": "date_of_death_day" },
       //{ "label": "date_of_death_is_range:", "name": "date_of_death_is_range" },
@@ -83,8 +83,8 @@ $(document).ready(function() {
       { "label": "Year flourished to:"      , "name": "flourished2_year" },
       //{ "label": "flourished2_month:"     , "name": "flourished2_month" },
       //{ "label": "flourished2_day:"       , "name": "flourished2_day" },
-      { "label": "Notes on person:"       , "name": "notes_on_person", "type": "textarea"  },
-      { "label": "Editor's notes:" , "name": "editors_notes", "type": "textarea"  }
+      { "label": "Notes on person (for public display):"       , "name": "notes_on_person", "type": "textarea"  },
+      { "label": "Editor's notes (hidden):" , "name": "editors_notes", "type": "textarea"  }
     ]
   } );
   

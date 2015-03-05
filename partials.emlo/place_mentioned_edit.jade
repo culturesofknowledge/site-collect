@@ -15,23 +15,23 @@
       tbody
         for item, i in work.place_mentioned
           include dtab_item
-.row.collapse
-    label(for='place_mentioned_as_marked') Place mentioned as marked
-    input#place_mentioned_as_marked(type='text', name='place_mentioned_as_marked', value="#{work.place_mentioned_as_marked}",placeholder='Place mentioned as marked')
-.row.collapse
-  .large-2.small-2.columns
-    label Is:
-  .large-4.small-4.columns
-    label(for='place_mentionedbox1')
-      input#place_mentionedbox1(name='place_mentioned_uncertain',type='checkbox', checked=("true"=== "#{work.place_mentioned_uncertain}" ? "checked" : undefined) )
-      span.custom.checkbox
-      | Uncertain
-  .large-3.small-3.columns
-    label(for='place_mentionedbox2')
-      input#place_mentionedbox2(name='place_mentioned_inferred',type='checkbox', checked=("true"=== "#{work.place_mentioned_inferred}" ? "checked" : undefined) )
-      span.custom.checkbox.checked
-      | Inferred
-  .large-2.small-2.columns
+//.row.collapse
+//    label(for='place_mentioned_as_marked') Place mentioned as marked
+//    input#place_mentioned_as_marked(type='text', name='place_mentioned_as_marked', value="#{work.place_mentioned_as_marked}",placeholder='Place mentioned as marked')
+//.row.collapse
+//  .large-2.small-2.columns
+//    label Is:
+//  .large-4.small-4.columns
+//    label(for='place_mentionedbox1')
+//      input#place_mentionedbox1(name='place_mentioned_uncertain',type='checkbox', checked=("true"=== "#{work.place_mentioned_uncertain}" ? "checked" : undefined) )
+//      span.custom.checkbox
+//      | Uncertain
+//  .large-3.small-3.columns
+//    label(for='place_mentionedbox2')
+//      input#place_mentionedbox2(name='place_mentioned_inferred',type='checkbox', checked=("true"=== "#{work.place_mentioned_inferred}" ? "checked" : undefined) )
+//      span.custom.checkbox.checked
+//      | Inferred
+//  .large-2.small-2.columns
 //.row.collapse
 //    label(for='notes_on_place_mentioned') Notes
 //    textarea#notes_on_place_mentioned(name='notes_on_place_mentioned',placeholder='Notes on place mentioned') #{work.notes_on_place_mentioned}

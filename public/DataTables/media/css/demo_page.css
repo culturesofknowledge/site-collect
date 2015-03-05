@@ -125,3 +125,10 @@
 	padding: 0 !important;
 }
 
+
+tr.odd td.sorting_1 {
+    background-color: #f9f9f9;
+}
+tr.even td.sorting_1 {
+    background-color: #f2f2f2;
+}

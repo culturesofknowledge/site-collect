@@ -125,7 +125,7 @@ $(document).ready(function() {
     console.log("event",e);
     console.log("json",json);
     console.log("data",data);
-    console.log( 'New work added '+ json.data._id  );
+    //console.log( 'New work added '+ json.data._id  );
     window.location.href = "/work/work/edit/" + json.data._id ;
   } );
 /*

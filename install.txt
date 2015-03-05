@@ -16,6 +16,13 @@ zypper in postgresql-devel
 # Install this one to global
 sudo npm install sql-generate@0.3.0 -g
 
+#
+# If IntelliJ IDE
+# If you create a project and point it at your code it will actually edit and add files over the top of yours.
+# In the case of it needs to add a few debug ones.
+You'll need to svn revert those in svn and delete the new ones in folders /views and the route folder
+
+
 # Install modules
 npm install # ignore warniong about sql-generate
 

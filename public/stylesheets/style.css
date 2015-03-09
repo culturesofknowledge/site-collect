@@ -6,3 +6,29 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+legend.radius {
+
+font-size: 20px !important;
+}
+
+div#manifestationTable_info {
+
+font-size: 16px;
+}
+
+
+a.DTTT_button {
+
+font-size: 16px !important
+
+}
+
+
+div.DTED_Lightbox_Content {
+position:absolute !important;
+top:100px !important;
+width:600px !important;
+
+}

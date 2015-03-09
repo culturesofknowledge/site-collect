@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="PostgreSQL-emlo-edit-local - @172.17.0.15" uuid="42c17471-eb37-4b97-b27d-d6cece8135f6">
+    <data-source name="PostgreSQL-emlo-edit-LOCAL" uuid="42c17471-eb37-4b97-b27d-d6cece8135f6">
       <secret-storage>master_key</secret-storage>
       <user-name>postgres</user-name>
       <schema-pattern>*.pg_catalog *.public</schema-pattern>
       <default-schemas>*.pg_catalog *.public</default-schemas>
     </data-source>
-    <data-source name="PostgreSQL-emlo-edit-LIVE - @localhost" uuid="e1cc9040-2720-46d6-9d76-b8d3fb46c0fe">
+    <data-source name="PostgreSQL-emlo-edit-LIVE" uuid="8267a6f3-d4e2-4a91-891e-4e0c1bc64c3b">
       <secret-storage>master_key</secret-storage>
       <user-name>postgres</user-name>
       <schema-pattern>*.pg_catalog *.public</schema-pattern>

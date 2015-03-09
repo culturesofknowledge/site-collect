@@ -104,25 +104,34 @@ doSeries = function(req, res, next) {
         );
 /**/
       },
-      // doWorkRecord
-      function(callback) {
-        console.log("log: doWorkRecord -12",locals.upload);
-        locals.mapping = {
-          "collection" : Work,
-          "pgTable"  : cofk_collect_work,
-          //    "pgMap"    : doPgSqlMap
-          "pgMap"    : doPgWorkSqlMap
-        };
-        doWorkRecord(
-          locals, 
-          function(err, result) {
-            if (err) { return callback(err); }
-            console.log("log: doWorkRecord -13");
-            callback();
-          }
-        );
-/**/
-      }
+        // doWorkRecord
+        function(callback) {
+            console.log("log: doWorkRecord -12",locals.upload);
+            locals.mapping = {
+                "collection" : Work,
+                "pgTable"  : cofk_collect_work,
+                //    "pgMap"    : doPgSqlMap
+                "pgMap"    : doPgWorkSqlMap
+            };
+            doWorkRecord(
+                locals,
+                function(err, result) {
+                    if (err) { return callback(err); }
+                    console.log("log: doWorkRecord -13");
+                    callback();
+                }
+            );
+            /**/
+        },
+        // doWorkRecord
+        function(callback) {
+            console.log("log: doCleanup",locals.upload);
+
+            doCleanup( locals.upload, function(err) {
+                callback(err);
+            } )
+            /**/
+        }
     ],
     function(err) {
       if (err) {
@@ -477,6 +486,204 @@ doGetPersonId = function(table, data, callback) {
   });
 };
 
+
+doCleanup = function( uploadData, callbackComplete ) {
+
+    async.parallel(
+        [
+            function( callbackStepDone ) {
+                doCleanupPeople( uploadData.upload_id, function( error ) {
+                    callbackStepDone( error );
+                })
+            },
+            function( callbackStepDone ) {
+                doCleanupLocations( uploadData.upload_id, function( error ) {
+                    callbackStepDone( error )
+                })
+            }
+        ],
+
+        function( error ) {
+            callbackComplete( error );
+        }
+    );
+};
+
+doCleanupLocations = function( uploadId, callbackComplete ) {
+
+    var links = [];
+
+    async.series(
+        [
+            // First get a list of all locations we link to.
+            function( callbackDone ) {
+                // Work's destination and origin
+                var q = mm.cofk_collect_work
+                    .select( mm.cofk_collect_work.origin_id, mm.cofk_collect_work.destination_id )
+                    .where(
+                    mm.cofk_collect_work.upload_id.equals( uploadId )
+                    )
+                    .toQuery();
+
+                client.query( q )
+                    .on("row", function( row ) {
+                        if (row.origin_id) {
+                            links.push(row.origin_id);
+                        }
+                        if( row.destination_id ) {
+                            links.push(row.destination_id);
+                        }
+                    })
+                    .on("error", function (error) {
+                        callbackDone(error);
+                    })
+                    .on("end", function () {
+                        callbackDone();
+                    })
+            },
+            function( callbackDone ) {
+                // Locations mentioned
+                var q = mm.cofk_collect_place_mentioned_in_work
+                    .select( mm.cofk_collect_place_mentioned_in_work.location_id )
+                    .where(
+                    mm.cofk_collect_place_mentioned_in_work.upload_id.equals( uploadId )
+                )
+                    .toQuery();
+
+                client.query( q )
+                    .on("row", function( row ) {
+                        links.push( row.location_id )
+                    })
+                    .on("error", function (error) {
+                        callbackDone(error);
+                    })
+                    .on("end", function () {
+                        callbackDone();
+                    })
+            }
+        ],
+        function( error ) {
+
+            if (!error) {
+                doCleanupObjects( _.uniq( links ), cofk_collect_location, "location_id", uploadId, function( error ) {
+                    callbackComplete( error );
+                } )
+            }
+            else {
+                callbackComplete( error );
+            }
+        }
+    );
+
+};
+
+doCleanupPeople = function( uploadId, callbackComplete ) {
+    var
+        mainTable = cofk_collect_person,
+        linkTables = [
+            mm.cofk_collect_author_of_work,
+            mm.cofk_collect_addressee_of_work,
+            mm.cofk_collect_person_mentioned_in_work
+        ],
+        mainField  = "iperson_id";
+
+    var links = [];
+    async.eachSeries(
+        linkTables, // TODO: We could probably UNION the data rather than making several database selects, the query syntax gets awkward though...
+        function( table, callbackDone ) {
+            // Get a list of all the people links to author, addressee or mentioned
+            var q = table
+                .select( table[mainField] )
+                .where(
+                table.upload_id.equals( uploadId )
+            )
+                .toQuery();
+
+            client.query( q )
+                .on("row", function( row ) {
+                    links.push( row[mainField] )
+                })
+                .on("error", function (error) {
+                    callbackDone(error);
+                })
+                .on("end", function () {
+                    callbackDone();
+                })
+        },
+        function( error ) {
+            if (!error) {
+                doCleanupObjects( _.uniq( links ), mainTable, mainField, uploadId, function( error ) {
+                    callbackComplete( error );
+                } )
+            }
+            else {
+                callbackComplete( error );
+            }
+        }
+    );
+
+};
+
+doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id, callbackComplete ) {
+
+    // check for objects in this upload that are no longer linked. (i.e. the link has been removed)
+    // then remove them
+
+   //
+    // Now get the list of objects in this upload
+    //
+    var q = mainTable
+        .select( mainTable[mainField] )
+        .where(
+        mainTable.upload_id.equals( upload_id )
+        )
+        .toQuery();
+
+    var ids = [];
+    client.query( q )
+        .on("row", function( data ) {
+            ids.push( data[mainField] );
+        })
+        .on("error", function (error) {
+            callbackComplete(error);
+        })
+        .on("end", function () {
+            async.each(
+                _.uniq( ids ),
+                function( id, callbackDone ) {
+                    if( linksUnique.indexOf( id, 0 ) === -1 ) {
+                        // Not found, we need to remove this row from mainTable
+                        console.log("Delete row " + id);
+                        var q = mainTable
+                            .delete(  )
+                            .where(
+                                mainTable.upload_id.equals( upload_id )
+                            )
+                            .and (
+                                mainTable[mainField].equals( id )
+                            )
+                            .toQuery();
+
+                        client.query( q )
+                            .on("error", function (error) {
+                                callbackDone(error);
+                            })
+                            .on("end", function () {
+                                callbackDone();
+                            });
+                    }
+                    else {
+                        callbackDone();
+                    }
+                },
+                function() {
+                    callbackComplete();
+                });
+        });
+
+    //callbackComplete( null );
+};
+
 var workNumericFlds = [
   "date_of_work_std_year",
   "date_of_work_std_month",
@@ -490,6 +697,8 @@ var workPlaceFlds = [
   "origin_id",
   "destination_id"
 ];
+
+
 
 /*  note for RG how to generate the sql mapping schemas from postgresql
 eurodevadmin@euro-dev1:~/www/node.198/emlocollect/data/sql$ !2038

@@ -16,6 +16,8 @@ block headjs
 
   //script(type="text/javascript", src="/javascripts/user.js")
 
+
+
 block content
   section
     if errors.length > 0
@@ -23,22 +25,36 @@ block content
         each error in errors
           li= error
     p.title(data-section-title='')
-      a(href='#section0') Section 1
+      a(href='#section0' name='top')
     .content(data-slug='section1', data-section-content='')
       form.custom(data-abide='data-abide',id="frmWork",method="post", action="")
         include ../partials.emlo/dates_edit
         if work._id
+          p
+           a(href='#top') to top
           include ../partials.emlo/people_edit
+          p
+           a(href='#top') to top
           include ../partials.emlo/places_edit
+          p
+           a(href='#top') to top
           include ../partials.emlo/manifestations2_edit
-        else    
+          p
+           a(href='#top') to top
+         else    
           p ( please save work as id is still #{work.iwork_id} )
-        include ../partials.emlo/content_edit
-        //include ../partials.emlo/manifestations_edit
-        include ../partials.emlo/languages_edit
-        include ../partials.emlo/resources_edit
-        //include ../partials.emlo/general_edit
-        //include ../partials.emlo/standalone
+          include ../partials.emlo/content_edit
+          p
+           a(href='#top') to top
+          //include ../partials.emlo/manifestations_edit
+          include ../partials.emlo/languages_edit
+          p
+           a(href='#top') to top
+          include ../partials.emlo/resources_edit
+          p
+           a(href='#top') to top
+          //include ../partials.emlo/general_edit
+          //include ../partials.emlo/standalone
 
         //p Work owner: #{username}
         input(type="hidden", name="userid", id="userid", value="#{userID}")

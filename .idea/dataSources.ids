@@ -1851,7 +1851,7 @@
       <column name="iwork_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="notes_on_person_mentioned" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="_id" sqlType="varchar" precision="32" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="cofk_collect_person_mentioned_in_work_pkey" columns="upload_id,mention_id"/>
+      <primary-key name="cofk_collect_person_mentioned_in_work_pkey" columns="upload_id,mention_id,iwork_id"/>
       <foreign-key name="cofk_collect_person_mentioned_in_work_fk_iperson_id" columns="upload_id,iperson_id" ref-table="cofk_collect_person" ref-schema="public" ref-catalog="" ref-columns="upload_id,iperson_id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="cofk_collect_person_mentioned_in_work_fk_upload_id" columns="upload_id" ref-table="cofk_collect_upload" ref-schema="public" ref-catalog="" ref-columns="upload_id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="cofk_collect_person_mentioned_in_work_fk_iwork_id" columns="upload_id,iwork_id" ref-table="cofk_collect_work" ref-schema="public" ref-catalog="" ref-columns="upload_id,iwork_id" update-rule="3" delete-rule="3" deferrability="2"/>

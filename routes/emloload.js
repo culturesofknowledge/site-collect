@@ -428,25 +428,23 @@ doPgWorkSqlMap = function(table, data ) {
     //theName  = x[i].name;
   var i = 0;
   for ( theName in workMap ){
-    if ( workPlaceFlds.indexOf(theName) > -1 ){
-      console.log("log: handle place field here ",theName);
-      //console.log("handle data ",data);
-      console.log("log: handle workMap[theName] ",workMap[theName]);
-      console.log("log: handle data[workMap[theName]]",data[workMap[theName]]);
-      if( data[workMap[theName]].length > 0 ) {
-          theValue = data[workMap[theName]][0];
-          if (theValue) {
-              theValue = data[workMap[theName]][0].location_id;
-          }
+
+    theValue = data[workMap[theName]];
+
+    if ( theValue  !== undefined && workPlaceFlds.indexOf(theName) > -1 ) {
+
+      if( theValue.length && theValue.length > 0 ) {
+          theValue = theValue[0].location_id;
       }
       else {
-          // Setting to null means we get a NULL value in database (i.e. replacing anything that may be there already)
+          // Setting to null means we get a NULL value in the database (i.e. it will update anything that may be set already)
+          // MATTT: TODO: Should we be setting all the values which are undefined to null also?
           theValue = null;
       }
-    } else {
-      theValue = data[workMap[theName]];
     }
+
     if ( theValue !== undefined ) {
+
       obj[theName] = toPg(theValue) ;
       if ( workNumericFlds.indexOf(theName) > -1 ){
         console.log("log: handle numeric field here ",theName);

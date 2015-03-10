@@ -200,7 +200,7 @@ router.get('/edit', function(req, res){
     }
     if (req.query){
       if (req.query.name === 'invalid'){
-        arrErrors.push('Please enter a valid name, minimun 5 characters');
+        arrErrors.push('Please enter a valid name, minimum 5 characters');
       }
       if (req.query.email === 'invalid'){
         arrErrors.push('Please enter a valid email address');

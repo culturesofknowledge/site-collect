@@ -30,11 +30,11 @@ router.route('/uploads')
   var upload = new Upload(req.body.data);    // create a new instance of the Upload model
   console.log('log: admin_upload_post upload:', upload);
   // upload.name = req.body.name;  // set the uploads name (comes from the request)
-  upload.save(function(err) {
+  upload.save(function(err, upload) {
     if (err) {
       res.send(err); 
     } else {
-      res.json({ message: 'Upload created!' });
+      res.json({ message: 'Upload created!', row: upload } );
     }
   });
 })
@@ -92,10 +92,10 @@ router.route('/uploads/:upload_name')
 // delete the upload with this id
 .delete(function(req, res) {
   Upload.remove(
-    { _id: req.params.upload_name },
+    { _id: req.params.upload_name }, // TODO: Fix multi delete
     function(err, upload) {
       if (err)
-        res.send(err);    
+        res.send(err);
       res.json({ message: 'Successfully deleted' });
     }
   );

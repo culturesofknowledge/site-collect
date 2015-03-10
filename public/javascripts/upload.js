@@ -90,7 +90,8 @@ $(document).ready(function() {
     dom        : "Tfrtip",
     processing : true,
     serverSide : false,
-    "ordering" : true,
+    ordering : true,
+    order : [], // no initial order
     ajax: {
       "url" : "/admin/upload/uploads/byuser/" + username,
       "data" : {
@@ -99,7 +100,8 @@ $(document).ready(function() {
     },
     columns: [
       {
-        data: null, 
+        data: null,
+        name: "edit-button",
         className: "center",
         render: function ( data, type, row ) {
           // If upload has no works permit delete
@@ -109,7 +111,8 @@ $(document).ready(function() {
           //  editfield +='/ <a href="" class="editor_remove">Delete</a>';
           //}
           return editfield;
-        } 
+        },
+        "orderable": false
       },
       { data: "upload_name" },
       { data: "upload_description" },
@@ -119,7 +122,7 @@ $(document).ready(function() {
       //{ data: "works_rejected" }
       //{ data: "upload_username" },
       //{ data: "uploader_email" },
-      //{ data: "upload_timestamp" },
+      //{ data: "upload_timestamp" }
     ],
     tableTools: {
       sRowSelect: "os",

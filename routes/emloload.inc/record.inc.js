@@ -180,7 +180,9 @@ doInsertTable = function(table, data, callback) {
     callback(error);
   })
   .on("end", function (result) {
-    console.log("log: do insert row  ", result.rowCount , "\n");
+    if( result ) {
+       console.log("log: do insert row  ", result.rowCount , "\n");
+    }
     callback(null, result);
   });
 };

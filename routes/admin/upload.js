@@ -91,14 +91,19 @@ router.route('/uploads/:upload_name')
 
 // delete the upload with this id
 .delete(function(req, res) {
-  Upload.remove(
-    { _id: req.params.upload_name }, // TODO: Fix multi delete
-    function(err, upload) {
-      if (err)
-        res.send(err);
-      res.json({ message: 'Successfully deleted' });
-    }
-  );
+    var ids = req.params.upload_name.split(",");
+    Upload.remove(
+        //{ _id: { "$in" : ids } }, // there appears to be a bug in mongo that stops this working.
+        { _id: req.params.upload_name }, // TODO: Fix multi delete
+        function(err, upload) {
+            if (err) {
+                res.send(err);
+                res.json({ error: err });
+            }
+            else
+                res.json({ message: 'Successfully deleted' });
+        }
+    );
 });
 
 // GET Uploads by UserID

@@ -153,8 +153,10 @@ $(document).ready(function() {
   $('#workTable').DataTable( {
     dom        : "T<clear>lfrtip",
     processing : true,
-    serverSide : true,
-     ajax: {
+    serverSide : false,
+    ordering : true,
+    order : [], // no initial order
+    ajax: {
       "url" : "/work/forupload/" + uploadUuid,
       "data" : {
           "sSearch_1" : ""
@@ -249,7 +251,7 @@ $(document).ready(function() {
             console.log("nButton", nButton);
             console.log("oConfig:", oConfig);
             this.fnInfo( "My information button!"+ uploadName  );
-            request = $.ajax({
+            $.ajax({
               url:    "/emloload/flush/" + uploadUuid, 
               type:   'POST', 
               data:   {
@@ -433,7 +435,7 @@ function addUser(event) {
             'username'  : $('#inputUserName').val(),
             'email'     : $('#inputUserEmail').val(),
             'name'      : $('#inputUserfullname').val(),
-            'password'  : $('#inputUserpassword').val(),
+            'password'  : $('#inputUserpassword').val()
         }
 
         // Use AJAX to post the object to our adduser service

@@ -95,7 +95,7 @@ router.route('/work')
         } else {
           console.log('log: The number of updated documents was %d', numberAffected);
           console.log('log: The raw response from Mongo was ', raw);
-          res.json({"status":"Work created "+work._id, "data":work, "item" : work._id });
+          res.json({"status":"Work created "+work._id, "data":work, "item" : work._id, row : work });
         }
       });
     }

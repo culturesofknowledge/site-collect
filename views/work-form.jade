@@ -31,30 +31,32 @@ block content
         include ../partials.emlo/dates_edit
         if work._id
           p
-           a(href='#top') to top
+            a(href='#top') to top
           include ../partials.emlo/people_edit
           p
-           a(href='#top') to top
+            a(href='#top') to top
           include ../partials.emlo/places_edit
           p
-           a(href='#top') to top
+            a(href='#top') to top
           include ../partials.emlo/manifestations2_edit
           p
-           a(href='#top') to top
-         else    
+            a(href='#top') to top
+        else
           p ( please save work as id is still #{work.iwork_id} )
-          include ../partials.emlo/content_edit
-          p
+
+        include ../partials.emlo/content_edit
+        p
            a(href='#top') to top
-          //include ../partials.emlo/manifestations_edit
-          include ../partials.emlo/languages_edit
-          p
-           a(href='#top') to top
-          include ../partials.emlo/resources_edit
-          p
-           a(href='#top') to top
-          //include ../partials.emlo/general_edit
-          //include ../partials.emlo/standalone
+        //include ../partials.emlo/manifestations_edit
+        include ../partials.emlo/languages_edit
+
+        p
+          a(href='#top') to top
+        include ../partials.emlo/resources_edit
+        p
+         a(href='#top') to top
+        //include ../partials.emlo/general_edit
+        //include ../partials.emlo/standalone
 
         //p Work owner: #{username}
         input(type="hidden", name="userid", id="userid", value="#{userID}")

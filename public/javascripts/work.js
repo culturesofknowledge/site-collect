@@ -245,7 +245,7 @@ $(document).ready(function() {
       sRowSelect: "os",
       aButtons: [
         { sExtends: "text",
-          sButtonText: "Flush" ,
+          sButtonText: "Upload" ,
           sFilename: uploadName ,
           fnClick: function( nButton, oConfig ) {
             console.log("nButton", nButton);

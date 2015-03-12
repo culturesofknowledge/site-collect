@@ -185,11 +185,11 @@ $(document).ready(function() {
     { data: "date_of_work_std_year",
         className: "center",
         "defaultContent": "",
-        "orderData": [ 2, 3, 4 ] },
+        "orderData": [ 2, 3, 4, 5, 6 ] },
     { data: "date_of_work_std_month",className: "center", "defaultContent": "",
-        "orderData": [ 3, 4 ]  },
+        "orderData": [ 3, 4, 2, 5, 6 ]  },
     { data: "date_of_work_std_day",className: "center", "defaultContent": "",
-        "orderData": [ 4 ]  },
+        "orderData": [ 4, 2, 3, 5, 6 ]  },
       //{ data: "end_year", "defaultContent": ""  },
       //{ data: "end_month", "defaultContent": ""  },
       //{ data: "end_day", "defaultContent": ""  },
@@ -205,7 +205,7 @@ $(document).ready(function() {
           });
           return newVal;
         },
-        "orderData": [ 5,6 ]
+        "orderData": [ 5,6,2,3,4 ]
       },
 
 
@@ -217,7 +217,7 @@ $(document).ready(function() {
                         var newVal = "";
                         $.each(row.addressees, function(key, obj){ newVal += obj.primary_name + "<br/>";   });
                         return newVal; },
-        "orderData": [ 6,5 ]
+        "orderData": [ 6,5,2,3,4 ]
 
     },
  

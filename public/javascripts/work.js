@@ -175,15 +175,21 @@ $(document).ready(function() {
         //  editfield +='/ <a href="" class="editor_remove">Delete</a>';
         //}
         return editfield;
-      } 
+      },
+      sortable:false
     },
     { data: "iwork_id",className: "center", "defaultContent": ""  },
       //{ data: "date_of_work_as_marked", "defaultContent": ""  },
       //{ data: "original_calendar", "defaultContent": ""  },
       //{ data: "date_of_work", "defaultContent": ""  },
-    { data: "date_of_work_std_year",className: "center", "defaultContent": ""  },
-    { data: "date_of_work_std_month",className: "center", "defaultContent": ""  },
-    { data: "date_of_work_std_day",className: "center", "defaultContent": ""  },
+    { data: "date_of_work_std_year",
+        className: "center",
+        "defaultContent": "",
+        "orderData": [ 2, 3, 4 ] },
+    { data: "date_of_work_std_month",className: "center", "defaultContent": "",
+        "orderData": [ 3, 4 ]  },
+    { data: "date_of_work_std_day",className: "center", "defaultContent": "",
+        "orderData": [ 4 ]  },
       //{ data: "end_year", "defaultContent": ""  },
       //{ data: "end_month", "defaultContent": ""  },
       //{ data: "end_day", "defaultContent": ""  },
@@ -193,9 +199,14 @@ $(document).ready(function() {
       //{ data: "date_of_work_approx", "defaultContent": ""  },
       //{ data: "notes_on_date_of_work", "defaultContent": ""  },
       { data: function (row, type, set, meta) {
-                        var newVal = "";
-			$.each(row.authors, function(key, obj){ newVal += obj.primary_name + "<br/>";	});
-			return newVal; }},
+          var newVal = "";
+          $.each(row.authors, function(key, obj){
+              newVal += obj.primary_name + "<br/>";
+          });
+          return newVal;
+        },
+        "orderData": [ 5,6 ]
+      },
 
 
       //{ data: "authors_as_marked", "defaultContent": ""  },
@@ -205,7 +216,10 @@ $(document).ready(function() {
 	{ data: function (row, type, set, meta) {
                         var newVal = "";
                         $.each(row.addressees, function(key, obj){ newVal += obj.primary_name + "<br/>";   });
-                        return newVal; }},
+                        return newVal; },
+        "orderData": [ 6,5 ]
+
+    },
  
       //{ data: "addressees_as_marked", "defaultContent": ""  },
       //{ data: "addressees_inferred", "defaultContent": ""  },

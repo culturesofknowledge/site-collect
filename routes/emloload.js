@@ -121,16 +121,14 @@ doSeries = function(req, res, next) {
                     callback();
                 }
             );
-            /**/
         },
-        // doWorkRecord
+        // Clean up unused (hanging) people/places etc
         function(callback) {
             console.log("log: doCleanup",locals.upload);
 
             doCleanup( locals.upload, function(err) {
                 callback(err);
-            } )
-            /**/
+            } );
         }
     ],
     function(err) {

@@ -145,19 +145,35 @@ doProcessWorks = function(data, callback) {
   
   async.eachSeries(
     data.works,
-    function(item, callback) {
+    function(item, callbackComplete) {
 
-      console.log("doWorkMapping -0 ",item);
-      locals.itemWork = item ;
-      doProcessItems(
-        locals, 
-        function(err, records) {
-          if (err) { callback(err); }
-          console.log("doWorkMapping -1 ",locals.itemWork.iwork_id);
-          //locals.records = records;
-          callback();
-        }
-      );
+        async.series( [
+            function ( callbackDone ) {
+                console.log("doWorkMapping -0 ", item);
+                locals.itemWork = item;
+                doProcessItems(
+                    locals,
+                    function (err, records) {
+                        if (err) {
+                            callbackDone(err);
+                        }
+                        console.log("doWorkMapping -1 ", locals.itemWork.iwork_id);
+                        //locals.records = records;
+                        callbackDone();
+                    }
+                );
+            },
+            function( callbackDone ) {
+
+                // data.pgUploadId item.iwork_id
+                createWorkSummaryEntry( data.pgUploadId, item.iwork_id, function( err ) {
+                    callbackDone( err );
+                } );
+            }
+        ],
+        function( err ) {
+            callbackComplete( err )
+        });
     },
     function(err) {
       if (err) { callback(err); }
@@ -168,6 +184,36 @@ doProcessWorks = function(data, callback) {
   );  
 };
 
+createWorkSummaryEntry = function( uploadId, iwork_id, callbackComplete ) {
+    /*
+        Add an entry to the work summary
+
+        this is so the export in collect works.
+     */
+    console.log( "createWorkSummaryEntry : ", uploadId, iwork_id );
+
+    var table = mm.cofk_collect_work_summary,
+        q = table
+        .insert(
+            table.upload_id.value( uploadId ),
+            table.work_id_in_tool.value(iwork_id)
+        )
+        .toQuery();
+
+    client.query( q )
+        .on('error', function(error) {
+            if( error.code === "23505" ) {
+                // Duplicate entry, whatever, it's there.
+                error = null;
+            }
+            callbackComplete(error);
+        })
+        //q.on("row", function (row, result) {});
+        .on("end", function () {
+            callbackComplete();
+        });
+
+}
 
 doProcessItems = function(data, callback) {
   //
@@ -188,7 +234,6 @@ doProcessItems = function(data, callback) {
           [
               function (callback) {
                 // Delete existing links
-                console.log( "MATTT: Delete existing links" );
                 workClearLinks( data.mapping.pgTable, data.pgUploadId, data.itemWork.iwork_id, function(error) {
                   callback(error)
                 } );

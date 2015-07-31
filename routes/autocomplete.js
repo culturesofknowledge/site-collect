@@ -38,13 +38,18 @@ doSearchPG = function(req, res, callback){
       q += " where foaf_name ilike $1 ";
       q += " order by foaf_name";
     console.log("the query ", q);
-    var query = client.query( q , [b]);
-    
-    query.on("row", function (row, result) {
+
+    client.query( q , [b])
+
+    .on("error", function (error) {
+      console.log( "Error in doSearchPG: " + error )
+    })
+
+    .on("row", function (row, result) {
       result.addRow(row);
-    });
+    })
     
-    query.on("end", function (result) {
+    .on("end", function (result) {
       var results = JSON.stringify(result.rows, null, "    ");
       //res.end(req.query.callback + "(" + results + ")");
       res.datarows   = result.rows;
@@ -77,13 +82,18 @@ router.get(
       q += " FROM cofk_union_location ";
       q += " WHERE location_name ilike $1  ";
       q += " order by location_name";
-    var query = client.query( q , [b]);
-    
-    query.on("row", function (row, result) {
+
+    client.query( q , [b] )
+
+    .on("error", function (error) {
+      console.log( "Error in doSearchPlace: " + error )
+    })
+
+    .on("row", function (row, result) {
       result.addRow(row);
-    });
+    })
     
-    query.on("end", function (result) {
+    .on("end", function (result) {
       var results = JSON.stringify(result.rows, null, "    ");
       //res.end(req.query.callback + "(" + results + ")");
       res.datarows   = result.rows;
@@ -107,27 +117,32 @@ doSearchRepo = function(req, res, callback){
     var client = new pg.Client(config.conString);
     console.log("before connect "+req.params.search);
     client.connect();
-    
+
     console.log("before query "+req.params.search);
     var b=req.params.search+'%';
     var q="SELECT institution_id as value";
     q += ",institution_name as label";
     q += ",' ( '";
     q += "||institution_city";
-    q += "||' )'";        
+    q += "||' )'";
     q += " as label2";
     q += ",institution_id as emloid";
     q += " FROM cofk_union_institution";
     //q += " WHERE institution_name ilike $1 ";
     q += " order by institution_name";
     //var query = client.query( q , [b]);
-    var query = client.query( q );
-    
-    query.on("row", function (row, result) {
+
+    client.query( q )
+
+    .on("error", function (error) {
+      console.log( "Error in doSearchRepo: " + error )
+    })
+
+    .on("row", function (row, result) {
       result.addRow(row);
-    });
-    
-    query.on("end", function (result) {
+    })
+
+    .on("end", function (result) {
       var results = JSON.stringify(result.rows, null, "    ");
       //res.end(req.query.callback + "(" + results + ")");
       res.datarows   = result.rows;
@@ -135,7 +150,7 @@ doSearchRepo = function(req, res, callback){
       callback(req, res);
       client.end();
       //console.log("\tResponded with '" + results + "'\n");
-    });      
+    });
 };
 
 // get all the users (accessed at GET http://localhost:8080/api/users)

@@ -93,8 +93,7 @@ router.route('/uploads/:upload_name')
 .delete(function(req, res) {
     var ids = req.params.upload_name.split(",");
     Upload.remove(
-        //{ _id: { "$in" : ids } }, // there appears to be a bug in mongo that stops this working.
-        { _id: req.params.upload_name }, // TODO: Fix multi delete
+        { _id: { "$in" : ids } },
         function(err, upload) {
             if (err) {
                 res.send(err);

@@ -10,7 +10,7 @@ docker pull mongo
 docker pull postgres
 
 # You'll need some dev files
-zypper in nodejs-devel		# On Ubuntu possibly: apt-get install nodejs-dev
+zypper in nodejs nodejs-devel		# On Ubuntu possibly: apt-get install nodejs-dev
 zypper in postgresql-devel
 
 # Install this one to global
@@ -26,7 +26,7 @@ You'll need to svn revert those in svn and delete the new ones in folders /views
 # Install modules
 npm install # ignore warniong about sql-generate
 
-# Setup which config (choose in config/config.js or create a new one)
+# Setup which config (choose in config/config.json or create a new one)
 export NODE_ENV='development'
 
 # run it

@@ -334,9 +334,32 @@ $(document).ready(function() {
 			{ data: "incipit", "defaultContent": ""  },
 			{ data: "explicit", "defaultContent": ""  },
 			{ data: "notes_on_letter", "defaultContent": ""  },
-			{ data: "editors_notes", "defaultContent": ""  }
+			{ data: "editors_notes", "defaultContent": ""  },
 
-			//{ data: "language_of_work", "defaultContent": ""  },
+			{ data: "languages", render:function(data) {
+				var langs = "";
+				$.each( data, function( index, lang ) {
+					if( langs !== "" ) {
+						langs += "; ";
+					}
+					langs += lang.language_code;
+				} );
+				return langs;
+			}, "defaultContent": ""  },
+
+
+			{ data: "resources", render:function(data) {
+				var ress = "";
+				$.each( data, function( index, res ) {
+					if( ress !== "" ) {
+						ress += "; ";
+					}
+					ress += res.resource_name + " (" + res.resource_url + ")";
+					console.log(res);
+				} );
+				return ress;
+			}, "defaultContent": ""  }
+
 			//{ data: "upload_name", "defaultContent": ""  },
 			//{ data: "editor", "defaultContent": ""  },
 			//{ data: "contributors", "defaultContent": ""  },
@@ -362,11 +385,11 @@ $(document).ready(function() {
 							},
 							success: function(/*nButton, oConfig, oFlash, sFlash*/ ) {
 								console.log( 'Upload finished of '+ uploadName  );
-								$("#uploading").html("Upload complete!");
+								$("#uploading").dialog("open").html("Upload complete!");
 							},
 							error: function(/*nButton, oConfig, oFlash, sFlash*/ ) {
 								console.log( 'Upload ERRORED! '+ uploadName  );
-								$("#uploading").html("Upload Errored - please seek advice.");
+								$("#uploading").dialog("open").html("Upload Errored - please seek advice.");
 							}
 						});
 					},

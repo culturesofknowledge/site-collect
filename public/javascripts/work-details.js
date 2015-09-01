@@ -1,5 +1,3 @@
-// Userlist data array for filling in info box
-var userListData = [];
 var work_editor; // use a global for the submit and return data rendering in the examples
 
 // DOM Ready =============================================================
@@ -98,7 +96,7 @@ $(document).ready(function() {
 			 */
 			{ "label":"editors_notes:", "name": "editors_notes" },
 			{ "label":"upload_uuid:", "name": "upload_uuid" , "def" : uploadUuid },
-			{ "label":"editor:", "name": "editor", "def" : userID },
+			{ "label":"editor:", "name": "editor", "def" : userID }
 			//{ "label":"contributors:", "name": "contributors", "def": undefined },
 			//{ "label":"manifestations:", "name": "manifestations", def:null },
 		]
@@ -141,16 +139,17 @@ $(document).ready(function() {
 	 */
 
 	// Delete a record (without asking a user for confirmation for this example)
-	$('#workTable').on('click', 'a.editor_remove', function (e) {
-		e.preventDefault();
+	$('#workTable')
+		.on('click', 'a.editor_remove', function (e) {
+			e.preventDefault();
 
-		work_editor
-			.message( 'Are you sure you wish to remove this record?' )
-			.buttons( { "label": "Delete", "fn": function () { editor.submit() } } )
-			.remove( $(this).closest('tr') );
-	} );
+			work_editor
+				.message( 'Are you sure you wish to remove this record?' )
+				.buttons( { "label": "Delete", "fn": function () { editor.submit() } } )
+				.remove( $(this).closest('tr') );
+		} )
 
-	$('#workTable').DataTable( {
+		.DataTable( {
 		dom        : "T<clear>lfrtip",
 		processing : true,
 		serverSide : false,
@@ -166,7 +165,7 @@ $(document).ready(function() {
 			{
 				data: null,
 				className: "center",
-				render: function ( data, type, row ) {
+				render: function ( data /*, type, row*/ ) {
 					// If upload has no works permit delete
 					//var editfield = '<a href="/work/work/' + data.upload_name + '/' + data.iwork_id ;
 					var editfield = '<a href="/work/work/edit/' + data._id  ;
@@ -183,7 +182,7 @@ $(document).ready(function() {
 			//
 			// Authors
 			//
-			{ data: function (row, type, set, meta) {
+			{ data: function (row) {
 					return renderPeople( row.authors );
 				},
 				"orderData": [ 5,6,2,3,4 ]
@@ -200,7 +199,7 @@ $(document).ready(function() {
 			//
 			// Addressees
 			//
-			{ data: function (row, type, set, meta) {
+			{ data: function (row) {
 				return renderPeople( row.addressees );
 				},
 				"orderData": [ 6,5,2,3,4 ]
@@ -217,7 +216,7 @@ $(document).ready(function() {
 			//
 			// Places mentioned
 			//
-			{ data: function (row, type, set, meta) {
+			{ data: function (row) {
 				return renderPeople( row.people_mentioned );
 			}, "defaultContent": ""  },
 			{ data: "mentioned_as_marked", render:function(data) {
@@ -288,7 +287,7 @@ $(document).ready(function() {
 			//
 			// Origin
 			//
-			{ data: function (row, type, set, meta) {
+			{ data: function (row) {
 				return renderPlaces( row.origin_id );
 			}, "defaultContent": "" },
 			{ data: "origin_as_marked", "defaultContent": ""  },
@@ -303,7 +302,7 @@ $(document).ready(function() {
 			//
 			// destination
 			//
-			{ data: function (row, type, set, meta) {
+			{ data: function (row) {
 				return renderPlaces( row.destination_id );
 			}, "defaultContent": ""  },
 			{ data: "destination_as_marked", "defaultContent": ""  },
@@ -318,7 +317,7 @@ $(document).ready(function() {
 			//
 			// place mentioned
 			//
-			{ data: function (row, type, set, meta) {
+			{ data: function (row) {
 				return renderPlaces( row.place_mentioned );
 			}, "defaultContent": ""  },
 			{ data: "place_mentioned_as_marked", "defaultContent": ""  },
@@ -335,7 +334,7 @@ $(document).ready(function() {
 			{ data: "incipit", "defaultContent": ""  },
 			{ data: "explicit", "defaultContent": ""  },
 			{ data: "notes_on_letter", "defaultContent": ""  },
-			{ data: "editors_notes", "defaultContent": ""  },
+			{ data: "editors_notes", "defaultContent": ""  }
 
 			//{ data: "language_of_work", "defaultContent": ""  },
 			//{ data: "upload_name", "defaultContent": ""  },
@@ -361,51 +360,26 @@ $(document).ready(function() {
 								"uploadName":uploadName,
 								"_id" :  uploadUuid
 							},
-							success:fnRenhart
+							success: function(/*nButton, oConfig, oFlash, sFlash*/ ) {
+								console.log( 'Upload finished of '+ uploadName  );
+								$("#uploading").html("Upload complete!");
+							},
+							error: function(/*nButton, oConfig, oFlash, sFlash*/ ) {
+								console.log( 'Upload ERRORED! '+ uploadName  );
+								$("#uploading").html("Upload Errored - please seek advice.");
+							}
 						});
 					},
-					"fnComplete": function ( nButton, oConfig, oFlash, sFlash ) {
-						console.log( 'Flush Button action complete'+ uploadName  );
+					"fnComplete": function ( /*nButton, oConfig, oFlash, sFlash*/ ) {
+						console.log( 'Upload started of ' + uploadName  );
+
+						$("#uploading").dialog('open').html("Uploading your works...");
 					},
-					"fnRenhart": function ( nButton, oConfig, oFlash, sFlash ) {
-						console.log( 'Flush Button action Renhart worked'+ uploadName  );
-					},
-					"fnInit": function ( nButton, oConfig ) {
+					"fnInit": function ( /*nButton, oConfig*/ ) {
 						console.log( 'Flush Button initialised'+ uploadName  );
 					}
 				},
-				/*
-				 { sExtends: "ajax",
-				 sAjaxUrl: "/emloload/flush/" + uploadUuid,
-				 //sAjaxUrl: "/emloload/flush/"+ uploadName,
-				 sButtonText: "New Work",
-				 fnClick: function( nButton, oConfig ) {
-				 console.log("nButton", nButton);
-				 console.log("oConfig:", oConfig);
-				 this.fnInfo( "My ajax button!"+ uploadName  );
-				 },
-				 fnAjaxComplete: function ( XMLHttpRequest, textStatus ) {
-				 console.log( 'Ajax complete for'+ uploadName  );
-				 },
-				 editor: work_editor
-				 },
-				 { sExtends: "text",
-				 sButtonText: "New2" ,
-				 sFilename: uploadName ,
-				 fnClick:
-				 work_editor
-				 .create(false)
-				 .set('editors_notes', 'upload['+ uploadUuid + '] user[' + username + ']' )
-				 .set("std_year", "")
-				 .set("std_month","")
-				 .set("std_day","")
-				 .set("end_year", "")
-				 .set("end_month","")
-				 .set("end_day",  "" )
-				 .set('editor'   , userID)
 
-				 },
-				 */
 				{ sExtends: 'select_single',
 					sButtonText: 'New Work',
 					fnClick: function () {
@@ -423,15 +397,15 @@ $(document).ready(function() {
 					}
 				},
 				// { sExtends: "editor_edit",   editor: work_editor },
+
 				{ sExtends: "editor_remove", editor: work_editor },
+
 				{
 					sExtends: "text",
 					sButtonText: "View Simple",
 					sFilename: uploadName,
-					fnClick: function (nButton, oConfig) {
-
+					fnClick: function () {
 						window.location = "/work/byupload/" + uploadUuid + "/" + uploadName;
-
 					}
 				},
 				{
@@ -445,6 +419,15 @@ $(document).ready(function() {
 			]
 		}
 	} );
+
+	$("#uploading").dialog({
+		hide: 'slide',
+		show: 'slide',
+		autoOpen: false,
+		modal: true,
+		title: "Uploading..."
+	});
+
 } );
 
 // Functions =============================================================
@@ -490,18 +473,4 @@ function renderPlaces( places ) {
 		}
 	});
 	return newVal;
-}
-
-var fnRenhart = function ( nButton, oConfig, oFlash, sFlash ) {
-	console.log( 'Flush Button action Renhart worked'+ uploadName  );
-};
-
-// Fill table with data
-function readyDataTable() {
-	$('#userTable').dataTable();
-};
-
-function workback(data,status) {
-	console.log(data);
-	console.log(status);
 }

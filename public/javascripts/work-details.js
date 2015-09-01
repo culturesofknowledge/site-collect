@@ -438,15 +438,7 @@ $(document).ready(function() {
 					sExtends: "collection",
 					sButtonText: "Export",
 					sButtonClass: "save-collection",
-					aButtons: [ 'copy', 'csv', 'xls', 'pdf' ],
-					// http://datatables.net/extensions/tabletools/button_options#mColumns
-					"fnCellRender": function ( sValue, iColumn, nTr, iDataIndex ) {
-						// Append the text 'TableTools' to column 5
-						if ( iColumn === 5 ) {
-							return sValue +" TableTools";
-						}
-						return sValue;
-					}
+					aButtons: [ 'csv','copy' ] //, 'xls', 'pdf' ]
 				}
 
 

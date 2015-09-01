@@ -40,3 +40,19 @@ width:600px !important;
 .DTTT_container {
     margin-top: 20px;
 }
+
+thead tr:first-child th {
+    font-size: large;
+    /*border-left: 1px solid black;*/
+}
+
+colgroup.highlight {
+    border-right: 2px dotted black;
+}
+colgroup.highlight.first {
+    border-left: 2px dotted black;
+}
+
+table.dataTable {
+    border-collapse: collapse !important;
+}

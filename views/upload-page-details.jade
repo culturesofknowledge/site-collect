@@ -1,0 +1,139 @@
+extends layout
+
+block headjs
+    script(type="text/javascript").
+        console.log("readying headjs - upload-page-details");
+        var uploadName = "#{uploadName}";
+        var uploadUuid = "#{uploadUuid}";
+        var fullname = "#{name}";
+        var email = "#{email}";
+        var username = "#{username}";
+        var userID = "#{userID }";
+    //script(type="text/javascript", src="/javascripts/user.js")
+
+block content
+    // DATATABLE
+    //a.editor_create New Work
+    #workTableDiv
+        table#workTable
+            colgroup
+                col
+            colgroup.first.highlight
+                col(span=5)
+            colgroup.highlight
+                col(span=5)
+            colgroup.highlight
+                col(span=5)
+            colgroup.highlight
+                col(span=9)
+            colgroup.highlight
+                col(span=6)
+            colgroup.highlight
+                col(span=5)
+            colgroup.highlight
+                col(span=5)
+            colgroup.highlight
+                col(span=5)
+
+
+            thead
+
+                tr
+                    th
+                    th(colspan=15) People
+                    th(colspan=15) Dates
+                    th(colspan=15) Places
+                    th(colspan=6) Others
+
+                tr
+
+                    th(rowspan='2') ID
+
+                    th.center(colspan=5) Authors
+                    th.center(colspan=5) Recipients
+                    th.center(colspan=5) People mentioned
+
+                    th.center(colspan=9) Date from
+                    th.center(colspan=6) Date to
+
+                    th.center(colspan=5) Origin
+                    th.center(colspan=5) Destination
+                    th.center(colspan=5) Places mentioned
+
+                    th(rowspan='2') Abstract
+                    th(rowspan='2') Keywords
+                    th(rowspan='2') Incipit
+                    th(rowspan='2') Explicit
+                    th(rowspan='2') Letter notes
+                    th(rowspan='2') Editors notes
+
+
+                tr
+                    // Author
+                    th Name
+                    th As Marked
+                    th Inferred
+                    th Uncertain
+                    th Notes
+
+                    // Recipient
+                    th Name
+                    th As marked
+                    th Inferred
+                    th Uncertain
+                    th Notes
+
+                    // People Mentioned
+                    th Name
+                    th As marked
+                    th Inferred
+                    th Uncertain
+                    th Notes
+
+                    // From Date
+                    th Year
+                    th Month
+                    th Day
+                    th As marked
+                    th Original calendar
+                    th Inferred
+                    th Uncertain
+                    th Approx
+                    th Notes
+
+                    // To date
+                    th Year
+                    th Month
+                    th Day
+                    th Inferred
+                    th Uncertain
+                    th Approx
+
+                    // Origin
+                    th Name
+                    th As marked
+                    th Inferred
+                    th Uncertain
+                    th Notes
+
+                    // Destination
+                    th Name
+                    th As marked
+                    th Inferred
+                    th Uncertain
+                    th Notes
+
+                    // Places mentioned
+                    th Name
+                    th As marked
+                    th Inferred
+                    th Uncertain
+                    th Notes
+
+                    // Letter notes
+                    // Editors notes
+            tbody
+    // /DATATABLE
+    //include inform-page
+block footjs
+    script(src='/javascripts/work-details.js')

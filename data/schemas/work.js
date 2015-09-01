@@ -85,11 +85,20 @@ workSchema.statics.findByUploadUuidWithNames = function (uploadUuid, callback) {
                 {},
                 {sort: 'iwork_id'},
                 callback)
-        .populate("authors", "primary_name _id")
-        .populate("addressees", "primary_name _id")     ;
+        .populate("authors addressees", "primary_name _id")     ;
 };
 
-
+workSchema.statics.findByUploadUuidWithAllPopulated = function (uploadUuid, callback) {
+  this
+      .find(
+      { upload_uuid: uploadUuid },
+      {},
+      {sort: 'iwork_id'},
+      callback)
+      .populate("authors addressees people_mentioned" )
+      .populate("destination_id origin_id place_mentioned" )
+  ;
+};
 
 workSchema.statics.findByUploadUuid = function (uploadUuid, callback) {
   this

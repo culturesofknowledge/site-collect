@@ -317,7 +317,8 @@ $(document).ready(function() {
           
         },
 */
-        { sExtends: 'select_single',
+        {
+            sExtends: 'select_single',
           sButtonText: 'New Work',
           fnClick: function () {
             work_editor
@@ -334,7 +335,20 @@ $(document).ready(function() {
             }
         },
         // { sExtends: "editor_edit",   editor: work_editor },
-        { sExtends: "editor_remove", editor: work_editor }
+          {
+              sExtends: "editor_remove",
+              editor: work_editor
+          },
+
+          {
+              sExtends: "text",
+              sButtonText: "View all details",
+              sFilename: uploadName,
+
+              fnClick: function (nButton, oConfig) {
+                  window.location = "/work/byupload/" + uploadUuid + "/" + uploadName + "/details";
+              }
+          }
       ]
     }
   } );

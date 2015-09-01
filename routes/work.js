@@ -28,6 +28,21 @@ router.route('/byupload/:upload_uuid/:uploadName')
   });
 });
 
+router.route('/byupload/:upload_uuid/:uploadName/details')
+    .get(function (req, res) {
+      console.log("router.route('/byupload/:upload_uuid/:uploadName/details')");
+      res.render('upload-page-details', {
+        loggedIn : req.session.loggedIn,
+        title:      'Letter records:',
+        uploadName :  req.params.uploadName,
+        uploadUuid :  req.params.upload_uuid,
+        name:       req.session.user.name,
+        email:      req.session.user.email,
+        username:   req.session.user.username,
+        userID:     req.session.user._id
+      });
+    });
+
 // GET Works by uploadName
 // on routes that end in /works/:upload_name
 // ----------------------------------------------------
@@ -35,7 +50,7 @@ router.route('/forupload/:upload_uuid')
 .get(function (req, res) {
   console.log("log: Getting work by uploads");
   if (req.params.upload_uuid){
-    Work.findByUploadUuidWithNames(
+    Work.findByUploadUuidWithAllPopulated(
       req.params.upload_uuid,
       function (err, works) {
         if(!err){

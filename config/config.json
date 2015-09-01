@@ -9,13 +9,13 @@
     "conString"   : "postgres://cofkrenhart:Sperry95@192.168.56.1/ouls"
   },
   "mat-development": {
-    "dbURL"       : "mongodb://127.0.0.1:32770/emlo-edit",
-    "serverPgSQL" : "127.0.0.1:32768",
+    "dbURL"       : "mongodb://127.0.0.1:32768/emlo-edit",
+    "serverPgSQL" : "127.0.0.1:32769",
     "pg_host"     : "127.0.0.1",
     "pg_user"     : "postgres",
     "pg_pass"     : "postgres",
     "host"        : "localhost",
-    "conString"   : "postgres://postgres:postgres@127.0.0.1:32768/ouls"
+    "conString"   : "postgres://postgres:postgres@127.0.0.1:32769/ouls"
   },
   "emlo-edit-dev": {
     "dbURL"       : "mongodb://localhost:27017/emlo-edit",

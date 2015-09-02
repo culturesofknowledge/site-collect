@@ -3,6 +3,9 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+div.DTTT { margin-bottom: 0.5em; float: right; }
+div.dataTables_wrapper { clear: both; }
+
 a {
   color: #00B7FF;
 }
@@ -60,4 +63,47 @@ table.dataTable {
 th .colname {
     /* hide more specific names from view - they are only useful on export */
     display: none;
+}
+
+/*
+button.DTTT_button, div.DTTT_button, a.DTTT_button {
+    position: relative;
+    display: inline-block;
+    margin-right: 3px;
+    padding: 5px 8px;
+    border: 1px solid #999;
+    cursor: pointer;
+    font-size: 0.88em;
+    color: #000 !important;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px #CCC;
+    background: transparent -moz-linear-gradient(center top , #FFF 0%, #F3F3F3 89%, #F9F9F9 100%) repeat scroll 0% 0%;
+
+button.DTTT_button:hover, div.DTTT_button:hover, a.DTTT_button:hover {
+    border: 1px solid #666;
+    text-decoration: none !important;
+    box-shadow: 1px 1px 3px #999;
+    background: transparent -moz-linear-gradient(center top , #F3F3F3 0%, #E2E2E2 89%, #F4F4F4 100%) repeat scroll 0% 0%;
+}
+*/
+button.DTTT_disabled, div.DTTT_disabled, a.DTTT_disabled {
+    color:#666 !important;
+}
+
+button.DTTT_disabled:hover, div.DTTT_disabled:hover, a.DTTT_disabled:hover {
+    text-decoration: none !important;
+    box-shadow: 1px 1px 3px #999;
+
+    position: relative;
+    display: inline-block;
+    margin-right: 3px;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 0.88em;
+    border-radius: 2px;
+
+    color: #666;
+    border: 1px solid #D0D0D0;
+    background: transparent -moz-linear-gradient(center top , #FFF 0%, #F9F9F9 89%, #FAFAFA 100%) repeat scroll 0% 0%;
+
 }

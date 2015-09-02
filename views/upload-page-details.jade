@@ -2,14 +2,12 @@ extends layout
 
 block headjs
     script(type="text/javascript").
-        console.log("readying headjs - upload-page-details");
-        var uploadName = "#{uploadName}";
-        var uploadUuid = "#{uploadUuid}";
-        var fullname = "#{name}";
-        var email = "#{email}";
-        var username = "#{username}";
-        var userID = "#{userID }";
-    //script(type="text/javascript", src="/javascripts/user.js")
+        var uploadName = "#{uploadName}",
+            uploadUuid = "#{uploadUuid}",
+            fullname = "#{name}",
+            email = "#{email}",
+            username = "#{username}",
+            userID = "#{userID }";
 
 block content
     // DATATABLE

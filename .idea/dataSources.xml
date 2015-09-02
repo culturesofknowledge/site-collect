@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1995741241">
-    <data-source source="LOCAL" name="PostgreSQL-emlo-edit-LOCAL" uuid="42c17471-eb37-4b97-b27d-d6cece8135f6">
+  <component name="DataSourceManagerImpl" format="xml" hash="515171795">
+    <data-source source="LOCAL" name="PostgreSQL - ouls@localhost - LOCAL" uuid="26b99b99-7300-43e1-af8d-01a5d2ae901c">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://172.17.0.15:5432</jdbc-url>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:32769/ouls</jdbc-url>
       <libraries />
     </data-source>
-    <data-source source="LOCAL" name="PostgreSQL-emlo-edit-LIVE" read-only="true" uuid="8267a6f3-d4e2-4a91-891e-4e0c1bc64c3b">
+    <data-source source="LOCAL" name="PostgreSQL - ouls@localhost - LIVE" uuid="e2454f0e-8a8b-492f-838f-570e1fd0db4d">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

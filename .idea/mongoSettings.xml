@@ -4,24 +4,12 @@
     <option name="serverConfigurations">
       <list>
         <ServerConfiguration>
-          <option name="label" value="EMLO Mongo LOCAL" />
+          <option name="label" value="Mongo-Local" />
           <option name="serverUrls">
             <list>
-              <option value="172.17.0.16:27017" />
+              <option value="127.0.0.1:32768" />
             </list>
           </option>
-          <option name="userDatabase" value="emlo-edit" />
-        </ServerConfiguration>
-        <ServerConfiguration>
-          <option name="label" value="EMLo Mongo LIVE" />
-          <option name="password" value="reader1" />
-          <option name="serverUrls">
-            <list>
-              <option value="localhost:27016" />
-            </list>
-          </option>
-          <option name="userDatabase" value="emlo-edit" />
-          <option name="username" value="read" />
         </ServerConfiguration>
       </list>
     </option>

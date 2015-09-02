@@ -258,7 +258,7 @@ $(document).ready(function() {
     tableTools: {
       sRowSelect: "os",
       aButtons: [
-        { sExtends: "text",
+        /*{ sExtends: "text",
           sButtonText: "Upload" ,
           sFilename: uploadName ,
           fnClick: function( nButton, oConfig ) {
@@ -284,7 +284,7 @@ $(document).ready(function() {
           "fnInit": function ( nButton, oConfig ) {
             console.log( 'Flush Button initialised'+ uploadName  );
           }
-        },
+        },*/
 /*
         { sExtends: "ajax",
           sAjaxUrl: "/emloload/flush/" + uploadUuid,
@@ -318,7 +318,7 @@ $(document).ready(function() {
         },
 */
         {
-            sExtends: 'select_single',
+            sExtends: 'text',
           sButtonText: 'New Work',
           fnClick: function () {
             work_editor
@@ -342,7 +342,7 @@ $(document).ready(function() {
 
           {
               sExtends: "text",
-              sButtonText: "View all details",
+              sButtonText: "Review...",
               sFilename: uploadName,
 
               fnClick: function (nButton, oConfig) {

@@ -368,6 +368,26 @@ $(document).ready(function() {
 			sRowSelect: "os",
 			sSwfPath: "/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
 			aButtons: [
+				{ sExtends: 'text',
+					sButtonText: 'New Work',
+					fnClick: function () {
+						work_editor
+							.create(false)
+							.set("date_of_work_std_year", "")
+							.set("date_of_work_std_month","")
+							.set("date_of_work_std_day","")
+							.set("date_of_work2_std_year", "")
+							.set("date_of_work2_std_month","")
+							.set("date_of_work2_std_day",  "" )
+							.set('editor'   , userID)
+							.set('upload_uuid' , uploadUuid)
+							.submit();
+					}
+				},
+				// { sExtends: "editor_edit",   editor: work_editor },
+
+				{ sExtends: "editor_remove", editor: work_editor },
+
 				{ sExtends: "text",
 					sButtonText: "Upload" ,
 					sFilename: uploadName ,
@@ -402,39 +422,20 @@ $(document).ready(function() {
 					}
 				},
 
-				{ sExtends: 'select_single',
-					sButtonText: 'New Work',
-					fnClick: function () {
-						work_editor
-							.create(false)
-							.set("date_of_work_std_year", "")
-							.set("date_of_work_std_month","")
-							.set("date_of_work_std_day","")
-							.set("date_of_work2_std_year", "")
-							.set("date_of_work2_std_month","")
-							.set("date_of_work2_std_day",  "" )
-							.set('editor'   , userID)
-							.set('upload_uuid' , uploadUuid)
-							.submit();
-					}
-				},
-				// { sExtends: "editor_edit",   editor: work_editor },
-
-				{ sExtends: "editor_remove", editor: work_editor },
-
-				{
-					sExtends: "text",
-					sButtonText: "View Simple",
-					sFilename: uploadName,
-					fnClick: function () {
-						window.location = "/work/byupload/" + uploadUuid + "/" + uploadName;
-					}
-				},
 				{
 					sExtends: "collection",
 					sButtonText: "Export",
 					sButtonClass: "save-collection",
 					aButtons: [ 'csv','copy' ] //, 'xls', 'pdf' ]
+				},
+
+				{
+					sExtends: "text",
+					sButtonText: "Back to Simple table...",
+					sFilename: uploadName,
+					fnClick: function () {
+						window.location = "/work/byupload/" + uploadUuid + "/" + uploadName;
+					}
 				}
 
 

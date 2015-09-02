@@ -18,7 +18,7 @@ router.route('/byupload/:upload_uuid/:uploadName')
   console.log("log: upload-page work by uploads",req.session);
   res.render('upload-page', {     
     loggedIn : req.session.loggedIn,
-    title:      'Letter records:', 
+    title:      req.params.uploadName + " Dataset",
     uploadName :  req.params.uploadName,
     uploadUuid :  req.params.upload_uuid,
     name:       req.session.user.name,
@@ -33,7 +33,7 @@ router.route('/byupload/:upload_uuid/:uploadName/details')
       console.log("router.route('/byupload/:upload_uuid/:uploadName/details')");
       res.render('upload-page-details', {
         loggedIn : req.session.loggedIn,
-        title:      'Letter records:',
+        title:      req.params.uploadName + " Dataset",
         uploadName :  req.params.uploadName,
         uploadUuid :  req.params.upload_uuid,
         name:       req.session.user.name,

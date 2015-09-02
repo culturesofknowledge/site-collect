@@ -347,7 +347,6 @@ $(document).ready(function() {
 				return langs;
 			}, "defaultContent": ""  },
 
-
 			{ data: "resources", render:function(data) {
 				var ress = "";
 				$.each( data, function( index, res ) {
@@ -355,7 +354,6 @@ $(document).ready(function() {
 						ress += "; ";
 					}
 					ress += res.resource_name + " (" + res.resource_url + ")";
-					console.log(res);
 				} );
 				return ress;
 			}, "defaultContent": ""  }
@@ -365,6 +363,7 @@ $(document).ready(function() {
 			//{ data: "contributors", "defaultContent": ""  },
 			//{ data: "manifestations", "defaultContent": ""  },
 		],
+
 		tableTools: {
 			sRowSelect: "os",
 			sSwfPath: "/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",

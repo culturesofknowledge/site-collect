@@ -21,9 +21,9 @@ block content
 	- var datesFromColumns = 9;
 	- var datesToColumns = 6;
 
-	- var originColumns = 5;
-	- var destinationColumns = 5;
-	- var placesMentionedColumns = 5;
+	- var originColumns = 6;
+	- var destinationColumns = 6;
+	- var placesMentionedColumns = 6;
 
 	- var otherColumns = 8;
 
@@ -71,12 +71,12 @@ block content
 					th.center(colspan=recipientColumns) Recipients
 					th.center(colspan=personMentionedColumns) People mentioned
 
-					th.center(colspan=9) Date from
-					th.center(colspan=6) Date to
+					th.center(colspan=datesFromColumns) Date from
+					th.center(colspan=datesToColumns) Date to
 
-					th.center(colspan=5) Origin
-					th.center(colspan=5) Destination
-					th.center(colspan=5) Places mentioned
+					th.center(colspan=originColumns) Origin
+					th.center(colspan=destinationColumns) Destination
+					th.center(colspan=placesMentionedColumns) Places mentioned
 
 					th(rowspan='2') Abstract
 					th(rowspan='2') Keywords
@@ -198,6 +198,10 @@ block content
 						|  Approx
 
 					// Origin
+
+					th
+						span.colname Origin
+						|  EMLO ID
 					th
 						span.colname Origin
 						|  Name
@@ -217,6 +221,9 @@ block content
 					// Destination
 					th
 						span.colname Destination
+						|  EMLO ID
+					th
+						span.colname Destination
 						|  Name
 					th
 						span.colname Destination
@@ -232,6 +239,9 @@ block content
 						|  Notes
 
 					// Places mentioned
+					th
+						span.colname Places Mentioned
+						|  EMLO ID
 					th
 						span.colname Places Mentioned
 						|  Name

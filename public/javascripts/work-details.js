@@ -220,7 +220,7 @@ $(document).ready(function() {
 			{ data: "notes_on_addressees", "defaultContent": ""  },
 
 			//
-			// Places mentioned
+			// People mentioned
 			//
 			{ data: function (row) {
 				return renderPeopleIds( row.people_mentioned );
@@ -297,7 +297,10 @@ $(document).ready(function() {
 			// Origin
 			//
 			{ data: function (row) {
-				return renderPlaces( row.origin_id );
+				return renderPlacesIds( row.origin_id );
+			}, "defaultContent": "" },
+			{ data: function (row) {
+				return renderPlacesNames( row.origin_id );
 			}, "defaultContent": "" },
 			{ data: "origin_as_marked", "defaultContent": ""  },
 			{ data: "origin_inferred", render:function(data) {
@@ -312,7 +315,10 @@ $(document).ready(function() {
 			// destination
 			//
 			{ data: function (row) {
-				return renderPlaces( row.destination_id );
+				return renderPlacesIds( row.destination_id );
+			}, "defaultContent": ""  },
+			{ data: function (row) {
+				return renderPlacesNames( row.destination_id );
 			}, "defaultContent": ""  },
 			{ data: "destination_as_marked", "defaultContent": ""  },
 			{ data: "destination_inferred", render:function(data) {
@@ -327,7 +333,10 @@ $(document).ready(function() {
 			// place mentioned
 			//
 			{ data: function (row) {
-				return renderPlaces( row.place_mentioned );
+				return renderPlacesIds( row.place_mentioned );
+			}, "defaultContent": ""  },
+			{ data: function (row) {
+				return renderPlacesNames( row.place_mentioned );
 			}, "defaultContent": ""  },
 			{ data: "place_mentioned_as_marked", "defaultContent": ""  },
 			{ data: "place_mentioned_inferred", render:function(data) {
@@ -452,6 +461,11 @@ $(document).ready(function() {
 		}
 	} );
 
+	if ( username !== 'cofkmat') {
+		// TODO: This is temporary to hide but maybe only certain users should be able to upload?
+		$("#ToolTables_workTable_2").hide();
+	}
+
 	$("#uploading").dialog({
 		hide: 'slide',
 		show: 'slide',
@@ -497,7 +511,7 @@ function renderPeopleIds( people ) {
 	return newVal;
 }
 
-function renderPlaces( places ) {
+function renderPlacesIds( places ) {
 	var newVal = "";
 	$.each(places, function(key, obj){
 
@@ -507,6 +521,16 @@ function renderPlaces( places ) {
 		else {
 			newVal += "new";
 		}
+
+		if(key !== places.length-1 ) {
+			newVal += ";<br/><br/>";
+		}
+	});
+	return newVal;
+}
+function renderPlacesNames( places ) {
+	var newVal = "";
+	$.each(places, function(key, obj){
 
 		newVal += " (" + obj.location_name + ")";
 

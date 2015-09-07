@@ -183,9 +183,12 @@ $(document).ready(function() {
 			// Authors
 			//
 			{ data: function (row) {
-					return renderPeople( row.authors );
-				},
-				"orderData": [ 5,6,2,3,4 ]
+					return renderPeopleIds( row.authors );
+				}
+			},
+			{ data: function (row) {
+					return renderPeopleNames( row.authors );
+				}
 			},
 			{ data: "authors_as_marked", "defaultContent": ""  },
 			{ data: null, render:function(row) {
@@ -200,9 +203,12 @@ $(document).ready(function() {
 			// Addressees
 			//
 			{ data: function (row) {
-				return renderPeople( row.addressees );
-				},
-				"orderData": [ 6,5,2,3,4 ]
+				return renderPeopleIds( row.addressees );
+			}
+			},
+			{ data: function (row) {
+				return renderPeopleNames( row.addressees );
+			}
 			},
 			{ data: "addressees_as_marked", "defaultContent": ""  },
 			{ data: null, render:function(row) {
@@ -217,7 +223,10 @@ $(document).ready(function() {
 			// Places mentioned
 			//
 			{ data: function (row) {
-				return renderPeople( row.people_mentioned );
+				return renderPeopleIds( row.people_mentioned );
+			}, "defaultContent": ""  },
+			{ data: function (row) {
+				return renderPeopleNames( row.people_mentioned );
 			}, "defaultContent": ""  },
 			{ data: "mentioned_as_marked", render:function(data) {
 				return renderBoolean(data);
@@ -459,7 +468,19 @@ function renderBoolean( value ) {
 	return (value) ? "yes" : "";
 }
 
-function renderPeople( people ) {
+function renderPeopleNames( people ) {
+	var newVal = "";
+	$.each(people, function(key, obj){
+
+		newVal += " (" + obj.primary_name + ")";
+
+		if(key !== people.length-1 ) {
+			newVal += ";<br/>";
+		}
+	});
+	return newVal;
+}
+function renderPeopleIds( people ) {
 	var newVal = "";
 	$.each(people, function(key, obj){
 		if( obj.union_iperson_id ) {
@@ -469,10 +490,8 @@ function renderPeople( people ) {
 			newVal += "new";
 		}
 
-		newVal += " (" + obj.primary_name + ")";
-
 		if(key !== people.length-1 ) {
-			newVal += ";<br/>";
+			newVal += ";<br/><br/>";
 		}
 	});
 	return newVal;

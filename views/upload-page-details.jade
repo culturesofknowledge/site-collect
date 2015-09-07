@@ -1,235 +1,257 @@
 extends layout
 
 block headjs
-    script(type="text/javascript").
-        var uploadName = "#{uploadName}",
-            uploadUuid = "#{uploadUuid}",
-            fullname = "#{name}",
-            email = "#{email}",
-            username = "#{username}",
-            userID = "#{userID }";
+	script(type="text/javascript").
+		var uploadName = "#{uploadName}",
+				uploadUuid = "#{uploadUuid}",
+				fullname = "#{name}",
+				email = "#{email}",
+				username = "#{username}",
+				userID = "#{userID }";
 
 block content
-    // DATATABLE
-    //a.editor_create New Work
-    div#uploading Work Uploader.
+	// DATATABLE
+	//a.editor_create New Work
+	div#uploading Work Uploader.
 
-    #workTableDiv
-        table#workTable
-            colgroup
-                col
-            colgroup.first.highlight
-                col(span=5)
-            colgroup.highlight
-                col(span=5)
-            colgroup.highlight
-                col(span=5)
-            colgroup.highlight
-                col(span=9)
-            colgroup.highlight
-                col(span=6)
-            colgroup.highlight
-                col(span=5)
-            colgroup.highlight
-                col(span=5)
-            colgroup.highlight
-                col(span=5)
-            colgroup.highlight
-                col(span=8)
+	- var authorColumns = 6;
+	- var recipientColumns = 6;
+	- var personMentionedColumns = 6;
+
+	- var datesFromColumns = 9;
+	- var datesToColumns = 6;
+
+	- var originColumns = 5;
+	- var destinationColumns = 5;
+	- var placesMentionedColumns = 5;
+
+	- var otherColumns = 8;
+
+	#workTableDiv
+		table#workTable
+			colgroup
+				col
+			colgroup.first.highlight
+				col(span=authorColumns)
+			colgroup.highlight
+				col(span=recipientColumns)
+			colgroup.highlight
+				col(span=personMentionedColumns)
+			colgroup.highlight
+				col(span=datesFromColumns)
+			colgroup.highlight
+				col(span=datesToColumns)
+			colgroup.highlight
+				col(span=originColumns)
+			colgroup.highlight
+				col(span=destinationColumns)
+			colgroup.highlight
+				col(span=placesMentionedColumns)
+			colgroup.highlight
+				col(span=otherColumns)
 
 
-            thead
+			thead
 
-                tr
-                    th
-                    th(colspan=15) People
-                    th(colspan=15) Dates
-                    th(colspan=15) Places
-                    th(colspan=8) Others
+				tr
+					th
+					th(colspan=authorColumns+recipientColumns+personMentionedColumns) People
+					th(colspan=datesFromColumns+datesToColumns) Dates
+					th(colspan=originColumns+destinationColumns+placesMentionedColumns) Places
+					th(colspan=otherColumns) Others
 
-                    //- A Gap (As can't get it to put any padding at the end of the table...)
-                    th(rowspan=3,style="visibility:hidden")
+					//- A Gap (As can't get it to put any padding at the end of the table...)
+					th(rowspan=3,style="visibility:hidden")
 
-                tr
+				tr
 
-                    th(rowspan='2') ID
+					th(rowspan='2') ID
 
-                    th.center(colspan=5) Authors
-                    th.center(colspan=5) Recipients
-                    th.center(colspan=5) People mentioned
+					th.center(colspan=authorColumns) Authors
+					th.center(colspan=recipientColumns) Recipients
+					th.center(colspan=personMentionedColumns) People mentioned
 
-                    th.center(colspan=9) Date from
-                    th.center(colspan=6) Date to
+					th.center(colspan=9) Date from
+					th.center(colspan=6) Date to
 
-                    th.center(colspan=5) Origin
-                    th.center(colspan=5) Destination
-                    th.center(colspan=5) Places mentioned
+					th.center(colspan=5) Origin
+					th.center(colspan=5) Destination
+					th.center(colspan=5) Places mentioned
 
-                    th(rowspan='2') Abstract
-                    th(rowspan='2') Keywords
-                    th(rowspan='2') Incipit
-                    th(rowspan='2') Explicit
-                    th(rowspan='2') Letter notes
-                    th(rowspan='2') Editors notes
-                    th(rowspan='2') Languages
-                    th(rowspan='2') Resources
+					th(rowspan='2') Abstract
+					th(rowspan='2') Keywords
+					th(rowspan='2') Incipit
+					th(rowspan='2') Explicit
+					th(rowspan='2') Letter notes
+					th(rowspan='2') Editors notes
+					th(rowspan='2') Languages
+					th(rowspan='2') Resources
 
-                tr
-                    // Author
-                    th
-                        span.colname Author
-                        |  Name
-                    th 
-                        span.colname Author
-                        |  As Marked
-                    th 
-                        span.colname Author
-                        |  Inferred
-                    th 
-                        span.colname Author
-                        |  Uncertain
-                    th 
-                        span.colname Author
-                        |  Notes
+				tr
+					// Author
+					th
+						span.colname Author
+						|  EMLO ID
+					th
+						span.colname Author
+						|  Name
+					th
+						span.colname Author
+						|  As Marked
+					th
+						span.colname Author
+						|  Inferred
+					th
+						span.colname Author
+						|  Uncertain
+					th
+						span.colname Author
+						|  Notes
 
-                    // Recipient
-                    th 
-                        span.colname Recipient
-                        |  Name
-                    th 
-                        span.colname Recipient
-                        |   As marked
-                    th 
-                        span.colname Recipient
-                        |   Inferred
-                    th 
-                        span.colname Recipient
-                        |   Uncertain
-                    th 
-                        span.colname Recipient
-                        |   Notes
+					// Recipient
+					th
+						span.colname Recipient
+						|  EMLO ID
+					th
+						span.colname Recipient
+						|  Name
+					th
+						span.colname Recipient
+						|   As marked
+					th
+						span.colname Recipient
+						|   Inferred
+					th
+						span.colname Recipient
+						|   Uncertain
+					th
+						span.colname Recipient
+						|   Notes
 
-                    // People Mentioned
-                    th 
-                        span.colname People Mentioned
-                        |   Name
-                    th 
-                        span.colname People Mentioned
-                        |    As marked
-                    th 
-                        span.colname People Mentioned
-                        |    Inferred
-                    th 
-                        span.colname People Mentioned
-                        |    Uncertain
-                    th 
-                        span.colname People Mentioned
-                        |    Notes
+					// People Mentioned
+					th
+						span.colname People Mentioned
+						|   EMLO ID
+					th
+						span.colname People Mentioned
+						|   Name
+					th
+						span.colname People Mentioned
+						|    As marked
+					th
+						span.colname People Mentioned
+						|    Inferred
+					th
+						span.colname People Mentioned
+						|    Uncertain
+					th
+						span.colname People Mentioned
+						|    Notes
 
-                    // From Date
-                    th  
-                        span.colname Date From
-                        |  Year
-                    th  
-                        span.colname Date From
-                        |  Month
-                    th  
-                        span.colname Date From
-                        |  Day
-                    th  
-                        span.colname Date From
-                        |  As marked
-                    th  
-                        span.colname Date From
-                        |  Original calendar
-                    th  
-                        span.colname Date From
-                        |  Inferred
-                    th  
-                        span.colname Date From
-                        |  Uncertain
-                    th  
-                        span.colname Date From
-                        |  Approx
-                    th  
-                        span.colname Date From
-                        |  Notes
+					// From Date
+					th
+						span.colname Date From
+						|  Year
+					th
+						span.colname Date From
+						|  Month
+					th
+						span.colname Date From
+						|  Day
+					th
+						span.colname Date From
+						|  As marked
+					th
+						span.colname Date From
+						|  Original calendar
+					th
+						span.colname Date From
+						|  Inferred
+					th
+						span.colname Date From
+						|  Uncertain
+					th
+						span.colname Date From
+						|  Approx
+					th
+						span.colname Date From
+						|  Notes
 
-                    // To date
-                    th  
-                        span.colname Date To
-                        |  Year
-                    th  
-                        span.colname Date To
-                        |  Month
-                    th  
-                        span.colname Date To
-                        |  Day
-                    th  
-                        span.colname Date To
-                        |  Inferred
-                    th  
-                        span.colname Date To
-                        |  Uncertain
-                    th  
-                        span.colname Date To
-                        |  Approx
+					// To date
+					th
+						span.colname Date To
+						|  Year
+					th
+						span.colname Date To
+						|  Month
+					th
+						span.colname Date To
+						|  Day
+					th
+						span.colname Date To
+						|  Inferred
+					th
+						span.colname Date To
+						|  Uncertain
+					th
+						span.colname Date To
+						|  Approx
 
-                    // Origin
-                    th  
-                        span.colname Origin
-                        |  Name
-                    th  
-                        span.colname Origin
-                        |  As marked
-                    th  
-                        span.colname Origin
-                        |  Inferred
-                    th  
-                        span.colname Origin
-                        |  Uncertain
-                    th  
-                        span.colname Origin
-                        |  Notes
+					// Origin
+					th
+						span.colname Origin
+						|  Name
+					th
+						span.colname Origin
+						|  As marked
+					th
+						span.colname Origin
+						|  Inferred
+					th
+						span.colname Origin
+						|  Uncertain
+					th
+						span.colname Origin
+						|  Notes
 
-                    // Destination
-                    th  
-                        span.colname Destination
-                        |  Name
-                    th  
-                        span.colname Destination
-                        |  As marked
-                    th  
-                        span.colname Destination
-                        |  Inferred
-                    th  
-                        span.colname Destination
-                        |  Uncertain
-                    th  
-                        span.colname Destination
-                        |  Notes
+					// Destination
+					th
+						span.colname Destination
+						|  Name
+					th
+						span.colname Destination
+						|  As marked
+					th
+						span.colname Destination
+						|  Inferred
+					th
+						span.colname Destination
+						|  Uncertain
+					th
+						span.colname Destination
+						|  Notes
 
-                    // Places mentioned
-                    th  
-                        span.colname Places Mentioned
-                        |  Name
-                    th  
-                        span.colname Places Mentioned
-                        |  As marked
-                    th  
-                        span.colname Places Mentioned
-                        |  Inferred
-                    th  
-                        span.colname Places Mentioned
-                        |  Uncertain
-                    th  
-                        span.colname Places Mentioned
-                        |  Notes
+					// Places mentioned
+					th
+						span.colname Places Mentioned
+						|  Name
+					th
+						span.colname Places Mentioned
+						|  As marked
+					th
+						span.colname Places Mentioned
+						|  Inferred
+					th
+						span.colname Places Mentioned
+						|  Uncertain
+					th
+						span.colname Places Mentioned
+						|  Notes
 
-                    // Letter notes
-                    // Editors notes
-            tbody
-    // /DATATABLE
-    //include inform-page
+					// Letter notes
+					// Editors notes
+			tbody
+	// /DATATABLE
+	//include inform-page
 block footjs
-    script(src='/javascripts/work-details.js')
+	script(src='/javascripts/work-details.js')

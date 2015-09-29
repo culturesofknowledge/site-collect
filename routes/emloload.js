@@ -133,7 +133,12 @@ doSeries = function(req, res, next) {
     ],
     function(err) {
       if (err) {
-        return next(err);
+        if (req.xhr) {
+          res.status(500).send({ "error" : err.message/*, "stack" : err.stack*/});
+          return;
+        } else {
+          return next(err);
+        }
       }
       console.log('doSeries finished\n',locals.mapping.collection.modelName);  
       //client.end();  

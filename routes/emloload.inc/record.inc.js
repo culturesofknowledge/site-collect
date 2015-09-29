@@ -233,8 +233,10 @@ doUpdateTable = function(table, data, callback) {
     callback(error);
   });
   query.on("end", function (result) {
-    //console.log("log: doUpdateTable query end Responded1 with ", result, "\n"); 
-    console.log("log: doUpdateTable query end Responded with ", result.rowCount , "\n"); 
+    //console.log("log: doUpdateTable query end Responded1 with ", result, "\n");
+    if( result ) {
+      console.log("log: doUpdateTable query end Responded with ", result.rowCount, "\n");
+    }
     callback(null, result);
   });
 };

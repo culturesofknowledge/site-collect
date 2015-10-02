@@ -424,9 +424,14 @@ $(document).ready(function() {
 								console.log( 'Upload finished of '+ uploadName  );
 								$("#uploading").dialog("open").html("Upload complete!");
 							},
-							error: function(/*nButton, oConfig, oFlash, sFlash*/ ) {
-								console.log( 'Upload ERRORED! '+ uploadName  );
-								$("#uploading").dialog("open").html("Upload Errored - please seek advice.");
+							error: function(response/*nButton, oConfig, oFlash, sFlash*/ ) {
+								var message = "Unknown error";
+								if( response && response.responseJSON ) {
+									message = response.responseJSON.error;
+								}
+
+								console.error( 'Upload ERROR for ' + uploadName + ' : ' + message, response );
+								$("#uploading").dialog("open").html("Sorry, there has been an upload error - please seek advice.<br/><br/><small>" + message + "</small>");
 							}
 						});
 					},

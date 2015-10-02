@@ -10,6 +10,7 @@
               <option value="127.0.0.1:32768" />
             </list>
           </option>
+          <option name="userDatabase" value="emlo-edit" />
         </ServerConfiguration>
       </list>
     </option>

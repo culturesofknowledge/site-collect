@@ -6,6 +6,8 @@ var _       = require('underscore');
 // Postgresql database
 var pg = require('pg');
 
+var EmloError = require("../lib/error.js");
+
 var doRecord = require('./emloload.inc/record.inc.js');
 
 var mm = require('../data/sql/emlo_ouls_sql1');
@@ -225,9 +227,10 @@ function doUpsertRepos(data, callback) {
   async.eachSeries(
     data.reposTab2,
     function (item, callback) {
-      console.log("\nrecord-20 -->",++i,"\t",item);
+      console.log("\nrecord-20 -->",i,"\t",item);
       data.item = item;
-      doUpsertRepo(data, callback);
+      doUpsertRepo(data, i, callback);
+      i++;
     },
     function (err) {
       if (err) { return callback(err) }
@@ -236,29 +239,34 @@ function doUpsertRepos(data, callback) {
     });
 }
 
-doUpsertRepo =  function(data, callback ) {
+doUpsertRepo =  function(data, pos, callback ) {
   console.log("\doUpsertRepo-21", data.item);
-  var query = {
-    //"institution_name": new RegExp('^'+req.params.search, "i"),  // case insensitive prefix
-    "upload_uuid"   : data.item[0].upload_uuid, 
-    "institution_id": data.item[0].institution_id 
-  };
-  console.log("\doUpsertRepo-23", data.item[0].union_institution_id);
-  Institution
-  .findOneAndUpdate(
-    query,
-    { $set: data.item[0] },
-    {upsert:true},
-    function(err, result) {
-      console.log("\ndoUpsertRepo-22 after update ", result, " err ", err);
-      if (err) {
-        return callback(err) ;
-      } else {
-        console.log("\ndoUpsertRepo-23 b4 callback " , result);
-        callback(null, result );
-      }
-    }
-  );
+  if (data.item[0]) {
+    var query = {
+      //"institution_name": new RegExp('^'+req.params.search, "i"),  // case insensitive prefix
+      "upload_uuid": data.item[0].upload_uuid,
+      "institution_id": data.item[0].institution_id
+    };
+    console.log("\doUpsertRepo-23", data.item[0].union_institution_id);
+    Institution
+        .findOneAndUpdate(
+        query,
+        {$set: data.item[0]},
+        {upsert: true},
+        function (err, result) {
+          console.log("\ndoUpsertRepo-22 after update ", result, " err ", err);
+          if (err) {
+            return callback(err);
+          } else {
+            console.log("\ndoUpsertRepo-23 b4 callback ", result);
+            callback(null, result);
+          }
+        }
+    );
+  }
+  else {
+    return callback( new EmloError( "Repository with id:" + data.reposTab[pos-1] + " not found" ) );
+  }
 };
 
 module.exports = doRepositories;

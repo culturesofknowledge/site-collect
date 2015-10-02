@@ -464,10 +464,10 @@ $(document).ready(function() {
 	//var colvis = new $.fn.dataTable.ColVis( $('#workTable') );
 	//$( colvis.button() ).addClass("DTTT_button DTTT_button_text").insertAfter('#ToolTables_workTable_6');
 
-	if ( username !== 'cofkmat') {
-		// TODO: This is temporary to hide but maybe only certain users should be able to upload?
-		$("#ToolTables_workTable_2").hide();
-	}
+	//if ( username !== 'cofkmat') {
+	//	// TODO: This is temporary to hide but maybe only certain users should be able to upload?
+	//	$("#ToolTables_workTable_2").hide();
+	//}
 
 	$("#uploading").dialog({
 		hide: 'slide',

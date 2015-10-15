@@ -1,0 +1,34 @@
+extends layout
+block headjs
+	script(type="text/javascript").
+		var uploadName = "#{uploadName}",
+				uploadUuid = "#{uploadUuid}",
+				fullname = "#{name}",
+				email = "#{email}",
+				username = "#{username}",
+				userID = "#{userID }";
+block content
+	// DATATABLE
+	p
+	div#buttonbar
+		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/details",class="back DTTT_button DTTT_button_text")
+			span Back...
+
+	#workTableDiv
+		table#workTable
+
+			thead
+				tr
+					th Work ID
+					th Manifestation ID
+					th Type
+					th Repository ID
+					th Id number / Shelfmark
+					th Printer Edition Details
+					th Notes
+
+			tbody
+	// /DATATABLE
+	//include inform-page
+block footjs
+	script(src='/javascripts/work-manifestations.js')

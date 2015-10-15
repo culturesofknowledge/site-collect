@@ -179,14 +179,9 @@ $(document).ready(function() {
 			{
 				data: null,
 				className: "center",
-				render: function ( data /*, type, row*/ ) {
-					// If upload has no works permit delete
-					//var editfield = '<a href="/work/work/' + data.upload_name + '/' + data.iwork_id ;
+				render: function ( data  ) {
 					var editfield = '<a href="/work/work/edit/' + data._id  ;
 					editfield += '" class="editor_edit">' + data.iwork_id + '</a>';
-					//if ( data.manifestations == null ) {
-					//  editfield +='/ <a href="" class="editor_remove">Delete</a>';
-					//}
 					return editfield;
 				}//,
 				//sortable:false

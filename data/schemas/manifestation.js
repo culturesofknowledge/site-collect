@@ -34,6 +34,17 @@ manifestationSchema.statics.findByUploadWorkID = function (uploadUuid, workID ,c
     callback);
 };
 
+
+manifestationSchema.statics.findByUploadID = function (uploadUuid, callback) {
+  this.find(
+      { upload_uuid: uploadUuid },
+      {},
+      {sort: 'iwork_id'},
+      callback)
+	//.populate("repository_id") // DAMMIT - can't populate because doesn't store _id field but respoitory_id field
+	;
+};
+
 manifestationSchema.index({ upload_uuid: 1, iwork_id: 1 }, { unique: true })
 
 module.exports = manifestationSchema;

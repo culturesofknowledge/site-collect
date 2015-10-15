@@ -36,8 +36,7 @@ width:600px !important;
 
 }
 
-#buttonbar .back,
-#workTableDiv .back,
+#buttonbar .manifestations,
 #workTableDiv .delete,
 #workTableDiv .export {
     margin-right: 20px;

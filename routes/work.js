@@ -43,6 +43,21 @@ router.route('/byupload/:upload_uuid/:uploadName/details')
       });
     });
 
+router.route('/byupload/:upload_uuid/:uploadName/manifestations')
+    .get(function (req, res) {
+      console.log("router.route('/byupload/:upload_uuid/:uploadName/manifestations')");
+      res.render('upload-page-manifestations', {
+        loggedIn : req.session.loggedIn,
+        title:      req.params.uploadName + " Dataset",
+        uploadName :  req.params.uploadName,
+        uploadUuid :  req.params.upload_uuid,
+        name:       req.session.user.name,
+        email:      req.session.user.email,
+        username:   req.session.user.username,
+        userID:     req.session.user._id
+      });
+    });
+
 // GET Works by uploadName
 // on routes that end in /works/:upload_name
 // ----------------------------------------------------
@@ -277,7 +292,7 @@ router.route('/work/edit/:work_id')
     }
   }
 });
-    
+
 // WORK PERSON =======================================
 /**/
 // Handle missing and/or deselected checkboxes as false
@@ -516,6 +531,33 @@ router.route('/manifestation/:upload/:work_id')
     res.json({"status":"error", "error":"No uploadName and/or workId supplied"});
   }
 });
+
+router.route('/manifestation/:upload')
+	.get(function (req, res) {
+		console.log("log: Getting manifestations for work", req.params);
+		if (req.params.upload ){
+			Manifestation.findByUploadID(
+				req.params.upload,
+				function (err, manifestations) {
+					if(!err){
+						console.log(manifestations);
+						res.json({
+							draw            : req.query.draw,
+							recordsTotal    : manifestations.length,
+							recordsFiltered : manifestations.length,
+							data : manifestations
+						});
+					}else{
+						console.log(err);
+						res.json({"status":"error", "error":"Error finding manifestations"});
+					}
+				}
+			);
+		}else{
+			console.log("log: No uploadName  supplied");
+			res.json({"status":"error", "error":"No uploadName supplied"});
+		}
+	});
 
 // on routes that end in /manifestation
 // ----------------------------------------------------

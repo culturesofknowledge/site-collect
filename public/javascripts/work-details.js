@@ -4,6 +4,8 @@ var work_editor; // use a global for the submit and return data rendering in the
 $(document).ready(function() {
 	console.log("readying work.js");
 
+	var showAllText = false;
+
 	// Populate the user table on initial page load
 	// populateTable();
 
@@ -161,7 +163,19 @@ $(document).ready(function() {
 				"sSearch_1" : ""
 			}
 		},
-		columns: [
+			bAutoWidth : false,
+			autoWidth : false,
+
+			columns : [
+				{ width : "100px" },
+				{ width : "100px" },
+			],
+
+			///columnDefs: [
+				//{ "width": "200px", "targets": [1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29] }
+			//],
+
+			columns: [
 			{
 				data: null,
 				className: "center",
@@ -176,6 +190,8 @@ $(document).ready(function() {
 					return editfield;
 				}//,
 				//sortable:false
+				,
+				width:"100px"
 			},
 
 			//{ data: "iwork_id",className: "center", "defaultContent": ""  },
@@ -197,7 +213,9 @@ $(document).ready(function() {
 			{ data: null, render:function(row) {
 				return renderBoolean(row.authors_uncertain);
 			} , "defaultContent": ""  },
-			{ data: "notes_on_authors", "defaultContent": ""  },
+			{ data: "notes_on_authors", render:function(data) {
+				return renderShortableText(data);
+			}, "defaultContent": ""  },
 
 			//
 			// Addressees
@@ -217,7 +235,9 @@ $(document).ready(function() {
 			{ data:null, render: function(row) {
 				return renderBoolean(row.addressees_uncertain);
 			} , "defaultContent": ""  },
-			{ data: "notes_on_addressees", "defaultContent": ""  },
+			{ data: "notes_on_addressees", render:function(data) {
+				return renderShortableText(data);
+			}, "defaultContent": ""  },
 
 			//
 			// People mentioned
@@ -237,7 +257,9 @@ $(document).ready(function() {
 			{ data: "mentioned_uncertain", render:function(data) {
 				return renderBoolean(data);
 			}, "defaultContent": ""  },
-			{ data: "notes_on_people_mentioned", "defaultContent": ""  },
+			{ data: "notes_on_people_mentioned", render:function(data) {
+				return renderShortableText(data);
+			}, "defaultContent": ""  },
 
 			//
 			// Date from
@@ -274,7 +296,9 @@ $(document).ready(function() {
 				return renderBoolean(data);
 			}, "defaultContent": ""  },
 
-			{ data: "notes_on_date_of_work", "defaultContent": ""  },
+			{ data: "notes_on_date_of_work", render:function(data) {
+				return renderShortableText(data);
+			}, "defaultContent": ""  },
 
 			//
 			// Date To
@@ -309,7 +333,9 @@ $(document).ready(function() {
 			{ data: "origin_uncertain", render:function(data) {
 				return renderBoolean(data);
 			}, "defaultContent": ""  },
-			{ data: "notes_on_origin", "defaultContent": ""  },
+			{ data: "notes_on_origin", render:function(data) {
+				return renderShortableText(data);
+			}, "defaultContent": ""  },
 
 			//
 			// destination
@@ -327,7 +353,9 @@ $(document).ready(function() {
 			{ data: "destination_uncertain", render:function(data) {
 				return renderBoolean(data);
 			}, "defaultContent": ""  },
-			{ data: "notes_on_destination", "defaultContent": ""  },
+			{ data: "notes_on_destination", render:function(data) {
+				return renderShortableText(data);
+			}, "defaultContent": ""  },
 
 			//
 			// place mentioned
@@ -345,14 +373,28 @@ $(document).ready(function() {
 			{ data: "place_mentioned_uncertain", render:function(data) {
 				return renderBoolean(data);
 			}, "defaultContent": ""  },
-			{ data: "notes_on_place_mentioned", "defaultContent": ""  },
+			{ data: "notes_on_place_mentioned", render:function(data) {
+				return renderShortableText(data);
+			}, "defaultContent": ""  },
 
-			{ data: "abstract", "defaultContent": ""  },
-			{ data: "keywords", "defaultContent": ""  },
-			{ data: "incipit", "defaultContent": ""  },
-			{ data: "explicit", "defaultContent": ""  },
-			{ data: "notes_on_letter", "defaultContent": ""  },
-			{ data: "editors_notes", "defaultContent": ""  },
+			{ data: "abstract", render:function(data) {
+				return renderShortableText(data);
+			}, "defaultContent": ""  },
+			{ data: "keywords", render:function(data) {
+				return renderShortableText(data);
+			},  "defaultContent": ""  },
+			{ data: "incipit", render:function(data) {
+				return renderShortableText(data);
+			},  "defaultContent": ""  },
+			{ data: "explicit", render:function(data) {
+				return renderShortableText(data);
+			},  "defaultContent": ""  },
+			{ data: "notes_on_letter", render:function(data) {
+				return renderShortableText(data);
+			},  "defaultContent": ""  },
+			{ data: "editors_notes", render:function(data) {
+				return renderShortableText(data);
+			},  "defaultContent": ""  },
 
 			{ data: "languages", render:function(data) {
 				var langs = "";
@@ -382,12 +424,17 @@ $(document).ready(function() {
 			//{ data: "manifestations", "defaultContent": ""  },
 		],
 
+			/*
+			    BUTTONS
+			 */
+
 		tableTools: {
 			sRowSelect: "os",
 			sSwfPath: "/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
 			aButtons: [
 				{ sExtends: 'text',
 					sButtonText: 'New Work',
+					sButtonClass: "new-work",
 					fnClick: function () {
 						work_editor
 							.create(false)
@@ -404,61 +451,50 @@ $(document).ready(function() {
 				},
 				// { sExtends: "editor_edit",   editor: work_editor },
 
-				{ sExtends: "editor_remove", editor: work_editor },
+				{ sExtends: "editor_remove",
+					sButtonClass: "delete",
+					editor: work_editor
+				},
 
-				{ sExtends: "text",
+				/*{ sExtends: "text",
 					sButtonText: "Upload" ,
 					sFilename: uploadName ,
-					fnClick: function( nButton, oConfig ) {
-						console.log("nButton", nButton);
-						console.log("oConfig:", oConfig);
-						this.fnInfo( "My information button!"+ uploadName  );
-						$.ajax({
-							url:    "/emloload/flush/" + uploadUuid,
-							type:   'POST',
-							data:   {
-								"uploadName":uploadName,
-								"_id" :  uploadUuid
-							},
-							success: function(/*nButton, oConfig, oFlash, sFlash*/ ) {
-								console.log( 'Upload finished of '+ uploadName  );
-								$("#uploading").dialog("open").html("Upload complete!");
-							},
-							error: function(response/*nButton, oConfig, oFlash, sFlash*/ ) {
-								var message = "Unknown error";
-								if( response && response.responseJSON ) {
-									message = response.responseJSON.error;
-								}
-
-								console.error( 'Upload ERROR for ' + uploadName + ' : ' + message, response );
-								$("#uploading").dialog("open").html("Sorry, there has been an upload error - please seek advice.<br/><br/><small>" + message + "</small>");
-							}
-						});
-					},
-					"fnComplete": function ( /*nButton, oConfig, oFlash, sFlash*/ ) {
+					sButtonClass: "upload",
+					fnClick: upload,
+					"fnComplete": function (  ) {
 						console.log( 'Upload started of ' + uploadName  );
 
-						$("#uploading").dialog('open').html("Uploading your works...");
+
 					},
-					"fnInit": function ( /*nButton, oConfig*/ ) {
+					"fnInit": function (  ) {
 						console.log( 'Flush Button initialised'+ uploadName  );
 					}
-				},
+				},*/
 
 				{
 					sExtends: "collection",
-					sButtonText: "Export",
-					sButtonClass: "save-collection",
+					sButtonText: "Export table",
+					sButtonClass: "export",
 					aButtons: [ 'csv','copy' ] //, 'xls', 'pdf' ]
 				},
 
 				{
 					sExtends: "text",
-					sButtonText: "Back to Simple table...",
-					sFilename: uploadName,
-					fnClick: function () {
-						window.location = "/work/byupload/" + uploadUuid + "/" + uploadName;
+					sButtonText: "Limit text",
+					sButtonClass: "all-text",
+
+					fnClick: function() {
+						if( showAllText ) {
+							$(".shorten-text .text").show();
+							$(".shorten-text .hellip").hide();
+						}
+						else {
+							$(".shorten-text .text").hide();
+							$(".shorten-text .hellip").show();
+						}
+						showAllText = !showAllText;
 					}
+
 				}
 
 
@@ -482,69 +518,134 @@ $(document).ready(function() {
 		title: "Uploading..."
 	});
 
+	/*
+	 // Hiding columns is FAR to complex... why isn;'t everything easy :(
+	var columnsHide = {
+		"show-authors" : {
+			columns : [3, 4, 5, 6],
+			colgroup : 1
+		}
+	};
+	$(".show-columns").hide()
+		.on("click", function(){
+		var name = $(this).prop("name");
+		console.log(name);
+		if( $(this).prop("checked") ) {
+			console.log(" checked");
+
+			var cols = columnsHide[name]["columns"];
+			for(var i=0;i<cols.length;i++) {
+				$('th.sorting:nth-child(' + cols[i] + '),td:nth-child(' + cols[i] + ')').hide();
+			}
+		}
+		else {
+			console.log(" not checked");
+		}
+	});*/
+
+	// Functions =============================================================
+
+	function upload() {
+
+		$("#uploading").dialog('open').html("Uploading your works...");
+
+		$.ajax({
+			url:    "/emloload/flush/" + uploadUuid,
+			type:   'POST',
+			data:   {
+				"uploadName":uploadName,
+				"_id" :  uploadUuid
+			},
+			success: function(/*nButton, oConfig, oFlash, sFlash*/ ) {
+				console.log( 'Upload finished of '+ uploadName  );
+				$("#uploading").dialog("open").html("Upload complete!");
+			},
+			error: function(response/*nButton, oConfig, oFlash, sFlash*/ ) {
+				var message = "Unknown error";
+				if( response && response.responseJSON ) {
+					message = response.responseJSON.error;
+				}
+
+				console.error( 'Upload ERROR for ' + uploadName + ' : ' + message, response );
+				$("#uploading").dialog("open").html("Sorry, there has been an upload error - please seek advice.<br/><br/><small>" + message + "</small>");
+			}
+		});
+	}
+
+	function renderBoolean( value ) {
+		return (value) ? "yes" : "";
+	}
+
+	function renderPeopleNames( people ) {
+		var newVal = "";
+		$.each(people, function(key, obj){
+
+			newVal += " (" + obj.primary_name + ")";
+
+			if(key !== people.length-1 ) {
+				newVal += ";<br/>";
+			}
+		});
+		return newVal;
+	}
+	function renderPeopleIds( people ) {
+		var newVal = "";
+		$.each(people, function(key, obj){
+			if( obj.union_iperson_id ) {
+				newVal += obj.union_iperson_id;
+			}
+			else {
+				newVal += "new";
+			}
+
+			if(key !== people.length-1 ) {
+				newVal += ";<br/><br/>";
+			}
+		});
+		return newVal;
+	}
+
+	function renderPlacesIds( places ) {
+		var newVal = "";
+		$.each(places, function(key, obj){
+
+			if( obj.union_location_id ) {
+				newVal += obj.union_location_id;
+			}
+			else {
+				newVal += "new";
+			}
+
+			if(key !== places.length-1 ) {
+				newVal += ";<br/><br/>";
+			}
+		});
+		return newVal;
+	}
+	function renderPlacesNames( places ) {
+		var newVal = "";
+		$.each(places, function(key, obj){
+
+			newVal += " (" + obj.location_name + ")";
+
+			if(key !== places.length-1 ) {
+				newVal += ";<br/>";
+			}
+		});
+		return newVal;
+	}
+
+	function renderShortableText(text) {
+		if( text.length > 50 ) {
+			text = '<span class="shorten-text">'
+				+ text.substring(0,50)
+				+ '<span class="hellip">&hellip;</span>'
+				+ '<span class="text">'
+				+ text.substring(50)
+				+ '</span>'
+				+ '</span>';
+		}
+		return text;
+	}
 } );
 
-// Functions =============================================================
-
-function renderBoolean( value ) {
-	return (value) ? "yes" : "";
-}
-
-function renderPeopleNames( people ) {
-	var newVal = "";
-	$.each(people, function(key, obj){
-
-		newVal += " (" + obj.primary_name + ")";
-
-		if(key !== people.length-1 ) {
-			newVal += ";<br/>";
-		}
-	});
-	return newVal;
-}
-function renderPeopleIds( people ) {
-	var newVal = "";
-	$.each(people, function(key, obj){
-		if( obj.union_iperson_id ) {
-			newVal += obj.union_iperson_id;
-		}
-		else {
-			newVal += "new";
-		}
-
-		if(key !== people.length-1 ) {
-			newVal += ";<br/><br/>";
-		}
-	});
-	return newVal;
-}
-
-function renderPlacesIds( places ) {
-	var newVal = "";
-	$.each(places, function(key, obj){
-
-		if( obj.union_location_id ) {
-			newVal += obj.union_location_id;
-		}
-		else {
-			newVal += "new";
-		}
-
-		if(key !== places.length-1 ) {
-			newVal += ";<br/><br/>";
-		}
-	});
-	return newVal;
-}
-function renderPlacesNames( places ) {
-	var newVal = "";
-	$.each(places, function(key, obj){
-
-		newVal += " (" + obj.location_name + ")";
-
-		if(key !== places.length-1 ) {
-			newVal += ";<br/>";
-		}
-	});
-	return newVal;
-}

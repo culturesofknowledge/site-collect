@@ -36,8 +36,10 @@ width:600px !important;
 
 }
 
-#workTableDiv #ToolTables_workTable_1,
-#workTableDiv #ToolTables_workTable_3  {
+#buttonbar .back,
+#workTableDiv .back,
+#workTableDiv .delete,
+#workTableDiv .export {
     margin-right: 20px;
 }
 
@@ -96,4 +98,8 @@ button.DTTT_disabled:hover, div.DTTT_disabled:hover, a.DTTT_disabled:hover {
     cursor: pointer !important;
     border: 1px solid #D0D0D0;
     background: transparent -moz-linear-gradient(center top , #FFF 0%, #F9F9F9 89%, #FAFAFA 100%) repeat scroll 0% 0%;
+}
+
+input.show-columns {
+    margin-left: 5px;
 }

@@ -639,7 +639,7 @@ $(document).ready(function() {
 		if( text.length > 50 ) {
 			text = '<span class="shorten-text">'
 				+ text.substring(0,50)
-				+ '<span class="hellip">&hellip;</span>'
+				+ '<span class="hellip" style="display:none;">&hellip;</span>'
 				+ '<span class="text">'
 				+ text.substring(50)
 				+ '</span>'

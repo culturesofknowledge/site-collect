@@ -13,8 +13,10 @@ block headjs
   //script(type="text/javascript", src="/javascripts/user.js")
 
 block content
-  // DATATABLE
-  //a.editor_create New Work
+  br
+  a(href="/work/byupload/#{uploadUuid}/#{uploadName}/details",class="DTTT_button DTTT_button_text")
+    span Review...
+
   #workTableDiv
     table#workTable
       thead

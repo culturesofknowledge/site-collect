@@ -340,15 +340,16 @@ $(document).ready(function() {
               editor: work_editor
           },
 
-          {
+          /*{
               sExtends: "text",
               sButtonText: "Review...",
               sFilename: uploadName,
+	          sButtonClass : "Review"
 
               fnClick: function (nButton, oConfig) {
                   window.location = "/work/byupload/" + uploadUuid + "/" + uploadName + "/details";
               }
-          }
+          }*/
       ]
     }
   } );

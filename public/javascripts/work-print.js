@@ -381,10 +381,13 @@ $(document).ready(function() {
 				html += "<li>";
 
 				if( resource["resource_name"] || resource["resource_details"] || resource["resource_url"] ) {
-					html += "<ul>";
 					if( resource["resource_name"]  ) {
-						html += "<li>Name: " + resource["resource_name"] + "</li>";
+						html += "Name: " + resource["resource_name"];
 					}
+					else {
+						html += "No Name"
+					}
+					html += "<ul>";
 					if(  resource["resource_url"] ) {
 						html += "<li>Url: " + resource["resource_url"] + "</li>";
 					}
@@ -414,7 +417,6 @@ $(document).ready(function() {
 			}
 		}
 
-
 		if( matchingMans.length ) {
 
 			html += "<ul>";
@@ -422,9 +424,29 @@ $(document).ready(function() {
 				man = matchingMans[i];
 
 				html += "<li>";
-				html += man["manifestation_id"];
+				if( man["manifestation_id"]  ) {
+					html += "ID: " + man["manifestation_id"];
+				}
 
-				html += "</li>";
+				html += "<ul>";
+
+				if( man["manifestation_type"]  ) {
+					html += "<li>Type: " + man["manifestation_type"] + "</li>";
+				}
+				if( man["repository_id"]  ) {
+					html += "<li>Repository ID: " + man["repository_id"] + "</li>";
+				}
+				if( man["id_number_or_shelfmark"]  ) {
+					html += "<li>ID Number/Shelfmark: " + man["id_number_or_shelfmark"] + "</li>";
+				}
+				if( man["printed_edition_details"]  ) {
+					html += "<li>Printed Editions: " + man["printed_edition_details"] + "</li>";
+				}
+				if( man["manifestation_notes"]  ) {
+					html += "<li>Notes: " + man["manifestation_notes"] + "</li>";
+				}
+
+				html += "</ul></li>";
 			}
 			html += "</ul>";
 		}

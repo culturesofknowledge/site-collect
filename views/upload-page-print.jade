@@ -7,13 +7,22 @@ block headjs
 				email = "#{email}",
 				username = "#{username}",
 				userID = "#{userID}";
+
+
+
 block content
 	// DATATABLE
-	p
 	#buttonbar
+		p
+
 		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/details",class="back DTTT_button DTTT_button_text")
 			span Back...
-	p
+		br
+		br
+		a(href="javascript:window.print()",class="back DTTT_button DTTT_button_text")
+			span Print...
+		p
+
 	p Dataset: #{uploadName}
 	#printView
 

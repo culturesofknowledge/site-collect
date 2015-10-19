@@ -102,3 +102,27 @@ button.DTTT_disabled:hover, div.DTTT_disabled:hover, a.DTTT_disabled:hover {
 input.show-columns {
     margin-left: 5px;
 }
+
+
+@media print {
+    @page {
+        size:auto;
+        margin: 15mm 10mm;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    table {
+        border: 2px solid black;
+    }
+    tr {
+        border : 1px solid #444;
+    }
+    #navbar { display:none }
+    #buttonbar { display:none }
+
+    .f-topbar-fixed {
+        padding-top: 0;
+    }
+}

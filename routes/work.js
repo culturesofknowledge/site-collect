@@ -43,6 +43,21 @@ router.route('/byupload/:upload_uuid/:uploadName/details')
       });
     });
 
+router.route('/byupload/:upload_uuid/:uploadName/print')
+    .get(function (req, res) {
+      console.log("router.route('/byupload/:upload_uuid/:uploadName/print')");
+      res.render('upload-page-print', {
+        loggedIn : req.session.loggedIn,
+        title:      req.params.uploadName + " Dataset",
+        uploadName :  req.params.uploadName,
+        uploadUuid :  req.params.upload_uuid,
+        name:       req.session.user.name,
+        email:      req.session.user.email,
+        username:   req.session.user.username,
+        userID:     req.session.user._id
+      });
+    });
+
 router.route('/byupload/:upload_uuid/:uploadName/manifestations')
     .get(function (req, res) {
       console.log("router.route('/byupload/:upload_uuid/:uploadName/manifestations')");

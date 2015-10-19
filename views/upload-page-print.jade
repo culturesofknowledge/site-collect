@@ -1,0 +1,21 @@
+extends layout
+block headjs
+	script(type="text/javascript").
+		var uploadName = "#{uploadName}",
+				uploadUuid = "#{uploadUuid}",
+				fullname = "#{name}",
+				email = "#{email}",
+				username = "#{username}",
+				userID = "#{userID}";
+block content
+	// DATATABLE
+	p
+	#buttonbar
+		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/details",class="back DTTT_button DTTT_button_text")
+			span Back...
+	p
+	p Dataset: #{uploadName}
+	#printView
+
+block footjs
+	script(src='/javascripts/work-print.js')

@@ -35,7 +35,7 @@ $(document).ready(function() {
 					{ field : "iwork_id", display : "ID" },
 					{ field : "date_from", display : "Date from", template : templateDate },
 					{ field : "date_to", display : "Date to", template : templateDate },
-					{ field : "original_calendar", display : "Original Calendar" },
+					{ field : "original_calendar", display : "Original Calendar", template: templateCalendar },
 					{ field : "notes_on_date_of_work", display : "Notes on Date" },
 
 					{ field : "authors", display : "Authors", template : templatePeople },
@@ -66,6 +66,7 @@ $(document).ready(function() {
 
 					{ field : "keywords", display : "Keywords" },
 
+					{ field : "notes_on_letter", display : "Letter Notes" },
 					{ field : "editors_notes", display : "Editors Notes" }
 				];
 
@@ -165,6 +166,15 @@ $(document).ready(function() {
 			}
 
 			return html;
+		}
+		function templateCalendar( calendar ) {
+			if( calendar === "G") {
+				return "Gregorian";
+			}
+			else if(calendar === "J") {
+				return "Julian";
+			}
+			return "Unknown";
 		}
 
 		function templatePeople( people, field, work ) {
@@ -449,7 +459,7 @@ $(document).ready(function() {
 					html += "<ul>";
 
 					if( man["manifestation_type"]  ) {
-						html += "<li>Type: " + man["manifestation_type"] + "</li>";
+						html += "<li>Type: " + getManifestationNameFromType(man["manifestation_type"]) + " (" + man["manifestation_type"] + ")</li>";
 					}
 					if( man["repository_id"]  ) {
 						html += "<li>Repository: " + getRepositoryFromId(man["repository_id"]) + "</li>";
@@ -470,6 +480,19 @@ $(document).ready(function() {
 			}
 
 			return html;
+		}
+
+		function getManifestationNameFromType( type ) {
+			var typeName = {
+				ALS : "Letter",
+				D : "Draft",
+				E : "Extract",
+				O : "Other",
+				P : "Printed copy",
+				S : "Scribal copy"
+			}
+
+			return (type in typeName) ? typeName[type] : type;
 		}
 
 		function getRepositoryFromId( id ) {

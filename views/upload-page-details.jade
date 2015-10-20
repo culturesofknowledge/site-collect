@@ -14,13 +14,24 @@ block content
 	p
 	div#buttonbar
 		a(href="/work/byupload/#{uploadUuid}/#{uploadName}",class="back DTTT_button DTTT_button_text")
-			span Back...
+			span
+				i(class="fa fa-arrow-left")
+				|  Back...
+
 		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/manifestations",class="manifestations DTTT_button DTTT_button_text")
-			span Manifestations view...
+			span
+				i(class="fa fa-list-alt")
+				|  Manifestations view...
+
 		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/print",class="print DTTT_button DTTT_button_text")
-			span Print view...
+			span
+				i(class="fa fa-print")
+				|  Print view...
+
 		a(onclick="Upload()",class="upload DTTT_button DTTT_button_text")
-			span Upload
+			span
+				i(class="fa fa-upload")
+				|  Upload
 
 	- var authorColumns = 6;
 	- var recipientColumns = 6;

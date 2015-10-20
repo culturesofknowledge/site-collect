@@ -16,11 +16,15 @@ block content
 		p
 
 		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/details",class="back DTTT_button DTTT_button_text")
-			span Back...
+			span
+				i(class="fa fa-arrow-left")
+				|  Back...
 		br
 		br
 		a(href="javascript:window.print()",class="back DTTT_button DTTT_button_text")
-			span Print...
+			span
+				i(class="fa fa-print")
+				|  Print...
 		p
 
 	p Dataset: #{uploadName}

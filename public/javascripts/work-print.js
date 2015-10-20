@@ -5,7 +5,7 @@
 $(document).ready(function() {
 
 	var printViewDiv = $("#printView");
-	printViewDiv.append("<p>Loading...</p>");
+	printViewDiv.append('<p><i class="fa fa-circle-o-notch fa-spin"></i> Loading...</p>');
 
 	window.onerror=function() {
 		printViewDiv.append("<p>Sorry, there has been an error processing the data.</p>");
@@ -119,7 +119,7 @@ $(document).ready(function() {
 				html += '</div>';
 			}
 
-			printViewDiv.html(html);
+			//printViewDiv.html(html);
 
 
 		/*function templateGeneric( data, field, work, manifestations ) {

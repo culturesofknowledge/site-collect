@@ -475,7 +475,7 @@ $(document).ready(function() {
 
 				{
 					sExtends: "text",
-					sButtonText: "Limit text",
+					sButtonText: " Limit text",
 					sButtonClass: "all-text",
 
 					fnClick: function() {
@@ -488,6 +488,15 @@ $(document).ready(function() {
 							$(".shorten-text .hellip").show();
 						}
 						showAllText = !showAllText;
+						var iButton = $(".all-text i");
+						if( iButton.length === 0 ){
+							$(".all-text").prepend('<i class="fa fa-toggle-on"></i>');
+						}
+						else {
+							$(".all-text i")
+								.toggleClass("fa-toggle-on",showAllText)
+								.toggleClass("fa-toggle-off",!showAllText);
+						}
 					}
 
 				}

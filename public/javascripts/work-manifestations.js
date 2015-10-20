@@ -130,31 +130,6 @@ $(document).ready(function() {
 						sRowSelect: "os",
 						sSwfPath: "/DataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
 						aButtons: [
-							{
-								sExtends: 'text',
-								sButtonText: 'New Work',
-								sButtonClass: "new-work",
-								fnClick: function () {
-									work_editor
-										.create(false)
-										.set("date_of_work_std_year", "")
-										.set("date_of_work_std_month", "")
-										.set("date_of_work_std_day", "")
-										.set("date_of_work2_std_year", "")
-										.set("date_of_work2_std_month", "")
-										.set("date_of_work2_std_day", "")
-										.set('editor', userID)
-										.set('upload_uuid', uploadUuid)
-										.submit();
-								}
-							},
-							// { sExtends: "editor_edit",   editor: work_editor },
-
-							{
-								sExtends: "editor_remove",
-								sButtonClass: "delete",
-								editor: work_editor
-							},
 
 							/*{ sExtends: "text",
 							 sButtonText: "Upload" ,
@@ -180,7 +155,7 @@ $(document).ready(function() {
 
 							{
 								sExtends: "text",
-								sButtonText: "Limit text",
+								sButtonText: " Limit text",
 								sButtonClass: "all-text",
 
 								fnClick: function () {
@@ -192,7 +167,17 @@ $(document).ready(function() {
 										$(".shorten-text .text").hide();
 										$(".shorten-text .hellip").show();
 									}
+
 									showAllText = !showAllText;
+									var iButton = $(".all-text i");
+									if( iButton.length === 0 ){
+										$(".all-text").prepend('<i class="fa fa-toggle-on"></i>');
+									}
+									else {
+										$(".all-text i")
+											.toggleClass("fa-toggle-on",showAllText)
+											.toggleClass("fa-toggle-off",!showAllText);
+									}
 								}
 
 							}
@@ -218,31 +203,6 @@ $(document).ready(function() {
 				title: "Uploading..."
 			});
 
-			/*
-			 // Hiding columns is FAR to complex... why isn;'t everything easy :(
-			 var columnsHide = {
-			 "show-authors" : {
-			 columns : [3, 4, 5, 6],
-			 colgroup : 1
-			 }
-			 };
-			 $(".show-columns").hide()
-			 .on("click", function(){
-			 var name = $(this).prop("name");
-			 console.log(name);
-			 if( $(this).prop("checked") ) {
-			 console.log(" checked");
-
-			 var cols = columnsHide[name]["columns"];
-			 for(var i=0;i<cols.length;i++) {
-			 $('th.sorting:nth-child(' + cols[i] + '),td:nth-child(' + cols[i] + ')').hide();
-			 }
-			 }
-			 else {
-			 console.log(" not checked");
-			 }
-			 });*/
-
 			// Functions =============================================================
 
 			function repoNameFromId( id, repos ) {
@@ -254,33 +214,6 @@ $(document).ready(function() {
 
 				}
 				return id;
-			}
-
-			function upload() {
-
-				$("#uploading").dialog('open').html("Uploading your works...");
-
-				$.ajax({
-					url: "/emloload/flush/" + uploadUuid,
-					type: 'POST',
-					data: {
-						"uploadName": uploadName,
-						"_id": uploadUuid
-					},
-					success: function (/*nButton, oConfig, oFlash, sFlash*/) {
-						console.log('Upload finished of ' + uploadName);
-						$("#uploading").dialog("open").html("Upload complete!");
-					},
-					error: function (response/*nButton, oConfig, oFlash, sFlash*/) {
-						var message = "Unknown error";
-						if (response && response.responseJSON) {
-							message = response.responseJSON.error;
-						}
-
-						console.error('Upload ERROR for ' + uploadName + ' : ' + message, response);
-						$("#uploading").dialog("open").html("Sorry, there has been an upload error - please seek advice.<br/><br/><small>" + message + "</small>");
-					}
-				});
 			}
 
 			function renderBoolean(value) {

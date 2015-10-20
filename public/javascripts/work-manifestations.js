@@ -209,7 +209,7 @@ $(document).ready(function() {
 				console.log( repos );
 				for( var i=0; i < repos.length; i++ ) {
 					if( repos[i]["value"] == id ) {
-						return repos[i]["label"] + " : " + id;
+						return repos[i]["label"] + " : "+'<a href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?institution_id=' + id + '">' + id + "</a>";
 					}
 
 				}

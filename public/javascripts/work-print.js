@@ -5,6 +5,12 @@
 $(document).ready(function() {
 	console.log("readying work.js");
 
+	$("#printView").append("<p>Loading...</p>");
+
+	window.onerror=function() {
+		$("#printView").append("<p>Sorry, there has been an error processing the data.</p>");
+	};
+
 	$.when(
 		$.ajax( "/work/forupload/" + uploadUuid ),
 		$.ajax( "/work/manifestation/" + uploadUuid ),
@@ -13,9 +19,13 @@ $(document).ready(function() {
 	).done( function( works_data, manifestations_data, repositories_data, languages_data ) {
 
 			if( works_data[1] !== "success" || manifestations_data[1] !== "success" ) {
+
+				$("#printView").append("<p>Sorry, I can't access the data</p>");
 				console.error("Unable to get data from server");
 				return;
 			}
+
+			$("#printView").append("<p>Processing...</p>");
 
 			var works = works_data[0].data,
 				manifestations = manifestations_data[0].data,
@@ -111,7 +121,7 @@ $(document).ready(function() {
 				html += '</div>';
 			}
 
-			$("#printView").html(html);
+			//$("#printView").html(html);
 
 
 		/*function templateGeneric( data, field, work, manifestations ) {

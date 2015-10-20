@@ -3,12 +3,12 @@
  */
 
 $(document).ready(function() {
-	console.log("readying work.js");
 
-	$("#printView").append("<p>Loading...</p>");
+	var printViewDiv = $("#printView");
+	printViewDiv.append("<p>Loading...</p>");
 
 	window.onerror=function() {
-		$("#printView").append("<p>Sorry, there has been an error processing the data.</p>");
+		printViewDiv.append("<p>Sorry, there has been an error processing the data.</p>");
 	};
 
 	$.when(
@@ -25,7 +25,7 @@ $(document).ready(function() {
 				return;
 			}
 
-			$("#printView").append("<p>Processing...</p>");
+			printViewDiv.append("<p>Processing...</p>");
 
 			var works = works_data[0].data,
 				manifestations = manifestations_data[0].data,
@@ -85,8 +85,6 @@ $(document).ready(function() {
 					{ field : "editors_notes", display : "Editors Notes" }
 				];
 
-			console.log( works, manifestations );
-
 			var html = "";
 			for( var i=0; i<works.length; i++ ) {
 				var work = works[i];
@@ -121,7 +119,7 @@ $(document).ready(function() {
 				html += '</div>';
 			}
 
-			//$("#printView").html(html);
+			printViewDiv.html(html);
 
 
 		/*function templateGeneric( data, field, work, manifestations ) {

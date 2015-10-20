@@ -12,25 +12,30 @@ $(document).ready(function() {
 		$.ajax( "/autocomplete/language/initialise" )
 	).done( function( works_data, manifestations_data, repositories_data, languages_data ) {
 
-			console.log( works_data, manifestations_data, repositories_data );
-
 			if( works_data[1] !== "success" || manifestations_data[1] !== "success" ) {
 				console.error("Unable to get data from server");
 				return;
 			}
 
-			if( repositories_data !== "success" ) {
-				console.warn( "Unable to get repositoires at this time");
-			}
-			if( languages_data !== "success" ) {
-				console.warn( "Unable to get languages at this time");
-			}
-
 			var works = works_data[0].data,
 				manifestations = manifestations_data[0].data,
-				repositories = repositories_data[0].data,
-				languages = languages_data[0].data,
-				work_fields = [
+				repositories = [],
+				languages = [];
+
+			if( repositories_data[1] !== "success" ) {
+				console.warn( "Unable to get repositoires at this time");
+			}
+			else {
+				repositories = repositories_data[0].data;
+			}
+			if( languages_data[1] !== "success" ) {
+				console.warn( "Unable to get languages at this time");
+			}
+			else {
+				languages = languages_data[0].data;
+			}
+
+			var work_fields = [
 					{ field : "count", display : "Number"},
 					{ field : "iwork_id", display : "ID" },
 					{ field : "date_from", display : "Date from", template : templateDate },
@@ -490,7 +495,7 @@ $(document).ready(function() {
 				O : "Other",
 				P : "Printed copy",
 				S : "Scribal copy"
-			}
+			};
 
 			return (type in typeName) ? typeName[type] : type;
 		}

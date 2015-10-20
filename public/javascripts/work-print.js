@@ -7,18 +7,29 @@ $(document).ready(function() {
 
 	$.when(
 		$.ajax( "/work/forupload/" + uploadUuid ),
-		$.ajax( "/work/manifestation/" + uploadUuid )
-	).done( function( works_data, manifestations_data ) {
+		$.ajax( "/work/manifestation/" + uploadUuid ),
+		$.ajax( "/autocomplete/repository/" + uploadUuid + "/" + uploadUuid ),
+		$.ajax( "/autocomplete/language/initialise" )
+	).done( function( works_data, manifestations_data, repositories_data, languages_data ) {
 
-			console.log( works_data, manifestations_data );
+			console.log( works_data, manifestations_data, repositories_data );
 
 			if( works_data[1] !== "success" || manifestations_data[1] !== "success" ) {
 				console.error("Unable to get data from server");
 				return;
 			}
 
+			if( repositories_data !== "success" ) {
+				console.warn( "Unable to get repositoires at this time");
+			}
+			if( languages_data !== "success" ) {
+				console.warn( "Unable to get languages at this time");
+			}
+
 			var works = works_data[0].data,
 				manifestations = manifestations_data[0].data,
+				repositories = repositories_data[0].data,
+				languages = languages_data[0].data,
 				work_fields = [
 					{ field : "count", display : "Number"},
 					{ field : "iwork_id", display : "ID" },
@@ -55,7 +66,7 @@ $(document).ready(function() {
 
 					{ field : "keywords", display : "Keywords" },
 
-					{ field : "editors_notes", display : "Editors Notes" },
+					{ field : "editors_notes", display : "Editors Notes" }
 				];
 
 			console.log( works, manifestations );
@@ -72,7 +83,7 @@ $(document).ready(function() {
 						value;
 
 					if( "template" in field ) {
-						value = field["template"]( work[field_name],field_name, work, manifestations )
+						value = field["template"]( work[field_name], field_name, work, manifestations );
 					}
 					else if( field_name === "count" ) {
 						value = templateDefault( i+1 );
@@ -97,360 +108,382 @@ $(document).ready(function() {
 			$("#printView").html(html);
 
 
-	});
+		/*function templateGeneric( data, field, work, manifestations ) {
+			var html = ""; // Return empty string if nothing to output.
 
-	function templateGeneric( data, field, work, manigestations ) {
-		var html = ""; // Return empty string if nothing to output.
+			// Specific code here.
 
-		// Specific code here.
+			return html;
+		}*/
 
-		return html;
-	}
+		function templateDefault( data ) {
+			return data + "";
+		}
 
-	function templateDefault( data ) {
-		return data + "";
-	}
+		function templateDate( data, field, work ) {
+			var html = "";
+			if( field === "date_from" ) {
 
-	function templateDate( data, field, work ) {
-		var html = "";
-		if( field === "date_from" ) {
+				html += templateDateFormat( work["date_of_work_std_year"],work["date_of_work_std_month"],work["date_of_work_std_day"],
+					work["date_of_work_approx"], work["date_of_work_inferred"], work["date_of_work_uncertain"]);
 
-			html += templateDateFormat( work["date_of_work_std_year"],work["date_of_work_std_month"],work["date_of_work_std_day"],
-				work["date_of_work_approx"], work["date_of_work_inferred"], work["date_of_work_uncertain"]);
+				html += "<br/>";
 
-			html += "<br/>";
+				if( work["date_of_work_as_marked"] !== "" ) {
+					html += 'As marked: "' + work["date_of_work_as_marked"] + '"';
+				}
 
-			if( work["date_of_work_as_marked"] !== "" ) {
-				html += 'As marked: "' + work["date_of_work_as_marked"] + '"';
+			}
+			else if( field === "date_to" ) {
+				html += templateDateFormat( work["date_of_work2_std_year"],work["date_of_work2_std_month"],work["date_of_work2_std_day"],
+					work["date_of_work2_approx"], work["date_of_work2_inferred"], work["date_of_work2_uncertain"]);
+			}
+			else {
+				console.error("Don't understand date! " + field );
+				html = "Unknown data";
 			}
 
-		}
-		else if( field === "date_to" ) {
-			html += templateDateFormat( work["date_of_work2_std_year"],work["date_of_work2_std_month"],work["date_of_work2_std_day"],
-				work["date_of_work2_approx"], work["date_of_work2_inferred"], work["date_of_work2_uncertain"]);
-		}
-		else {
-			console.error("Don't understand date! " + field );
-			html = "Unknown data";
+			return html;
 		}
 
-		return html;
-	}
+		function templateDateFormat( year, month, day, approx, inferred, uncertain) {
 
-	function templateDateFormat( year, month, day, approx, inferred, uncertain) {
+			var html = "";
 
-		var html = "";
-
-		if( year || month || day ) {
-			html += (year ? year : "-") + " / "
-				+ (month ? month : "-") + " / "
-				+ (day ? day : "-") + "";
-		}
-
-		if( approx || inferred || uncertain ) {
-			html += " (";
-			html += (approx) ? "approx " : "";
-			html += (inferred) ? "inferred " : "";
-			html += (uncertain) ? "uncertain " : "";
-			html += ")";
-		}
-
-		return html;
-	}
-
-	function templatePeople( people, field, work ) {
-
-		var html = "";
-
-		if( people.length ) {
-
-			var asMarkedField = field + "_as_marked",
-			    inferredField = field + "_inferred",
-			    uncertainField = field + "_uncertain";
-
-			if( work[asMarkedField]) {
-				html += 'As marked: "' + work[asMarkedField] + '"';
+			if( year || month || day ) {
+				html += (year ? year : "-") + " / "
+					+ (month ? month : "-") + " / "
+					+ (day ? day : "-") + "";
 			}
 
-			if( work[inferredField] || work[uncertainField] ) {
+			if( approx || inferred || uncertain ) {
 				html += " (";
-				html += (work[inferredField]) ? "inferred " : "";
-				html += (work[uncertainField]) ? "uncertain " : "";
+				html += (approx) ? "approx " : "";
+				html += (inferred) ? "inferred " : "";
+				html += (uncertain) ? "uncertain " : "";
 				html += ")";
 			}
 
-			if( work[asMarkedField] || work[inferredField] || work[uncertainField] ) {
-				html += "<br/>";
-			}
-
-			html += '<ul>';
-			for (var i = 0; i < people.length; i++) {
-				var person = people[i];
-
-				html += '<li>';
-
-				html += person["primary_name"] + " (" + person["name"] + ")";
-				html += '<br/>';
-
-				if( person["union_iperson_id"] ) {
-					//html += 'ID: ' + '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?iperson_id=' + person["union_iperson_id"] + '">' + person["union_iperson_id"] + "</a>";
-					html += 'ID: ' + person["union_iperson_id"];
-				}
-				else {
-					html += "New person:<br/>";
-
-					html += "<ul>";
-
-					if( person["date_of_birth_year"] ) {
-						html += '<li>Birth: ' + person["date_of_birth_year"] + '</li>';
-					}
-					if( person["date_of_death_year"] ) {
-						html += '<li>Death: ' + person["date_of_death_year"] + '</li>';
-					}
-					if( person["flourished_year"] ) {
-						html += '<li>Flourished from: ' + person["flourished_year"] + '</li>';
-					}
-					if( person["flourished2_year"] ) {
-						html += '<li>Flourished to: ' + person["flourished2_year"] + '</li>';
-					}
-					if( person["gender"] ) {
-						html += '<li>Gender: ';
-						if( person["gender"] === "M" ) {
-							html += "Male";
-						}
-						else if( person["gender"] === "F" ) {
-							html += "Female";
-						}
-						else {
-							html += "Other/Unknown"
-						}
-
-						html += '</li>';
-					}
-					if( person["notes_on_person"] ) {
-						html += '<li>Notes on person: ' + person["notes_on_person"] + '</li>';
-					}
-					if( person["editors_notes"] ) {
-						html += '<li>Editor notes: ' + person["editors_notes"] + '</li>';
-					}
-
-
-					html += "</ul>";
-				}
-
-
-
-				html += '</li>';
-			}
-			html += '</ul>';
-
+			return html;
 		}
 
-		return html;
-	}
+		function templatePeople( people, field, work ) {
 
-	function templatePlaces( places, field, work ) {
+			var html = "";
 
-		var html = "";
+			if( people.length ) {
 
-		if( places.length ) {
+				var asMarkedField = field + "_as_marked",
+				    inferredField = field + "_inferred",
+				    uncertainField = field + "_uncertain";
 
-			var asMarkedField = field.replace("_id","") + "_as_marked",
-				inferredField = field.replace("_id","") + "_inferred",
-				uncertainField = field.replace("_id","") + "_uncertain";
-
-			if( work[asMarkedField]) {
-				html += 'As marked: "' + work[asMarkedField] + '"';
-			}
-
-			if( work[inferredField] || work[uncertainField] ) {
-				html += " (";
-				html += (work[inferredField]) ? "inferred " : "";
-				html += (work[uncertainField]) ? "uncertain " : "";
-				html += ")";
-			}
-
-			if( work[asMarkedField] || work[inferredField] || work[uncertainField] ) {
-				html += "<br/>";
-			}
-
-			html += '<ul>';
-			for (var i = 0; i < places.length; i++) {
-				var place = places[i];
-
-				html += '<li>';
-
-				html += place["location_name"];
-				html += '<br/>';
-
-				if( place["union_location_id"] ) {
-					//html += 'ID: ' + '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?location_id=' + person["union_iperson_id"] + '">' + person["union_iperson_id"] + "</a>";
-					html += 'ID: ' + place["union_location_id"];
-				}
-				else {
-					html += "New place:<br/>";
-
-					html += "<ul>";
-
-					if( place["location_synonyms"] ) {
-						html += '<li>Synonyms: ' + place["location_synonyms"] + '</li>';
-					}
-					if( place["room"] ) {
-						html += '<li>Room: ' + place["room"] + '</li>';
-					}
-					if( place["building"] ) {
-						html += '<li>Building: ' + place["building"] + '</li>';
-					}
-					if( place["parish"] ) {
-						html += '<li>Parish: ' + place["parish"] + '</li>';
-					}
-					if( place["city"] ) {
-						html += '<li>City: ' + place["city"] + '</li>';
-					}
-					if( place["county"] ) {
-						html += '<li>County: ' + place["county"] + '</li>';
-					}
-					if( place["country"] ) {
-						html += '<li>Country: ' + place["country"] + '</li>';
-					}
-					if( place["parish"] ) {
-						html += '<li>Parish: ' + place["parish"] + '</li>';
-					}
-					if( place["empire"] ) {
-						html += '<li>Empire: ' + place["empire"] + '</li>';
-					}
-					if( place["room"] ) {
-						html += '<li>Room: ' + place["room"] + '</li>';
-					}
-					if( place["latitude"] ) {
-						html += '<li>Latitude: ' + place["latitude"] + '</li>';
-					}
-					if( place["longitude"] ) {
-						html += '<li>Longitude: ' + place["longitude"] + '</li>';
-					}
-					if( place["editors_notes"] ) {
-						html += '<li>Editor Notes: ' + place["editors_notes"] + '</li>';
-					}
-
-
-					html += "</ul>";
+				if( work[asMarkedField]) {
+					html += 'As marked: "' + work[asMarkedField] + '"';
 				}
 
-
-
-				html += '</li>';
-			}
-			html += '</ul>';
-
-		}
-
-		return html;
-	}
-
-	function templateLanguages( languages ) {
-		var html = "";
-		if( languages.length ) {
-			html += "<ul>";
-			for (var i = 0; i < languages.length; i++) {
-
-				var language = languages[i];
-				html += "<li>";
-				if (language["language_name"]) {
-					html += language["language_name"];
+				if( work[inferredField] || work[uncertainField] ) {
+					html += " (";
+					html += (work[inferredField]) ? "inferred " : "";
+					html += (work[uncertainField]) ? "uncertain " : "";
+					html += ")";
 				}
-				if (language["language_code"]) {
-					html += " " + language["language_code"];
+
+				if( work[asMarkedField] || work[inferredField] || work[uncertainField] ) {
+					html += "<br/>";
 				}
-				if (language["language_note"]) {
-					html += " " + language["language_note"];
-				}
-				html += "</li>";
-			}
-			html += "</ul>";
-		}
-		return html;
-	}
 
-	function templateResources( resources ) {
-		var html = "";
+				html += '<ul>';
+				for (var i = 0; i < people.length; i++) {
+					var person = people[i];
 
-		if( resources.length ) {
-			html += "<ul>";
-			for (var i = 0; i < resources.length; i++) {
-				var resource = resources[i];
-				html += "<li>";
+					html += '<li>';
 
-				if( resource["resource_name"] || resource["resource_details"] || resource["resource_url"] ) {
-					if( resource["resource_name"]  ) {
-						html += "Name: " + resource["resource_name"];
+					html += person["primary_name"] + " (" + person["name"] + ")";
+					html += '<br/>';
+
+					if( person["union_iperson_id"] ) {
+						//html += 'ID: ' + '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?iperson_id=' + person["union_iperson_id"] + '">' + person["union_iperson_id"] + "</a>";
+						html += 'ID: ' + person["union_iperson_id"];
 					}
 					else {
-						html += "No Name"
-					}
-					html += "<ul>";
-					if(  resource["resource_url"] ) {
-						html += "<li>Url: " + resource["resource_url"] + "</li>";
-					}
-					if( resource["resource_details"] ) {
-						html += "<li>Details: " + resource["resource_details"] + "</li>";
+						html += "New person:<br/>";
+
+						html += "<ul>";
+
+						if( person["date_of_birth_year"] ) {
+							html += '<li>Birth: ' + person["date_of_birth_year"] + '</li>';
+						}
+						if( person["date_of_death_year"] ) {
+							html += '<li>Death: ' + person["date_of_death_year"] + '</li>';
+						}
+						if( person["flourished_year"] ) {
+							html += '<li>Flourished from: ' + person["flourished_year"] + '</li>';
+						}
+						if( person["flourished2_year"] ) {
+							html += '<li>Flourished to: ' + person["flourished2_year"] + '</li>';
+						}
+						if( person["gender"] ) {
+							html += '<li>Gender: ';
+							if( person["gender"] === "M" ) {
+								html += "Male";
+							}
+							else if( person["gender"] === "F" ) {
+								html += "Female";
+							}
+							else {
+								html += "Other/Unknown"
+							}
+
+							html += '</li>';
+						}
+						if( person["notes_on_person"] ) {
+							html += '<li>Notes on person: ' + person["notes_on_person"] + '</li>';
+						}
+						if( person["editors_notes"] ) {
+							html += '<li>Editor notes: ' + person["editors_notes"] + '</li>';
+						}
+
+
+						html += "</ul>";
 					}
 
-					html += "</ul>";
+
+
+					html += '</li>';
 				}
+				html += '</ul>';
 
-				html += "</li>";
 			}
-			html += "</ul>";
+
+			return html;
 		}
 
-		return html;
-	}
+		function templatePlaces( places, field, work ) {
 
-	function templateManifestations( data, field, work, manifestations ) {
-		var html = "";
+			var html = "";
 
-		var matchingMans = [], man;
-		for( var i = 0; i<manifestations.length; i++ ) {
-			man = manifestations[i];
-			if( man["iwork_id"] === work["iwork_id"] ) {
-				matchingMans.push( man );
+			if( places.length ) {
+
+				var asMarkedField = field.replace("_id","") + "_as_marked",
+					inferredField = field.replace("_id","") + "_inferred",
+					uncertainField = field.replace("_id","") + "_uncertain";
+
+				if( work[asMarkedField]) {
+					html += 'As marked: "' + work[asMarkedField] + '"';
+				}
+
+				if( work[inferredField] || work[uncertainField] ) {
+					html += " (";
+					html += (work[inferredField]) ? "inferred " : "";
+					html += (work[uncertainField]) ? "uncertain " : "";
+					html += ")";
+				}
+
+				if( work[asMarkedField] || work[inferredField] || work[uncertainField] ) {
+					html += "<br/>";
+				}
+
+				html += '<ul>';
+				for (var i = 0; i < places.length; i++) {
+					var place = places[i];
+
+					html += '<li>';
+
+					html += place["location_name"];
+					html += '<br/>';
+
+					if( place["union_location_id"] ) {
+						//html += 'ID: ' + '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?location_id=' + person["union_iperson_id"] + '">' + person["union_iperson_id"] + "</a>";
+						html += 'ID: ' + place["union_location_id"];
+					}
+					else {
+						html += "New place:<br/>";
+
+						html += "<ul>";
+
+						if( place["location_synonyms"] ) {
+							html += '<li>Synonyms: ' + place["location_synonyms"] + '</li>';
+						}
+						if( place["room"] ) {
+							html += '<li>Room: ' + place["room"] + '</li>';
+						}
+						if( place["building"] ) {
+							html += '<li>Building: ' + place["building"] + '</li>';
+						}
+						if( place["parish"] ) {
+							html += '<li>Parish: ' + place["parish"] + '</li>';
+						}
+						if( place["city"] ) {
+							html += '<li>City: ' + place["city"] + '</li>';
+						}
+						if( place["county"] ) {
+							html += '<li>County: ' + place["county"] + '</li>';
+						}
+						if( place["country"] ) {
+							html += '<li>Country: ' + place["country"] + '</li>';
+						}
+						if( place["parish"] ) {
+							html += '<li>Parish: ' + place["parish"] + '</li>';
+						}
+						if( place["empire"] ) {
+							html += '<li>Empire: ' + place["empire"] + '</li>';
+						}
+						if( place["room"] ) {
+							html += '<li>Room: ' + place["room"] + '</li>';
+						}
+						if( place["latitude"] ) {
+							html += '<li>Latitude: ' + place["latitude"] + '</li>';
+						}
+						if( place["longitude"] ) {
+							html += '<li>Longitude: ' + place["longitude"] + '</li>';
+						}
+						if( place["editors_notes"] ) {
+							html += '<li>Editor Notes: ' + place["editors_notes"] + '</li>';
+						}
+
+
+						html += "</ul>";
+					}
+
+
+
+					html += '</li>';
+				}
+				html += '</ul>';
+
 			}
+
+			return html;
 		}
 
-		if( matchingMans.length ) {
+		function templateLanguages( languages ) {
+			var html = "";
+			if( languages.length ) {
+				html += "<ul>";
+				for (var i = 0; i < languages.length; i++) {
 
-			html += "<ul>";
-			for( i = 0; i<matchingMans.length; i++ ) {
-				man = matchingMans[i];
-
-				html += "<li>";
-				if( man["manifestation_id"]  ) {
-					html += "ID: " + man["manifestation_id"];
+					var language = languages[i];
+					html += "<li>";
+					if (language["language_name"]) {
+						html += language["language_name"];
+					}
+					if (language["language_code"]) {
+						html += " " + getLanguageFromCode(language["language_code"]);
+					}
+					if (language["language_note"]) {
+						html += " " + language["language_note"];
+					}
+					html += "</li>";
 				}
+				html += "</ul>";
+			}
+			return html;
+		}
+
+		function getLanguageFromCode( code ) {
+			for( var i=0; i<languages.length; i++ ) {
+				if( languages[i]["language_code"] == code ) {
+					return languages[i]["language_name"];
+				}
+			}
+			return code;
+		}
+
+		function templateResources( resources ) {
+			var html = "";
+
+			if( resources.length ) {
+				html += "<ul>";
+				for (var i = 0; i < resources.length; i++) {
+					var resource = resources[i];
+					html += "<li>";
+
+					if( resource["resource_name"] || resource["resource_details"] || resource["resource_url"] ) {
+						if( resource["resource_name"]  ) {
+							html += "Name: " + resource["resource_name"];
+						}
+						else {
+							html += "No Name"
+						}
+						html += "<ul>";
+						if(  resource["resource_url"] ) {
+							html += "<li>Url: " + resource["resource_url"] + "</li>";
+						}
+						if( resource["resource_details"] ) {
+							html += "<li>Details: " + resource["resource_details"] + "</li>";
+						}
+
+						html += "</ul>";
+					}
+
+					html += "</li>";
+				}
+				html += "</ul>";
+			}
+
+			return html;
+		}
+
+		function templateManifestations( data, field, work, manifestations ) {
+			var html = "";
+
+			var matchingMans = [], man;
+			for( var i = 0; i<manifestations.length; i++ ) {
+				man = manifestations[i];
+				if( man["iwork_id"] === work["iwork_id"] ) {
+					matchingMans.push( man );
+				}
+			}
+
+			if( matchingMans.length ) {
 
 				html += "<ul>";
+				for( i = 0; i<matchingMans.length; i++ ) {
+					man = matchingMans[i];
 
-				if( man["manifestation_type"]  ) {
-					html += "<li>Type: " + man["manifestation_type"] + "</li>";
-				}
-				if( man["repository_id"]  ) {
-					html += "<li>Repository ID: " + man["repository_id"] + "</li>";
-				}
-				if( man["id_number_or_shelfmark"]  ) {
-					html += "<li>ID Number/Shelfmark: " + man["id_number_or_shelfmark"] + "</li>";
-				}
-				if( man["printed_edition_details"]  ) {
-					html += "<li>Printed Editions: " + man["printed_edition_details"] + "</li>";
-				}
-				if( man["manifestation_notes"]  ) {
-					html += "<li>Notes: " + man["manifestation_notes"] + "</li>";
-				}
+					html += "<li>";
+					if( man["manifestation_id"]  ) {
+						html += "ID: " + man["manifestation_id"];
+					}
 
-				html += "</ul></li>";
+					html += "<ul>";
+
+					if( man["manifestation_type"]  ) {
+						html += "<li>Type: " + man["manifestation_type"] + "</li>";
+					}
+					if( man["repository_id"]  ) {
+						html += "<li>Repository: " + getRepositoryFromId(man["repository_id"]) + "</li>";
+					}
+					if( man["id_number_or_shelfmark"]  ) {
+						html += "<li>ID Number/Shelfmark: " + man["id_number_or_shelfmark"] + "</li>";
+					}
+					if( man["printed_edition_details"]  ) {
+						html += "<li>Printed Editions: " + man["printed_edition_details"] + "</li>";
+					}
+					if( man["manifestation_notes"]  ) {
+						html += "<li>Notes: " + man["manifestation_notes"] + "</li>";
+					}
+
+					html += "</ul></li>";
+				}
+				html += "</ul>";
 			}
-			html += "</ul>";
+
+			return html;
 		}
 
-		return html;
-	}
+		function getRepositoryFromId( id ) {
+			for( var i=0; i<repositories.length; i++ ) {
+				if( repositories[i]["emloid"] == id ) {
+					var name = repositories[i]["label"];
+					if( repositories[i]["label2"].replace(/ /gi,"").replace(/\(/gi,"").replace(/\)/gi,"") ) { // some have just " (  )" in!
+						name += repositories[i]["label2"];
+					}
+					return name;
+				}
+			}
+			return code;
+		}
+
+	}); // when
 });

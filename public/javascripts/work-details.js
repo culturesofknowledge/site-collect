@@ -514,7 +514,7 @@ $(document).ready(function() {
 	//	$("#ToolTables_workTable_2").hide();
 	//}
 
-	$("#uploading").dialog({
+	$("#uploadingDialog").dialog({
 		hide: 'slide',
 		show: 'slide',
 		autoOpen: false,
@@ -551,7 +551,7 @@ $(document).ready(function() {
 
 	function upload() {
 
-		$("#uploading").dialog('open').html("Uploading your works...");
+		$("#uploadingDialog").dialog('open').html("Uploading your works...");
 
 		$.ajax({
 			url:    "/emloload/flush/" + uploadUuid,
@@ -562,7 +562,7 @@ $(document).ready(function() {
 			},
 			success: function(/*nButton, oConfig, oFlash, sFlash*/ ) {
 				console.log( 'Upload finished of '+ uploadName  );
-				$("#uploading").dialog("open").html("Upload complete!");
+				$("#uploadingDialog").dialog("open").html("Upload complete!");
 			},
 			error: function(response/*nButton, oConfig, oFlash, sFlash*/ ) {
 				var message = "Unknown error";
@@ -571,7 +571,7 @@ $(document).ready(function() {
 				}
 
 				console.error( 'Upload ERROR for ' + uploadName + ' : ' + message, response );
-				$("#uploading").dialog("open").html("Sorry, there has been an upload error - please seek advice.<br/><br/><small>" + message + "</small>");
+				$("#uploadingDialog").dialog("open").html("Sorry, there has been an upload error - please seek advice.<br/><br/><small>" + message + "</small>");
 			}
 		});
 	}
@@ -651,5 +651,9 @@ $(document).ready(function() {
 		}
 		return text;
 	}
+
+	window.emlocollect = {};
+	window.emlocollect.upload = upload;
+
 } );
 

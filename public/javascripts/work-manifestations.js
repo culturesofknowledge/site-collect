@@ -213,7 +213,11 @@ $(document).ready(function() {
 					}
 
 				}
-				return id;
+				if( id ) {
+					return "UNKNOWN : " + id;
+				}
+
+				return "";
 			}
 
 			function renderBoolean(value) {

@@ -119,7 +119,7 @@ $(document).ready(function() {
 				html += '</div>';
 			}
 
-			//printViewDiv.html(html);
+			printViewDiv.html(html);
 
 
 		/*function templateGeneric( data, field, work, manifestations ) {

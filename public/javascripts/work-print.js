@@ -401,7 +401,12 @@ $(document).ready(function() {
 					return languages[i]["language_name"];
 				}
 			}
-			return code;
+
+			if( languages.length === 0 ) {
+				return code;
+			}
+
+			return "UNKNOWN";
 		}
 
 		function templateResources( resources ) {
@@ -510,7 +515,12 @@ $(document).ready(function() {
 					return name;
 				}
 			}
-			return code;
+
+			if( repositories.length === 0 ) {
+				return id;
+			}
+
+			return "UNKNOWN";
 		}
 
 	}); // when

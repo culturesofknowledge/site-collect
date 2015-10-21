@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
+var async   = require('async');
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
@@ -214,26 +215,62 @@ router.route('/work/:work_id')
 
 // delete the work with this id
 .delete(function(req, res) {
-  Work.remove(
-    { _id: req.params.work_id },
-    function(err, work) {
-      if (err){
-        res.json(err);
-      } else {
-        // res.json({ message: 'Successfully deleted' });
-        Upload.update({ _id : work.upload_uuid},{ $inc:{total_works : -1} },  function (err, numberAffected, raw) {
-          if (err) {
-            console.log("log: Work created error:", err);
-            res.json({"status":"Work create/save error ","error ": err, "data":work});
-          } else {
-            console.log('log: The number of updated documents was %d', numberAffected);
-            console.log('log: The raw response from Mongo was ', raw);
-            res.json({"status":"Work deleted "+work._id, "data":work, "item" : work._id });
-          }
-        })
-      }
-    }
-  );
+
+	Work.findById(
+			req.params.work_id,
+		function(err, work) {
+			if (err) {
+				console.log("log: work get error:", err);
+				res.send(err);
+			} else {
+				// delete manifestations
+				Manifestation.findByUploadWorkID( work.upload_uuid, work.iwork_id,
+					function( error, mans ) {
+
+						if( mans ) {
+							async.each( mans , function(man) {
+								Manifestation.remove(
+									{_id: man._id},
+									function (error, work) {
+										if (error) {
+											console.error("Manifestation not deleted");
+										}
+									} )
+								},
+								function () {
+										// Done
+								}
+							);
+						}
+					}
+				);
+
+				// delete work
+				Work.remove(
+					{ _id: req.params.work_id },
+					function(err, work) {
+						if (err){
+							res.json(err);
+						} else {
+							// res.json({ message: 'Successfully deleted' });
+							Upload.update({ _id : work.upload_uuid},{ $inc:{total_works : -1} },  function (err, numberAffected, raw) {
+								if (err) {
+									console.log("log: Work created error:", err);
+									res.json({"status":"Work create/save error ","error ": err, "data":work});
+								} else {
+									console.log('log: The number of updated documents was %d', numberAffected);
+									console.log('log: The raw response from Mongo was ', raw);
+									res.json({"status":"Work deleted "+work._id, "data":work, "item" : work._id });
+								}
+							});
+						}
+					}
+				);
+
+			}
+		})
+
+
 });
 
 // on routes that end in /work/edit/:work_id

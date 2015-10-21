@@ -163,17 +163,8 @@ $(document).ready(function() {
 				"sSearch_1" : ""
 			}
 		},
-			bAutoWidth : false,
-			autoWidth : false,
 
-			columns : [
-				{ width : "100px" },
-				{ width : "100px" },
-			],
 
-			///columnDefs: [
-				//{ "width": "200px", "targets": [1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29] }
-			//],
 
 			columns: [
 			{
@@ -183,13 +174,9 @@ $(document).ready(function() {
 					var editfield = '<a href="/work/work/edit/' + data._id  ;
 					editfield += '" class="editor_edit">' + data.iwork_id + '</a>';
 					return editfield;
-				}//,
-				//sortable:false
-				,
-				width:"100px"
+				}
 			},
 
-			//{ data: "iwork_id",className: "center", "defaultContent": ""  },
 			//
 			// Authors
 			//

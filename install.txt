@@ -48,9 +48,9 @@ image at https://registry.hub.docker.com/_/postgres/
 ### create an instance
 
 create it now, run later
-	docker create --name <instance-name> -P -e POSTGRES_PASSWORD=<a-password> postgres
+	docker create --name <instance-name> -p 32769 -e POSTGRES_PASSWORD=<a-password> postgres
 or create AND run now
-	docker run --name <instance-name> -P -e POSTGRES_PASSWORD=<a-password> -d postgres
+	docker run --name <instance-name> -p 32769 -e POSTGRES_PASSWORD=<a-password> -d postgres
 
 (Note the commands are similar but "-d" is passed to run to daemonize it, ("docker start" will auto demonize), -P will open a port to host)
 

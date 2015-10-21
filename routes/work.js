@@ -744,6 +744,20 @@ router.route('/work/:work_id/manifestation/:man_id')
   );
 });
 
+// Remove a manifestation
+router.route('/manifestation/remove/:man_id')
+	.delete(function(req, res) {
+		console.log('log: /manifestation/.delete:', req.params);
+		Manifestation.remove(
+			{ _id: req.params.man_id },
+			function(err, work) {
+				if (err)  res.json({"message": 'manifestation error', "data" : err});
+				res.json({ message: 'manifestation deleted ' });
+			}
+		);
+	});
+
+
 // GET Work by  workID
 // on routes that end in /language/:work_id
 // ----------------------------------------------------

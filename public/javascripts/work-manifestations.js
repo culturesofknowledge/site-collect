@@ -22,7 +22,7 @@ $(document).ready(function() {
 					},
 					remove: {
 						type: 'DELETE',
-						url: '/work/work/_id_'
+						url: '/work/manifestation/remove/_id_'
 					}
 				},
 				"table": "#workTable",
@@ -145,6 +145,11 @@ $(document).ready(function() {
 							 console.log( 'Flush Button initialised'+ uploadName  );
 							 }
 							 },*/
+
+							{ sExtends: "editor_remove",
+								sButtonClass: "delete",
+								editor: work_editor
+							},
 
 							{
 								sExtends: "collection",

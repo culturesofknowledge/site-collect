@@ -68,19 +68,24 @@ router.route('/users/:user_id')
 
 // update the user with this id
 .put(function(req, res) {
-  console.log("Put(3) Request for Data Table made with data: ", req.params, req.body);
-  var obj = req.body.data;
-  obj.updated = new Date();
-  delete obj._id;
-  User.findByIdAndUpdate(
-    req.params.user_id, 
-    { $set: obj },
-    { new: true },
-    function(err, obj) {
-      if (err) next(err);
-      res.json({ "message": 'User updated!', "result" :200, "row" : obj});
-    }
-  );
+	console.log("Put(3) Request for Data Table made with data: ", req.params, req.body);
+
+	var obj = req.body.data;
+	obj.updated = new Date();
+	obj.roles = obj.roles.replace(/ /g,"").split(",");
+	delete obj._id;
+
+	User.findByIdAndUpdate(
+		req.params.user_id,
+		{ $set: obj },
+		{ new: true },
+		function(err, obj) {
+			if (err) {
+				next(err);
+			}
+			res.json({ "message": 'User updated!', "result" :200, "row" : obj});
+		}
+	);
 })
 
 // delete the user with this id

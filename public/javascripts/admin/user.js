@@ -46,16 +46,23 @@ $(document).ready(function() {
     "fields": [ {
         "label": "Username:",
         "name": "username"
-      }, {
+      },
+        {
         "label": "Email:",
         "name": "email"
-      }, {
+      },
+        {
         "label": "Full name:",
         "name": "name"
-      }, {
+        },
+        {
         "label": "Password:",
         "name": "password"
-      }
+        },
+        {
+        "label": "Roles:",
+        "name": "roles"
+        }
     ]
   } );
 
@@ -77,19 +84,19 @@ $(document).ready(function() {
       .title( 'Edit record' )
       .buttons( { "label": "Update", "fn": function () { editor.submit() } } )
       .edit( $(this).closest('tr') );
-  } );
+  } )
 
   // Delete a record (without asking a user for confirmation for this example)
-  $('#userTable').on('click', 'a.editor_remove', function (e) {
+  .on('click', 'a.editor_remove', function (e) {
     e.preventDefault();
 
     editor
       .message( 'Are you sure you wish to remove this record?' )
       .buttons( { "label": "Delete", "fn": function () { editor.submit() } } )
       .remove( $(this).closest('tr') );
-  } );
+  } )
 
-  $('#userTable').DataTable( {
+  .DataTable( {
     dom        : "Tfrtip",
     processing : true,
     serverSide : true,
@@ -103,7 +110,8 @@ $(document).ready(function() {
       { data: "username" },
       { data: "email" },
       { data: "password" },
-      { data: "name" },
+        { data: "name" },
+        { data: "roles" },
       {
         data: null, 
         className: "center",

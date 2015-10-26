@@ -42,7 +42,7 @@ router.post('/login', function (req, res) {
         'username': req.body.username,
         'password': req.body.password // TODO: ENCRYPT!
       }, 
-      '_id name email username password modifiedOn',
+      '_id name email username modifiedOn roles',
       function(err, user) {
         if (!err) {
           if (!user){
@@ -53,7 +53,7 @@ router.post('/login', function (req, res) {
               "name" : user.name, 
               "email": user.email, 
               "username" : user.username, 
-              "password": user.password, 
+              //"password": user.password,
               "_id": user._id 
             };
 

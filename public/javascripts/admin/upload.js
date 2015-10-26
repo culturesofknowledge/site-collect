@@ -97,7 +97,9 @@ $(document).ready(function() {
       }
     },
     columns: [
-      { data: "upload_name" },
+      { data: null, render: function( data, type, row ) {
+	      return '<a href="/work/byupload/' + row._id + '/' + row.upload_name + '">' + row.upload_name + '</a>'
+      } },
       { data: "upload_username" },
       { data: "upload_status" },
       { data: "total_works" },

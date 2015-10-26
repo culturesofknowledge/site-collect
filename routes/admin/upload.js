@@ -2,6 +2,8 @@
 var express = require('express');
 var router = express.Router();
 
+var userHelper = require('../../lib/user-helper');
+
 // middleware to use for all requests
 router.use(function(req, res, next) {
   // do logging
@@ -14,9 +16,20 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
+
+	if( !userHelper.loggedInAsReviewer(req.session) ) {
+		res.redirect( '/user/' );
+	}
+
   res.render('admin/upload', {  
     thesession : req.session,
-    title: 'Upload Administration' });
+    title: 'Reviewer',
+	  loggedIn: req.session.loggedIn,
+	  name:       req.session.user.name,
+	  email:      req.session.user.email,
+	  username:   req.session.user.username,
+	  userID:     req.session.user._id,
+	  roles: req.session.user.roles });
 });
 
 

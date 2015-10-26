@@ -40,7 +40,7 @@ router.post('/login', function (req, res) {
     User.findOne(
       {
         'username': req.body.username,
-        'password': req.body.password 
+        'password': req.body.password // TODO: ENCRYPT!
       }, 
       '_id name email username password modifiedOn',
       function(err, user) {
@@ -48,8 +48,7 @@ router.post('/login', function (req, res) {
           if (!user){
             res.redirect('/user/login?404=user');
           }else{
-//          req.session.user = { "name" : user.name, "email": user.email, "_id": user._id };
-            console.log(user);
+
             req.session.user = { 
               "name" : user.name, 
               "email": user.email, 
@@ -57,12 +56,14 @@ router.post('/login', function (req, res) {
               "password": user.password, 
               "_id": user._id 
             };
+
             req.session.loggedIn = true;
+
             console.log('log: Logged in user: ' + user);
             User.update(
               {_id:user._id},
-              { $set: {lastLogin: Date.now()} },
-              function(){
+              { $set: {lastLogin: Date.now() } },
+              function( err ){
                 res.redirect( '/user/' );
             });
           }
@@ -261,6 +262,7 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
   });
 });
+
 
 var doEditSave = function(req, res, err, user) {
   if(err){

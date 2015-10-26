@@ -52,9 +52,9 @@ router.post('/login', function (req, res) {
             req.session.user = { 
               "name" : user.name, 
               "email": user.email, 
-              "username" : user.username, 
-              //"password": user.password,
-              "_id": user._id 
+              "username" : user.username,
+              "_id": user._id,
+	          "roles" : user.roles
             };
 
             req.session.loggedIn = true;
@@ -78,22 +78,25 @@ router.post('/login', function (req, res) {
 
 // GET logged in user page
 router.get('/', function (req, res) {
-  console.log('log: router: get / :', req.body);
-  console.log('log: router: get / session:', req.session);
-  if(req.session.loggedIn === true){
-    res.render('user-page', {
-      thesession : req.session,
-      title: "Datasets [" + req.session.user.name + ']',
-      loggedIn : true,
-      name: req.session.user.name,
-      email: req.session.user.email,
-      username: req.session.user.username,
-      password: req.session.user.password,
-      userID: req.session.user._id
-    });
-  }else{
-    res.redirect('/user/login');
-  }
+	console.log('log: router: get / :', req.body);
+	console.log('log: router: get / session:', req.session);
+
+	if( userHelper.loggedIn(req.session) ) {
+		res.render('user-page', {
+			thesession : req.session,
+			title: "Datasets [" + req.session.user.name + ']',
+			loggedIn : true,
+			name: req.session.user.name,
+			email: req.session.user.email,
+			username: req.session.user.username,
+			password: req.session.user.password,
+			userID: req.session.user._id,
+			roles: req.session.user.roles
+		} );
+    }
+	else {
+		res.redirect('/user/login');
+	}
 });
 
 // GET user creation form

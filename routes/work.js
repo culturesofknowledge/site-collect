@@ -25,7 +25,8 @@ router.route('/byupload/:upload_uuid/:uploadName')
     name:       req.session.user.name,
     email:      req.session.user.email,
     username:   req.session.user.username,
-    userID:     req.session.user._id
+    userID:     req.session.user._id,
+	  roles: req.session.user.roles
   });
 });
 
@@ -40,7 +41,8 @@ router.route('/byupload/:upload_uuid/:uploadName/details')
         name:       req.session.user.name,
         email:      req.session.user.email,
         username:   req.session.user.username,
-        userID:     req.session.user._id
+        userID:     req.session.user._id,
+	      roles: req.session.user.roles
       });
     });
 
@@ -55,7 +57,8 @@ router.route('/byupload/:upload_uuid/:uploadName/print')
         name:       req.session.user.name,
         email:      req.session.user.email,
         username:   req.session.user.username,
-        userID:     req.session.user._id
+        userID:     req.session.user._id,
+	      roles: req.session.user.roles
       });
     });
 
@@ -70,7 +73,8 @@ router.route('/byupload/:upload_uuid/:uploadName/manifestations')
         name:       req.session.user.name,
         email:      req.session.user.email,
         username:   req.session.user.username,
-        userID:     req.session.user._id
+        userID:     req.session.user._id,
+	      roles: req.session.user.roles
       });
     });
 
@@ -328,6 +332,7 @@ router.route('/work/edit/:work_id')
             email:      req.session.user.email,
             username:   req.session.user.username,
             userID:     req.session.user._id,
+	          roles: req.session.user.roles,
             work:       work,
             uploadName: work.upload_uuid.upload_name,
             uploadUuid: work.upload_uuid._id,

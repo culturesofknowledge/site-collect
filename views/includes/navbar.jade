@@ -17,17 +17,21 @@
     section.top-bar-section
       // Right Nav Section 
       ul.right
-        unless ( loggedIn == true )
+        unless loggedIn
           li.active
             a(href='/user/login') Login
         else
           li.active
             a(href='/user/') Datasets
           include nav_user_inc.jade
-          if ( username == 'cofkmat')
-            include nav_admin_inc.jade
-          li
-            a(href="/user/logout") Logout
+          each role in roles
+              if role == 'reviewer'
+                  include nav_reviewer_inc.jade
+          each role in roles
+              if role == 'admin'
+                  include nav_admin_inc.jade
+          //li
+          //  a(href="/user/logout") Logout
       //
         Left Nav Section 
       ul.left

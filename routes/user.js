@@ -1,26 +1,10 @@
 var express = require('express');
-var router = express.Router();
-
 var mongoose = require( 'mongoose' );
+
+var userHelper = require('../lib/user-helper');
+
+var router = express.Router();
 var User = mongoose.model( 'User' );
-
-var clearSession = function(session, callback){
-  session.destroy();
-  callback();
-};
-
-/* USER ROUTES
-user.index);           // Current user profile
-user.create);      // Create new user form
-user.doCreate);   // Create new user action
-user.edit);       // Edit current user form
-user.doEdit);    // Edit current user action
-user.confirmDelete);       // delete current user form
-user.doDelete);    // Delete current user action
-user.doLogout);          // Logout current user
-user.login);          // Edit current user form
-user.doLogin);       // Edit current user action
-*/
 
 // route middleware that will happen on every request
 router.use(function(req, res, next) {
@@ -36,6 +20,11 @@ router.use(function(req, res, next) {
 router.get('/login', function (req, res) {
   console.log('log: router: get /login :', req.body);
   console.log('log: router: get /login session:', req.session);
+
+  if( userHelper.loggedIn( req.session ) ) {
+    res.redirect( '/user/' );
+  }
+
   //req.session.loggedIn = false;
   res.render('login-form', {
     thesession : req.session,
@@ -53,7 +42,7 @@ router.post('/login', function (req, res) {
         'username': req.body.username,
         'password': req.body.password 
       }, 
-      '_id name email username password modifiedOn', 
+      '_id name email username password modifiedOn',
       function(err, user) {
         if (!err) {
           if (!user){
@@ -233,6 +222,46 @@ router.post('/edit', function(req, res) {
   }
 });
 
+
+// GET user delete confirmation form
+router.get('/delete', function(req, res){
+  res.render('user-delete-form', {
+    thesession : req.session,
+    title: 'Delete account',
+    _id: req.session.user._id,
+    name: req.session.user.name,
+    email: req.session.user.email
+  });
+});
+
+// POST user delete form
+router.post('/delete', function(req, res) {
+  if (req.body._id) {
+    User.findByIdAndRemove(
+        req.body._id,
+        function (err, user) {
+          if(err){
+            console.log(err);
+          }else{
+            console.log("log: User deleted:", user);
+            clearSession(req.session, function () {
+              res.redirect('/');
+            });
+          }
+        }
+    );
+  }
+});
+
+// GET user logout
+router.get('/logout', function(req, res) {
+  console.log('log: destroy session ',req.session);
+  // below doesn't work with express4 and mongostore
+  clearSession(req.session, function () {
+    res.redirect('/');
+  });
+});
+
 var doEditSave = function(req, res, err, user) {
   if(err){
     console.log(err);
@@ -273,45 +302,12 @@ var onEditSave = function (req, res, err, user) {
     req.session.user.password = req.body.password;
     res.redirect( '/user/' );
   }
+
 };
 
-// GET user delete confirmation form
-router.get('/delete', function(req, res){
-  res.render('user-delete-form', {    
-    thesession : req.session,
-    title: 'Delete account',
-    _id: req.session.user._id,
-    name: req.session.user.name,
-    email: req.session.user.email
-  });
-});
-
-// POST user delete form
-router.post('/delete', function(req, res) {
-  if (req.body._id) {
-    User.findByIdAndRemove(
-      req.body._id,
-      function (err, user) {
-        if(err){
-          console.log(err);
-        }else{
-          console.log("log: User deleted:", user);
-          clearSession(req.session, function () {
-            res.redirect('/');
-          });
-        }
-      }
-    );
-  }
-});
-
-// GET user logout
-router.get('/logout', function(req, res) {
-  console.log('log: destroy session ',req.session);
-  // below doesn't work with express4 and mongostore
-  clearSession(req.session, function () {
-    res.redirect('/');
-  });
-});
+var clearSession = function(session, callback){
+  session.destroy();
+  callback();
+};
 
 module.exports = router;

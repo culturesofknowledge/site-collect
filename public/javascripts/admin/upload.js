@@ -89,7 +89,8 @@ $(document).ready(function() {
   $('#uploadTable').DataTable( {
     dom        : "Tfrtip",
     processing : true,
-    serverSide : true,
+	  serverSide : false,
+	  ordering : true,
     ajax: {
       "url" : "/admin/upload/uploads",
       "data" : {

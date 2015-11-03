@@ -40,44 +40,9 @@ Docker setup
 Postgres (EMLO)
 --------------
 
-### Get the image
+### Get the image from the emloeditor repository and building
+https://source.bodleian.ox.ac.uk/gitlab/emlo/emloeditor/tree/master/docker-postgres
 
-image at https://registry.hub.docker.com/_/postgres/
-    docker pull postgres
-
-### create an instance
-
-create it now, run later
-	docker create --name <instance-name> -p 32769 -e POSTGRES_PASSWORD=<a-password> postgres
-or create AND run now
-	docker run --name <instance-name> -p 32769 -e POSTGRES_PASSWORD=<a-password> -d postgres
-
-(Note the commands are similar but "-d" is passed to run to daemonize it, ("docker start" will auto demonize), -P will open a port to host)
-
-### copy data to it
-
-find the volume
-	docker inspect --format='{{.Volumes}}' <instance-name>
-
-and copy data file to it
-	cp <database-export-file> /var/lib/docker/vfs/dir/<volume-location/
-
-### Now insert data into database
-
-If not run yet
-	docker start <instance-name>
-
-connect to instance via bash
-	docker exec -it <instance-name> /bin/bash
-
- inside the instance terminal
-	cd <to-data-file>
-	psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres
-
-  inside the psql terminal
-	create database ouls;
-	\c ouls;
-	\i <database-export-file>
     
 
 mongoDB (EMLO)

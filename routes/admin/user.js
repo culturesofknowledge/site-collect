@@ -15,7 +15,10 @@ router.get('/', function(req, res) {
   //res.json({ message: 'hooray! welcome to our api!' }); 
   res.render('admin/user', { 
     thesession : req.session,
-    title: 'User Administration' 
+    title: 'User Administration',
+	  loggedIn : req.session.loggedIn,
+	  username:   req.session.user.username,
+	  roles: req.session.user.roles
   });
 });
 
@@ -43,7 +46,7 @@ router.route('/users')
 .get(function(req, res) {
   console.log("Get(1) Request for Data Table made with data: ", req.query);
 
-  User.find(function(err, users) {
+  User.find( {}, 'username email name roles', function(err, users) {
     if (err)
       res.send(err);
     

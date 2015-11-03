@@ -152,10 +152,16 @@ doUpsertTable = function(table, data, callback) {
   .from(table)
   .where( table._id.equals(data._id) )
   .toQuery();
-  console.log("\nlog: query :",q); 
+  console.log("\nlog: query :",q);
+
+  if(data.institution_id === 322 ) {
+    var a = 34;
+  }
+
   client.query( q , function(error, result) {
     if(error) { callback(error); }
     console.log("\nlog: doUpsertTable 1a",result.rows.length + ' rows were received');
+
     if (result.rows.length < 1) {
       doInsertTable(table, data, callback);
     } else {

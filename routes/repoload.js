@@ -66,7 +66,9 @@ doRepositories = function(data, callback) {
         doDistinct(
           locals, 
           function(err, records) {
-            if (err) { return callback(err); }
+            if (err) {
+              return callback(err);
+            }
             console.log("doDistinct -6 ",records);
             locals.reposTab = records;
             callback();
@@ -79,7 +81,9 @@ doRepositories = function(data, callback) {
         doFetchRepos(
           locals, 
           function(err, records) {
-            if (err) { return callback(err); }
+            if (err) {
+              return callback(err);
+            }
             console.log("doFetchRepos -7a ",records);
             locals.repos = records;
             callback();
@@ -92,7 +96,9 @@ doRepositories = function(data, callback) {
         doUpsertRepos(
           locals, 
           function(err, records) {
-            if (err) { return callback(err); }
+            if (err) {
+              return callback(err);
+            }
             console.log("doUpsertRepos -18a ",records);
             locals.records = records;
             callback();
@@ -101,7 +107,9 @@ doRepositories = function(data, callback) {
       }
     ],
     function(err) {
-      if (err) { return callback(err); }
+      if (err) {
+        return callback(err);
+      }
       console.log('\ndoRepositories(Manifestation,Institution)\n');  
       callback();
     }

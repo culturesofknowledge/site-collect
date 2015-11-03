@@ -24,12 +24,14 @@
           li.active
             a(href='/user/') Datasets
           include nav_user_inc.jade
-          each role in roles
+          if roles
+            each role in roles
               if role == 'reviewer'
-                  include nav_reviewer_inc.jade
-          each role in roles
+                include nav_reviewer_inc.jade
+          if roles
+            each role in roles
               if role == 'admin'
-                  include nav_admin_inc.jade
+                include nav_admin_inc.jade
           //li
           //  a(href="/user/logout") Logout
       //

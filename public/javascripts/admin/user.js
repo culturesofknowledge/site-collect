@@ -56,10 +56,6 @@ $(document).ready(function() {
         "name": "name"
         },
         {
-        "label": "Password:",
-        "name": "password"
-        },
-        {
         "label": "Roles:",
         "name": "roles"
         }
@@ -99,7 +95,8 @@ $(document).ready(function() {
   .DataTable( {
     dom        : "Tfrtip",
     processing : true,
-    serverSide : true,
+    serverSide : false,
+	ordering : true,
     ajax: {
       "url" : "/admin/user/users",
       "data" : {
@@ -109,7 +106,6 @@ $(document).ready(function() {
     columns: [
       { data: "username" },
       { data: "email" },
-      { data: "password" },
         { data: "name" },
         { data: "roles" },
       {

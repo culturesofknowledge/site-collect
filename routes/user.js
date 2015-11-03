@@ -125,7 +125,9 @@ router.get('/new', function(req, res){
     username: "",
     password: "",
     buttonText: "Join!",
-    errors: arrErrors
+    errors: arrErrors,
+	  loggedIn : req.session.loggedIn,
+	  roles: req.session.user.roles
  });
 });
 
@@ -208,7 +210,9 @@ router.get('/edit', function(req, res){
       username: req.session.user.username,
       password: req.session.user.password,
       buttonText: "Save",
-      errors: arrErrors
+      errors: arrErrors,
+	    loggedIn : req.session.loggedIn,
+	    roles: req.session.user.roles
     });
   } else {
     res.redirect( '/login');

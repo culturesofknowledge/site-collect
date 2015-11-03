@@ -1,45 +1,46 @@
 extends layout
 
 block headjs
-  script(type="text/javascript").
-    console.log("readying headjs - upload-page");
-    var uploadName = "#{uploadName}";
-    var uploadUuid = "#{uploadUuid}";
-    var fullname = "#{name}";
-    var email    = "#{email}";
-    var username = "#{username}";
-    var userID   = "#{userID }";
-
-  //script(type="text/javascript", src="/javascripts/user.js")
+	script(type="text/javascript").
+		var uploadName = "#{uploadName}",
+				uploadUuid = "#{uploadUuid}",
+				fullname = "#{name}",
+				email    = "#{email}",
+				username = "#{username}",
+				userID   = "#{userID }";
 
 block content
-  br
-  a(href="/work/byupload/#{uploadUuid}/#{uploadName}/details",class="DTTT_button DTTT_button_text")
-    span Review...
+	p
+	div#buttonbar
+		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/details",class="DTTT_button DTTT_button_text")
+			span
+				i.fa.fa-eye
+				|  Review...
 
-  #workTableDiv
-    table#workTable
-      thead
-        tr
-          th(rowspan='2') Edit
-          th(rowspan='2') Work id
-          th.center(colspan='3') Date of Work
-          th(rowspan='2') Authors
-          th(rowspan='2') Recipients
-          th(rowspan='2') Letter notes
-          th(rowspan='2') Editors notes
-        tr
-          // Edit
-          // Work Id
-          th Year
-          th Month
-          th Day
-          // Authors
-          // Recipients
-          // Letter notes
-          // Editors notes
-      tbody
-  // /DATATABLE
-  //include inform-page
+	#workTableDiv
+
+		table#workTable
+			thead
+				tr
+					th(rowspan='2') Edit
+					th(rowspan='2') Work id
+					th.center(colspan='3') Date of Work
+					th(rowspan='2') Authors
+					th(rowspan='2') Recipients
+					th(rowspan='2') Letter notes
+					th(rowspan='2') Editors notes
+				tr
+					// Edit
+					// Work Id
+					th Year
+					th Month
+					th Day
+					// Authors
+					// Recipients
+					// Letter notes
+					// Editors notes
+			tbody
+		// /DATATABLE
+		//include inform-page
 block footjs
-  script(src='/javascripts/work.js')
+	script(src='/javascripts/work.js')

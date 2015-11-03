@@ -5,17 +5,16 @@ block headjs
 		var uploadName = "#{uploadName}",
 				uploadUuid = "#{uploadUuid}",
 				fullname = "#{name}",
-				email = "#{email}",
+				email    = "#{email}",
 				username = "#{username}",
-				userID = "#{userID }";
+				userID   = "#{userID }";
 
 block content
-	// DATATABLE
 	p
 	div#buttonbar
 		a(href="/work/byupload/#{uploadUuid}/#{uploadName}",class="back DTTT_button DTTT_button_text")
 			span
-				i(class="fa fa-arrow-left")
+				i.fa.fa-arrow-left
 				|  Back...
 
 		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/manifestations",class="manifestations DTTT_button DTTT_button_text")

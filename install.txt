@@ -37,39 +37,34 @@ node server.js
 Docker setup
 ============
 
-Postgres (EMLO)
---------------
 
-### Get the image from the emloeditor repository and building
-https://source.bodleian.ox.ac.uk/gitlab/emlo/emloeditor/tree/master/docker-postgres
-
-    
 
 mongoDB (EMLO)
 -------------
 
-### Get it
-Image at https://registry.hub.docker.com/_/mongo/
-	docker pull mongo:2.4
+You need a database
 
-### create an instance
-	docker create --name emlo-edit-mongo -P mongo:2.4
+### build it
+If not already done build in folder docker-mongo (make sure bson and json files in mongo-dump folder)
+> docker build -t mongo-with-emlo .
 
-### copy data to is
-find the volume
-	docker inspect --format='{{.Volumes}}' <instance-name>
+### instance
+Now create an container instance, I'm using port my port 32768
+> docker create --name emlo-edit-mongo-with-emlo -p 32768:27017 mongo-with-emlo
+> docker run emlo-edit-mongo-with-emlo
 
-and copy data file to it
-	cp <database-export-folder> /var/lib/docker/vfs/dir/<volume-location/
+### load mongo database (I couldnt get the image to do this for me as mongo wasnt running)
+> docker exec -it emlo-edit-mongo-with-emlo /bin/bash
+Now inside container do:
+> > mongorestore --db emlo-edit /data/db/mongo-dump
 
 
-### Now load database with datafile
-If not run yet
-	docker start <instance-name>
 
-connect to instance via bash
-	docker exec -it <instance-name> /bin/bash
 
- inside the instance terminal
-	cd <to-data-file>
-	mongorestore --db emlo-edit <database-export-folder>
+Postgres (EMLO)
+--------------
+
+If you need to check the upload data which goes into postgres you'll need this:
+
+### Get the image from the emloeditor repository and build
+https://source.bodleian.ox.ac.uk/gitlab/emlo/emloeditor/tree/master/docker-postgres

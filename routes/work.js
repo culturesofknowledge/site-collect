@@ -689,6 +689,41 @@ doRepositorySave = function(req, res) {
 
 };
 
+checkRepositoryRemove = function( repository_id, upload_uuid, callback ) {
+
+	Manifestation.findByUploadID(
+		upload_uuid,
+		function( error, mans ) {
+			if( error ) {
+				// something
+			}
+			else {
+
+				for( var i=0; i<mans.length; i++ ) {
+					if( mans[i].repository_id === repository_id ) {
+						return callback(); // don't need to delete, it's still used in the upload.
+					}
+				}
+
+				var query = { institution_id: repository_id , upload_uuid : upload_uuid  };
+				Institution.remove(
+					query,
+					function( error ) {
+						if( error ) {
+							console.log("Error: Can't delete repository id:", repository_id);
+							callback(error);
+						}
+						else {
+							callback();
+						}
+					}
+				)
+			}
+		}
+	)
+
+};
+
 
 
 // on routes that end in /work/:work_id/manifestation/:man_id
@@ -737,31 +772,52 @@ router.route('/work/:work_id/manifestation/:man_id')
   );
 })
 
-// delete the manifestation with this id
-.delete(function(req, res) {
-  console.log('log: /manifestation/.delete:', req.params);
-  Manifestation.remove(
-    { _id: req.params.man_id },
-    function(err, work) {
-      if (err)  res.json({"message": 'manifestation error', "data" : err});    
-      res.json({ message: 'manifestation deleted ' });
-    }
-  );
-});
+	// delete the manifestation with this id
+	.delete(function(req, res) {
+		console.log('log: /manifestation/.delete:', req.params);
+
+		removeManifestation( req, res );
+	});
+
 
 // Remove a manifestation
 router.route('/manifestation/remove/:man_id')
+
 	.delete(function(req, res) {
 		console.log('log: /manifestation/.delete:', req.params);
-		Manifestation.remove(
-			{ _id: req.params.man_id },
-			function(err, work) {
-				if (err)  res.json({"message": 'manifestation error', "data" : err});
-				res.json({ message: 'manifestation deleted ' });
-			}
-		);
+		removeManifestation( req, res );
 	});
 
+
+function removeManifestation( req, res ) {
+	Manifestation.findById(
+		req.params.man_id,
+		function(err, manifestation) {
+			var repo_id = manifestation.repository_id,
+				upload_uuid = manifestation.upload_uuid;
+			if (err)  res.json({"message": 'manifestation find error.', "data" : err});
+
+			Manifestation.remove(
+				{ _id: req.params.man_id },
+				function(err) {
+					if (err)  {
+						res.json({"message": 'manifestation error', "data" : err});
+					}
+					else {
+						checkRepositoryRemove( repo_id, upload_uuid, function(error) {
+							if( error ) {
+								res.json({"message": 'Manifestation deletion error',data:error});
+							}
+							else {
+								res.json({"message": 'Manifestation Deleted'});
+							}
+						} );
+					}
+				}
+			);
+		}
+	);
+}
 
 // GET Work by  workID
 // on routes that end in /language/:work_id

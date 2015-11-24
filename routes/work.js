@@ -491,30 +491,79 @@ var doWorkSave = function(req, res, err, item) {
       
 // DELETE work remove Item
 router.delete('/:workID/:itemSelector/:itemID/delete', function(req, res) {
-  console.log("log: router.delete item");
-  console.log("log: params",req.params);
-  console.log("log: body",req.body);
-  //if ( 'true' == 'false' ) {
-  Work.findById( 
-    req.params.workID,
-//    req.body.data,
-    function (err, work) {
-      console.log("log: Enter doRemove item from (work) array");
-      console.log(work);
-      var theId = new ObjectId(req.params.itemID);
-      work[req.params.itemSelector].pull({
-        _id : theId
-      });
-      work.save(
-        function (err, data) {
-          if(err){
-            console.log(err);
-            res.json({"status":"error", "data": data});
-          }
-          console.log("log: data now " + data + " delete saved");
-          res.json({"status":"deleted", "data":data, "item" : theId });
-        });
-    }
+	console.log("log: router.delete item");
+	console.log("log: params",req.params);
+	console.log("log: body",req.body);
+
+	Work.findById(
+		req.params.workID,
+		function (err, work) {
+		    console.log("log: Enter doRemove item from (work) array");
+		    console.log(work);
+
+			var theId = new ObjectId(req.params.itemID);
+
+			work[req.params.itemSelector].pull({
+				_id : theId
+			});
+
+			work.save( function (err, data) {
+				if(err){
+					console.log(err);
+					res.json({"status":"error", "data": data});
+				}
+
+				// TODO: find all other uses of this person, if none found, remove it.
+				var	query = null,
+					itemCollection = null;
+
+				if( ["authors","addressees","people_mentioned"].indexOf( req.params.itemSelector) > -1) {
+					query = { "$or" : [
+						{ "authors" : theId},
+						{"addressees" : theId },
+						{"people_mentioned" : theId }
+					]};
+					itemCollection = Person;
+				}
+				else if( ["origin_id","destination_id","place_mentioned"].indexOf( req.params.itemSelector) > -1 ) {
+					query = { "$or" : [
+						{ "origin_id" : theId},
+						{"destination_id" : theId },
+						{"place_mentioned" : theId }
+					]};
+					itemCollection = Place;
+				}
+
+				query["upload_uuid"] = work._doc.upload_uuid;
+
+				Work.find(
+					query,
+					function (err, works) {
+						console.log(works);
+
+						if (works.length === 0) {
+							// TODO : Delete from main collection
+
+							itemCollection.remove(
+								{
+									"_id" : theId,
+									"upload_uuid" : work._doc.upload_uuid
+								},
+								function( err ) {
+									if( err ) {
+										console.log("ERROR: Failed to remove leftover object")
+									}
+								}
+							)
+						}
+
+						console.log("log: data now " + data + " delete saved");
+						res.json({"status":"deleted", "data":data, "item" : theId });
+					}
+				)
+			});
+
+		}
   );
 });
     

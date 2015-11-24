@@ -75,7 +75,9 @@ tbody tr {
 table tr.even, table tr.alt, table tr:nth-of-type(2n) {
     background: #f5f7f7 none repeat scroll 0% 0% !important;
 }
-
+table.dataTable tr.DTTT_selected.even {
+    background-color: #B0BED9 !important;
+}
 /*
 button.DTTT_button, div.DTTT_button, a.DTTT_button {
     position: relative;

@@ -513,7 +513,7 @@ router.delete('/:workID/:itemSelector/:itemID/delete', function(req, res) {
 					res.json({"status":"error", "data": data});
 				}
 
-				// TODO: find all other uses of this person, if none found, remove it.
+				// Find all other uses of this person, if none found, remove it.
 				var	query = null,
 					itemCollection = null;
 
@@ -542,7 +542,7 @@ router.delete('/:workID/:itemSelector/:itemID/delete', function(req, res) {
 						console.log(works);
 
 						if (works.length === 0) {
-							// TODO : Delete from main collection
+							// Delete from main collection item
 
 							itemCollection.remove(
 								{

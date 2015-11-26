@@ -69,7 +69,7 @@ global.doFindWork = function(data, callback) {
   });
 };
 
-global.doProcessWorks = function(data, callback) {
+global.doProcessWorks = function(data, callbackReturn) {
   console.log("doProcessWorks -3");
   var locals = data;
   var mappings = { };
@@ -176,10 +176,10 @@ global.doProcessWorks = function(data, callback) {
         });
     },
     function(err) {
-      if (err) { callback(err); }
+      if (err) { callbackReturn(err); }
       
-      console.log('doProcessWorks(for authors addressees mentioned-) \n');  
-      callback();
+      console.log('doProcessWorks(for authors addressees mentioned-) \n');
+	    callbackReturn();
     }
   );  
 };
@@ -215,7 +215,7 @@ global.createWorkSummaryEntry = function( uploadId, iwork_id, callbackComplete )
 
 };
 
-global.doProcessItems = function(data, callback) {
+global.doProcessItems = function(data, callbackReturn) {
   //
   // Loop through fields of data.itemTab in work
   // Add links between objects (e.g. person is author of work)
@@ -224,7 +224,7 @@ global.doProcessItems = function(data, callback) {
   var i = 0;
   async.eachSeries(
     data.itemTab,
-    function(item, callback) {
+    function(item, callbackSeriesDone) {
 
       console.log("\ndoProcessItems -3a record -->",++i,"\t",item);
 
@@ -265,16 +265,16 @@ global.doProcessItems = function(data, callback) {
 
           function(err, data ) {
             if (err) {
-              callback( err );
+	            callbackSeriesDone( err );
             }
             else {
               console.log('doProcessItems(for each of authors addressees mentioned etc ) \n');
-              callback(null,data);
+	            callbackSeriesDone(null,data);
             }
           }
       );
     },
-    callback
+	  callbackReturn
   );
 };
 
@@ -292,6 +292,9 @@ global.workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
             if( result && result.rowCount > 0 ) {
                 console.log("workClearLinks - Deleted rows count =",result.rowCount);
             }
+	        else {
+		        console.log("workClearLinks - Deleted rows count = 0" );
+	        }
             callReturn( error, result );
         });
     }
@@ -300,7 +303,7 @@ global.workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
     }
 };
 
-global.doProcessItemRows = function(data, callback) {
+global.doProcessItemRows = function(data, callbackReturn) {
 
   console.log("doProcessItemRows -3d for item ",data.mapping.field);
   var i = 1;
@@ -328,7 +331,9 @@ global.doProcessItemRows = function(data, callback) {
       // /**/
       //callback();
     },
-    callback
+	  function( error ) {
+		  callbackReturn( error );
+	  }
   );
 };
 

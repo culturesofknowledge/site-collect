@@ -2,7 +2,7 @@ var express = require('express');
 var router  = express.Router();
 var async   = require('async');
 var _       = require('underscore');
-// Postgresql databaase
+// Postgresql database
 var pg = require('pg');
 
 var doRepositories = require('./repoload');
@@ -491,7 +491,7 @@ global.doGetPersonId = function(table, data, callback) {
 
 global.doCleanup = function( uploadData, callbackComplete ) {
 
-    async.parallel(
+    async.series(
         [
             function( callbackStepDone ) {
                 doCleanupPeople( uploadData.upload_id, function( error ) {

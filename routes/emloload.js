@@ -32,9 +32,9 @@ router.post('/flush/:upload_uuid', function(req, res, next) {
   doSeries(req, res, next);
 });      
 
-doSeries = function(req, res, next) {
+global.doSeries = function(req, res, next) {
   var locals = { "upload_uuid" : req.params.upload_uuid};
-  var upload_id;
+  //var upload_id;
   //var client;
   async.series(
     [
@@ -84,7 +84,7 @@ doSeries = function(req, res, next) {
         console.log("log: doRepositories -8");
         doRepositories(
           locals, 
-          function(err, result) {
+          function(err /*, result*/) {
             if (err) { return callback(err); }
             console.log("log: doRepositories -9");
             callback();
@@ -96,7 +96,7 @@ doSeries = function(req, res, next) {
         console.log("log: processUpload -10");
         processUpload(
           locals, 
-          function(err, result) {
+          function(err /*, result*/) {
             if (err) { return callback(err); }
             console.log("log: processUpload -11");
             callback();
@@ -115,7 +115,7 @@ doSeries = function(req, res, next) {
             };
             doWorkRecord(
                 locals,
-                function(err, result) {
+                function(err /*, result*/) {
                     if (err) { return callback(err); }
                     console.log("log: doWorkRecord -13");
                     callback();
@@ -156,15 +156,16 @@ function dofindUpload(uuid, callback) {
   Upload.findById(
     uuid,
     function(err, upload) {
-    if (err) { return callback(err) };
-           //Check that an upload was found
-    if (!upload) {
-      console.log("log: dofindUpload -1",uuid);
-      callback(new Error('No upload with uuid '+uuid+' found.'));
+	    if (err) { return callback(err) }
+	           //Check that an upload was found
+	    if (!upload) {
+	      console.log("log: dofindUpload -1",uuid);
+	      callback(new Error('No upload with uuid '+uuid+' found.'));
+	    }
+	    console.log("log: dofindUpload -2",uuid);
+	    callback(null, upload);
     }
-    console.log("log: dofindUpload -2",uuid);
-    callback(null, upload);
-  });
+  );
 }
 
 function dofindUploadPG(uuid, callback) {
@@ -211,7 +212,7 @@ function dofindUploadPG(uuid, callback) {
     callback(null, result);
   }); 
   
-};      
+}
 
 function doinsertUpload(data, callback) {
   //
@@ -220,7 +221,7 @@ function doinsertUpload(data, callback) {
 
   console.log("log: doinsertUpload Received with data"  , "\nrows\n[" , data.result.rows[0] , "]\nCount\n[" , data.result.rows.length  , "]\nUpload\n" , data.upload );
 
-  var obj = doPgSqlMap(cofk_collect_upload, data.upload);
+  var q,obj = doPgSqlMap(cofk_collect_upload, data.upload);
 
   obj._id = data.upload['_id'].toString() ;
 
@@ -236,7 +237,7 @@ function doinsertUpload(data, callback) {
   var pgUploadId;
   if (data.result.rows < 1) { // i.e. equal to zero...!?
     console.log('upload for insert \n',obj);  
-    var q = cofk_collect_upload
+    q = cofk_collect_upload
     .insert(obj)
     .returning(cofk_collect_upload.star())
     .toQuery();
@@ -256,7 +257,7 @@ function doinsertUpload(data, callback) {
   } else {
     console.log('upload for update \n',obj);
     pgUploadId = data.result.rows[0].upload_id;
-    var q = cofk_collect_upload
+    q = cofk_collect_upload
     .update(obj)
     .where(
       cofk_collect_upload._id.equals(obj._id)
@@ -280,9 +281,9 @@ function doinsertUpload(data, callback) {
     }); 
   }
   //dofindWorkbyUpload(req, res);  // this moved to insert/update
-};
+}
 
-processUpload = function(data, callback) {
+global.processUpload = function(data, callback) {
   //
   // Loop around creating the objects we need in the postgress collect table
   //
@@ -398,7 +399,7 @@ global.doPgSqlMap = function( table, data ) {
   return obj;
 };
 
-doPgLocSqlMap = function(table, data ) {
+global.doPgLocSqlMap = function(table, data ) {
   console.log("log: process doPgLocSqlMap ", data);
   var x = table.columns;
   var theName, theValue ;
@@ -422,7 +423,7 @@ doPgLocSqlMap = function(table, data ) {
   return obj;
 };
 
-doPgWorkSqlMap = function(table, data ) {
+global.doPgWorkSqlMap = function(table, data ) {
   console.log("log: process doPgWorkSqlMap ");
   var x = table.columns;
   var theName, theValue ;
@@ -465,7 +466,7 @@ doPgWorkSqlMap = function(table, data ) {
   return obj;
 };
 
-doGetPersonId = function(table, data, callback) {
+global.doGetPersonId = function(table, data, callback) {
   console.log("log: doGetPersonId -",data.iperson_id);
   // Find person_id for existing person
   var q = table
@@ -488,7 +489,7 @@ doGetPersonId = function(table, data, callback) {
 };
 
 
-doCleanup = function( uploadData, callbackComplete ) {
+global.doCleanup = function( uploadData, callbackComplete ) {
 
     async.parallel(
         [
@@ -510,7 +511,7 @@ doCleanup = function( uploadData, callbackComplete ) {
     );
 };
 
-doCleanupLocations = function( uploadId, callbackComplete ) {
+global.doCleanupLocations = function( uploadId, callbackComplete ) {
 
     var links = [];
 
@@ -578,7 +579,7 @@ doCleanupLocations = function( uploadId, callbackComplete ) {
 
 };
 
-doCleanupPeople = function( uploadId, callbackComplete ) {
+global.doCleanupPeople = function( uploadId, callbackComplete ) {
     var
         mainTable = cofk_collect_person,
         linkTables = [
@@ -625,7 +626,7 @@ doCleanupPeople = function( uploadId, callbackComplete ) {
 
 };
 
-doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id, callbackComplete ) {
+global.doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id, callbackComplete ) {
 
     // check for objects in this upload that are no longer linked. (i.e. the link has been removed)
     // then remove them

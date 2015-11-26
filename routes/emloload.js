@@ -353,7 +353,7 @@ processUpload = function(data, callback) {
   );  
 };
 
-toPg = function(x) {
+global.toPg = function(x) {
   //
   // Convert javascript values to postgress
   //
@@ -369,7 +369,7 @@ toPg = function(x) {
   }
 };
 
-doPgSqlMap = function( table, data ) {
+global.doPgSqlMap = function( table, data ) {
   //
   // Create an object with column name members
   //
@@ -649,7 +649,7 @@ doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id, callb
             callbackComplete(error);
         })
         .on("end", function () {
-            async.each(
+            async.eachSeries(
                 _.uniq( ids ),
                 function( id, callbackDone ) {
                     if( linksUnique.indexOf( id, 0 ) === -1 ) {
@@ -665,12 +665,17 @@ doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id, callb
                             )
                             .toQuery();
 
+	                    // For some reason I got a problem with callbackDone() being called by both "end" and "error"
+	                    // (which is supposed to be impossible), I think there may have been a timing issue... somehow, breaking an already ended query...
+	                    // Anyway, making this async seriel seems to have fixed the problem...
                         client.query( q )
                             .on("error", function (error) {
+		                        console.log("Error on row " + id);
                                 callbackDone(error);
                             })
                             .on("end", function () {
-                                callbackDone();
+		                        console.log("Finished row " + id);
+		                        callbackDone();
                             });
                     }
                     else {

@@ -48,7 +48,7 @@ doWorkRecord = function(data, callback) {
 };
 
 // Find(3) for Upload transfer:
-doFindWork = function(data, callback) {
+global.doFindWork = function(data, callback) {
   console.log("doFindWork -1: ", data.upload_uuid, " are we here ");
   console.log("doFindWork -1a: ", data.mapping.collection.modelName, " are we here ");
   data.mapping.collection
@@ -69,7 +69,7 @@ doFindWork = function(data, callback) {
   });
 };
 
-doProcessWorks = function(data, callback) {
+global.doProcessWorks = function(data, callback) {
   console.log("doProcessWorks -3");
   var locals = data;
   var mappings = { };
@@ -153,7 +153,7 @@ doProcessWorks = function(data, callback) {
                 locals.itemWork = item;
                 doProcessItems(
                     locals,
-                    function (err, records) {
+                    function (err /*, records*/) {
                         if (err) {
                             callbackDone(err);
                         }
@@ -184,7 +184,7 @@ doProcessWorks = function(data, callback) {
   );  
 };
 
-createWorkSummaryEntry = function( uploadId, iwork_id, callbackComplete ) {
+global.createWorkSummaryEntry = function( uploadId, iwork_id, callbackComplete ) {
     /*
         Add an entry to the work summary
 
@@ -213,9 +213,9 @@ createWorkSummaryEntry = function( uploadId, iwork_id, callbackComplete ) {
             callbackComplete();
         });
 
-}
+};
 
-doProcessItems = function(data, callback) {
+global.doProcessItems = function(data, callback) {
   //
   // Loop through fields of data.itemTab in work
   // Add links between objects (e.g. person is author of work)
@@ -279,7 +279,7 @@ doProcessItems = function(data, callback) {
 };
 
 
-workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
+global.workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
    var q = table.delete()
         .where(table.upload_id.equals(uploadId))
         .and(table.iwork_id.equals(iWorkId))
@@ -300,7 +300,7 @@ workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
     }
 };
 
-doProcessItemRows = function(data, callback) {
+global.doProcessItemRows = function(data, callback) {
 
   console.log("doProcessItemRows -3d for item ",data.mapping.field);
   var i = 1;
@@ -332,7 +332,8 @@ doProcessItemRows = function(data, callback) {
   );
 };
 
-doPSqlMap = function(table, data ) {
+global.doPSqlMap = function(table, data ) {
+	// TODO: Investigate if this function should call doPgSqlMap... sigh...
   console.log("\nprocess doPSqlMap \n", data);
   var x = table.columns;
   var theName, theValue ;
@@ -354,7 +355,7 @@ doPSqlMap = function(table, data ) {
   return obj;
 };
 
-doWorkUpsertTable = function(table, data, callback) {
+global.doWorkUpsertTable = function(table, data, callback) {
   console.log("\ndoWorkUpsertTable 1");
   // Check whether row exists already
   var q = table
@@ -391,15 +392,16 @@ doWorkUpsertTable = function(table, data, callback) {
   });
 };
 
-doWorkInsertTable = function(table, data, callback) {
+global.doWorkInsertTable = function(table, data, callback) {
   console.log('doWorkInsertTable upload for insert \n',data);  
   var q = table
   .insert(data)
   .returning(table.star())
   .toQuery();
+
   console.log("\ndoWorkInsertTable query :",q);
   client.query( q )
-  .on('row', function (row, result) {
+  .on('row', function (row) {
     console.log("doWorkInsertTable inserted row" , row);
   })
   .on("error", function (error) {
@@ -408,16 +410,13 @@ doWorkInsertTable = function(table, data, callback) {
   })
   .on("end", function (result) {
           if( result ) {
-              /// MATTT : TODO: This seems to crash a lot when result is null - I think it might be to do with an auto save... if there is one... or maybe calling the wrong callback at some point...
-              console.log("\ndoWorkInsertTable do insert end  ", result.rowCount
-                  //result.command, " rowCount ", result.rowCount , "\n"
-              );
+              console.log("\ndoWorkInsertTable do insert end  ", result.rowCount );
           }
     callback(null, result);
   });
 };
 
-doWorkUpdateTable = function(table, data, callback) {
+global.doWorkUpdateTable = function(table, data, callback) {
   console.log('doWorkUpdateTable data for update \n',data);
   var q = table
   .update(data)

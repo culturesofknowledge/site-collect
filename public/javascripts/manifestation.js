@@ -95,6 +95,8 @@ $(document).ready(function() {
     ]
   } );
 
+
+
   // New record
   $('a.editor_create').on('click', function (e) {
     e.preventDefault();
@@ -120,19 +122,26 @@ $(document).ready(function() {
       
       .buttons( { "label": "Update", "fn": function () { manifest_editor.submit() } } )
       .edit( $(this).closest('tr') );
-  } );
+
+	  $("#DTE_Field_repository_id").attr("data-placeholder","Repository...").chosen({
+		  no_results_text: "No repository found.",
+		  allow_single_deselect: true,
+		  width: "150%"
+	  })
+		  .trigger("chosen:updated");
+  } )
 
   // Delete a record (without asking a user for confirmation for this example)
-  $('#manifestationTable').on('click', 'a.manifest_editor_remove', function (e) {
+  .on('click', 'a.manifest_editor_remove', function (e) {
     e.preventDefault();
 
     manifest_editor
       .message( 'Are you sure you wish to remove this record?' )
       .buttons( { "label": "Delete", "fn": function () { manifest_editor.submit() } } )
       .remove( $(this).closest('tr') );
-  } );
+  } )
 
-  $('#manifestationTable').DataTable( {
+  .DataTable( {
     dom        : "Tfrtip",
     processing : true,
     serverSide : true,
@@ -190,6 +199,13 @@ $(document).ready(function() {
             .title( 'New manifestation: Enter either repository and shelfmark or printed edition details.' )
             .buttons( { "label": "Add", "fn": function () { manifest_editor.submit() } } )
             .create();
+
+	          $("#DTE_Field_repository_id").attr("data-placeholder","Repository...").chosen({
+		          no_results_text: "No repository found.",
+		          allow_single_deselect: true,
+		          width: "150%"
+	          })
+	          .trigger("chosen:updated");
           },
           editor: manifest_editor 
         },
@@ -224,7 +240,7 @@ function repoLoad(upload_uuid,reqterm) {
           totalItems = data.length,
           arrLI = [];
           for (intItem = 0 ; intItem < totalItems; intItem++) {
-            label = data[intItem].label+data[intItem].label2;
+            label = (data[intItem].label||"(No city)")+data[intItem].label2;
             value = data[intItem].value
             objLI[ label ] = value;
             robjLI[ value ] = label;

@@ -121,15 +121,14 @@ doSearchRepo = function(req, res, callback){
     console.log("before query "+req.params.search);
     var b=req.params.search+'%';
     var q="SELECT institution_id as value";
-    q += ",institution_name as label";
-    q += ",' ( '";
-    q += "||institution_city";
-    q += "||' )'";
+    q += ",institution_city as label";
+    q += ",' - '";
+    q += "||institution_name";
     q += " as label2";
     q += ",institution_id as emloid";
     q += " FROM cofk_union_institution";
     //q += " WHERE institution_name ilike $1 ";
-    q += " order by institution_name";
+    q += " order BY NULLIF(institution_city, '') ASC NULLS LAST;";
     //var query = client.query( q , [b]);
 
     client.query( q )
@@ -193,8 +192,8 @@ doSearchLocalRepo =  function(req, res ) {
             
             results.push(
               {
-                "label"   : newrepo[j].institution_name,                
-                "label2"  : alabel,                
+                "label"   : newrepo[j].institution_name,
+                "label2"  : alabel,
                 "value"   : newrepo[j].institution_id,
                 "emloid"  : newrepo[j].union_institution_id
               }

@@ -163,3 +163,11 @@ p.dataset-name {
         margin-top: 15px;
     }
 }
+
+.chosen-container ul.chosen-results {
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+}
+.chosen-container ul.chosen-results li {
+    line-height: 1.3 !important
+}

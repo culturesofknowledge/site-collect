@@ -123,12 +123,7 @@ $(document).ready(function() {
       .buttons( { "label": "Update", "fn": function () { manifest_editor.submit() } } )
       .edit( $(this).closest('tr') );
 
-	  $("#DTE_Field_repository_id").attr("data-placeholder","Repository...").chosen({
-		  no_results_text: "No repository found.",
-		  allow_single_deselect: true,
-		  width: "150%"
-	  })
-		  .trigger("chosen:updated");
+	  updateChosen();
   } )
 
   // Delete a record (without asking a user for confirmation for this example)
@@ -200,16 +195,16 @@ $(document).ready(function() {
             .buttons( { "label": "Add", "fn": function () { manifest_editor.submit() } } )
             .create();
 
-	          $("#DTE_Field_repository_id").attr("data-placeholder","Repository...").chosen({
-		          no_results_text: "No repository found.",
-		          allow_single_deselect: true,
-		          width: "150%"
-	          })
-	          .trigger("chosen:updated");
+	          updateChosen();
           },
           editor: manifest_editor 
         },
-        { sExtends: "editor_edit",   editor: manifest_editor },
+        { sExtends: "editor_edit",   editor: manifest_editor,
+	        "fnClick": function ( nButton, oConfig, oFlash ) {
+		        manifest_editor.edit();
+		        updateChosen();
+	        }
+        },
         { sExtends: "editor_remove", editor: manifest_editor }
       ]
     }
@@ -219,6 +214,14 @@ $(document).ready(function() {
 
 // Functions =============================================================
 
+function updateChosen() {
+	$("#DTE_Field_repository_id").attr("data-placeholder","Repository...").chosen({
+		no_results_text: "No repository found.",
+		allow_single_deselect: true,
+		width: "150%"
+	})
+		.trigger("chosen:updated");
+}
 
 function repoLoad(upload_uuid,reqterm) {
   console.log("repoLoad");

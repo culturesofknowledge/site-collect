@@ -171,3 +171,6 @@ p.dataset-name {
 .chosen-container ul.chosen-results li {
     line-height: 1.3 !important
 }
+.chosen-container-single .chosen-single abbr {
+    cursor:default;
+}

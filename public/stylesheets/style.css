@@ -28,6 +28,11 @@ font-size: 16px !important
 
 }
 
+div.DTE_Form_Buttons button,
+div.DTE_Form_Buttons .button{
+    color: black;
+}
+
 
 div.DTED_Lightbox_Content {
 position:absolute !important;

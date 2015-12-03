@@ -1,14 +1,11 @@
 console.log("loading manifestation.js",uploadUuid);
 
-var objLI,robjLI,letterType,rletterType;
-var manifest_editor; // use a global for the submit and return data rendering in the examples
+var objLI = { "" : "" },
+	robjLI = { "" : "" },
+	letterType,rletterType,
+	manifest_editor; // use a global for the submit and return data rendering in the examples
 
-// Load the repository select array
-//  objLI = new Object();
-//  robjLI = new Object();
-  objLI  = { "" : "" };
-  robjLI = { "" : "" };
-  repoLoad(uploadUuid,uploadUuid);
+repoLoad( uploadUuid, uploadUuid );
   
 // DOM Ready =============================================================
 $(document).ready(function() {
@@ -31,7 +28,12 @@ $(document).ready(function() {
         url:  '/work/work/'+iworkID+'/manifestation/_id_'
       }
     },
-    "table": "#manifestationTable",
+	  "events": {
+		  "onInitEdit": function () {
+			  setTimeout( updateChosen, 50 );
+		  }
+	  },
+	  "table": "#manifestationTable",
     idSrc: "_id",
     "fields": [ 
       //{ "label": "id","name": "id", "type": "text" },
@@ -39,13 +41,11 @@ $(document).ready(function() {
         "label": "upload_uuid",
         "name": "upload_uuid",
         "default": uploadUuid ,
-        "type": "text" ,
         "type": "hidden"
       },
       {
         "label": "manifestation_id",
         "name": "manifestation_id",
-        "type": "text" ,
         "type": "hidden"
       },
       {
@@ -150,11 +150,11 @@ $(document).ready(function() {
       {
         data: null, 
         className: "center",
-        render: function ( data, type, row ) {
-          var editfield = '<a href="'  ;
-            editfield += '" class="manifest_editor_edit">Edit</a>';
-            editfield +='/ <a href="" class="manifest_editor_remove">Delete</a>';
-          return editfield;
+        render: function (  ) {
+          var editField = '<a href="'  ;
+            editField += '" class="manifest_editor_edit">Edit</a>';
+            editField +='/ <a href="" class="manifest_editor_remove">Delete</a>';
+          return editField;
         }        
       },
       { "bVisible": false, "data": "upload_uuid"  },
@@ -162,18 +162,13 @@ $(document).ready(function() {
       { "bVisible": false, "data": "iwork_id"   },
       //{ "bVisible": false, "data": "union_manifestation_id" },
       { "data": "manifestation_type", 
-        render: function ( data, type, row ) {
-          console.log("render - mType", data, type, row )
-          var editfield = rletterType[ data ] + " : " + data ;
-          return editfield;
+        render: function ( data ) {
+          return rletterType[ data ] + " : " + data ;
         }         
       },
       { "data": "repository_id",
-        render: function ( data, type, row ) {
-          console.log("render - repo_id", data, type, row )
-          console.log("editfield = ",robjLI[ data ] , " : " ,data  )
-          var editfield = robjLI[ data ] + " : " + data ;
-          return editfield;
+        render: function ( data ) {
+          return robjLI[ data ] + " : " + data ;
         } 
       },
       { "data": "id_number_or_shelfmark" },
@@ -185,10 +180,11 @@ $(document).ready(function() {
       sRowSelect: "os",
       aButtons: [
         { sExtends: "editor_create",
-          "fnClick": function ( nButton, oConfig, oFlash ) {
-            console.log("fnclik", nButton, oConfig, oFlash)
+          "fnClick": function ( ) {
+
             // Load the repository select arrays
             repoSelect("create");
+
             // Invoke the manifest-editor (new)
             manifest_editor
             .title( 'New manifestation: Enter either repository and shelfmark or printed edition details.' )
@@ -199,12 +195,7 @@ $(document).ready(function() {
           },
           editor: manifest_editor 
         },
-        { sExtends: "editor_edit",   editor: manifest_editor,
-	        "fnClick": function ( nButton, oConfig, oFlash ) {
-		        manifest_editor.edit();
-		        updateChosen();
-	        }
-        },
+        { sExtends: "editor_edit",   editor: manifest_editor },
         { sExtends: "editor_remove", editor: manifest_editor }
       ]
     }
@@ -215,41 +206,40 @@ $(document).ready(function() {
 // Functions =============================================================
 
 function updateChosen() {
-	$("#DTE_Field_repository_id").attr("data-placeholder","Repository...").chosen({
+	$("#DTE_Field_repository_id").chosen({
 		no_results_text: "No repository found.",
 		allow_single_deselect: true,
-		width: "150%"
+		width: "150%",
+		placeholder_text_single : "Repository...",
+		search_contains : true
 	})
 		.trigger("chosen:updated");
 }
 
 function repoLoad(upload_uuid,reqterm) {
-  console.log("repoLoad");
+  //console.log("repoLoad");
   var strHTMLOutput = '';
   $.ajax('/autocomplete/' + 'repository/' + upload_uuid + '/' + reqterm, {
     dataType: 'json',
     error: function(){
-      console.log("ajax error :(");
+      console.error("ajax error :(");
     },
     success: function (obj) {
       var data = obj.data;
-      console.log("repoload success:");
-      //console.log("repoload success2:",data);
+
       if (data.length > 0) {
         if (data.status && data.status === 'error'){
           strHTMLOutput = "<li>Error: " + data.error + "</li>";
         } else {
-          var intItem,label,value
-          totalItems = data.length,
-          arrLI = [];
+          var intItem,label,value,
+            totalItems = data.length;
           for (intItem = 0 ; intItem < totalItems; intItem++) {
             label = (data[intItem].label||"(No city)")+data[intItem].label2;
-            value = data[intItem].value
+            value = data[intItem].value;
             objLI[ label ] = value;
             robjLI[ value ] = label;
           }
-          console.log("repoByName",objLI);
-          console.log("repoById",robjLI);
+
         }
       }else{
         strHTMLOutput = "<li>You haven't created any works yet</li>";
@@ -258,13 +248,12 @@ function repoLoad(upload_uuid,reqterm) {
   });
 }
 
-function repoSelect(reqterm) {    
-  console.log("reposelect ",reqterm);
+function repoSelect() {
   manifest_editor.field('repository_id').update( objLI );
   manifest_editor.field('manifestation_type').update( letterType );
 }
 
-function letterLoad(reqterm) {    
+function letterLoad() {
 
   letterType =  {
       "Letter"      : "ALS"
@@ -275,13 +264,12 @@ function letterLoad(reqterm) {
     , "Printed copy": "P"
     , "Scribal copy": "S"
   };
-  console.log("letterType: ",letterType);
 
-  rletterType = new Object();  
+  rletterType = {};
   for(var key in letterType) {
     var val = letterType[key];
     rletterType[val] = key;
   }
-  console.log("rletterType: ",rletterType);
+
   
 }

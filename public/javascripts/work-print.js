@@ -181,13 +181,19 @@ $(document).ready(function() {
 			return html;
 		}
 		function templateCalendar( calendar ) {
-			if( calendar === "G") {
+			if( data === "G" ) {
 				return "Gregorian";
 			}
-			else if(calendar === "J") {
+			if( data === "J" ) {
 				return "Julian";
 			}
-			return "Unknown";
+			if( data === "JJ" ) {
+				return "Julian (Jan start)";
+			}
+			if( data === "JM" ) {
+				return "Julian (March start)";
+			}
+			return "Unknown"
 		}
 
 		function templatePeople( people, field, work ) {

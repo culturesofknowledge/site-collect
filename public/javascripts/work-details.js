@@ -258,10 +258,16 @@ $(document).ready(function() {
 			{ data: "date_of_work_as_marked", "defaultContent": ""  },
 			{ data: "original_calendar", render:function(data){
 				if( data === "G" ) {
-					return "Gregorian"
+					return "Gregorian";
 				}
 				if( data === "J" ) {
-					return "Julian"
+					return "Julian";
+				}
+				if( data === "JJ" ) {
+					return "Julian (Jan start)";
+				}
+				if( data === "JM" ) {
+					return "Julian (March start)";
 				}
 				return "Unknown"
 

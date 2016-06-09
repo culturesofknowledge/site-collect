@@ -33,118 +33,139 @@ router.post('/flush/:upload_uuid', function(req, res, next) {
 });      
 
 global.doSeries = function(req, res, next) {
-  var locals = { "upload_uuid" : req.params.upload_uuid};
-  //var upload_id;
-  //var client;
-  async.series(
-    [
-      // Find upload by Id
-      function(callback) {
-        dofindUpload(
-          locals.upload_uuid, 
-          function(err, upload) {
-            if (err) { return callback(err); }
-            console.log("log: dofindUpload -3",upload);
-            locals.upload = upload;
-            locals.upload_name = upload.upload_name;
-            console.log("log: dofindUpload -4",locals.upload);
-            callback();
-          }
-        );
-      },
-      // Find Upload in PG
-      function(callback) {
-        console.log("log: dofindUploadPG -5",locals.upload);
-        dofindUploadPG(
-          locals.upload_uuid, 
-          function(err, result) {
-            if (err) { return callback(err); }
-            locals.result = result;
-            console.log("log: dofindUploadPG -6",locals.upload);
-            callback();
-          }
-        );
-      },
-      // doinsertUpload
-      function(callback) {
-        console.log("log: doinsertUpload -7",locals.upload);
-        doinsertUpload(
-          locals, 
-          function(err, result) {
-            if (err) { return callback(err); }
-            locals.pgUploadId = result;
-            locals.upload.upload_id = result;
-            console.log("log: doinsertUpload -8",locals.upload);
-            callback();
-          }
-        );
-      },
-      // doRepositories
-      function(callback) {
-        console.log("log: doRepositories -8");
-        doRepositories(
-          locals, 
-          function(err /*, result*/) {
-            if (err) { return callback(err); }
-            console.log("log: doRepositories -9");
-            callback();
-          }
-        );
-      },
-      // processUpload
-      function(callback) {
-        console.log("log: processUpload -10");
-        processUpload(
-          locals, 
-          function(err /*, result*/) {
-            if (err) { return callback(err); }
-            console.log("log: processUpload -11");
-            callback();
-          }
-        );
-/**/
-      },
-        // doWorkRecord
-        function(callback) {
-            console.log("log: doWorkRecord -12",locals.upload);
-            locals.mapping = {
-                "collection" : Work,
-                "pgTable"  : cofk_collect_work,
-                //    "pgMap"    : doPgSqlMap
-                "pgMap"    : doPgWorkSqlMap
-            };
-            doWorkRecord(
-                locals,
-                function(err /*, result*/) {
-                    if (err) { return callback(err); }
-                    console.log("log: doWorkRecord -13");
-                    callback();
-                }
-            );
-        },
-        // Clean up unused (hanging) people/places etc
-        function(callback) {
-            console.log("log: doCleanup",locals.upload);
+	var locals = { "upload_uuid" : req.params.upload_uuid};
 
-            doCleanup( locals.upload, function(err) {
-                callback(err);
-            } );
-        }
-    ],
-    function(err) {
-      if (err) {
-        if (req.xhr) {
-          res.status(500).send({ "error" : err.message/*, "stack" : err.stack*/});
-          return;
-        } else {
-          return next(err);
-        }
-      }
-      console.log('doSeries finished\n',locals.mapping.collection.modelName);  
-      //client.end();  
-      res.json({"status":"done", "data" : locals.upload });
-    }
-  );
+	client = new pg.Client(config.conString);
+	client.connect();
+
+
+
+	async.series(
+		[
+			// Start a transcation
+			function( callbackDone ) {
+				client.query('BEGIN', function(err) {
+					callbackDone();
+				});
+			},
+
+			// Find upload by Id
+			function(callback) {
+				console.log("log: dofindUpload");
+
+				dofindUpload( locals.upload_uuid, function(err, upload) {
+				    if (err) {
+					    return callback(err);
+				    }
+				    locals.upload = upload;
+				    locals.upload_name = upload.upload_name;
+				    callback();
+				});
+			},
+
+			// Find Upload in PG
+			function(callback) {
+				console.log("log: dofindUploadPG");
+				dofindUploadPG( locals.upload_uuid, function(err, result) {
+				    if (err) {
+					    return callback(err);
+				    }
+				    locals.result = result;
+				    callback();
+				});
+			},
+
+			// doinsertUpload
+			function(callback) {
+				console.log( "log: doinsertUpload" );
+				doinsertUpload( locals, function(err, result) {
+				    if (err) {
+					    return callback(err);
+				    }
+				    locals.pgUploadId = result;
+				    locals.upload.upload_id = result;
+				    callback();
+				});
+			},
+
+			// doRepositories
+			function(callback) {
+				console.log("log: doRepositories");
+				doRepositories( locals,  function(err) {
+				    if (err) { return callback(err); }
+				    callback();
+				});
+			},
+
+			// processUpload
+			function(callback) {
+				console.log("log: processUpload");
+				processUpload( locals, function( err ) {
+				    if (err) {
+					    return callback(err);
+				    }
+				    callback();
+				});
+			},
+
+	        // doWorkRecord
+	        function(callback) {
+	            console.log("log: doWorkRecord");
+	            locals.mapping = {
+	                "collection" : Work,
+	                "pgTable"  : cofk_collect_work,
+	                "pgMap"    : doPgWorkSqlMap
+	            };
+	            doWorkRecord( locals, function(err) {
+	                    if (err) {
+		                    return callback(err);
+	                    }
+	                    callback();
+	                }
+	            );
+	        },
+
+	        // Clean up unused (hanging) people/places etc
+	        function(callback) {
+	            console.log("log: doCleanup");
+
+	            doCleanup( locals.upload, function(err) {
+	                callback(err);
+	            } );
+	        }
+	    ],
+
+		// Series complete.
+	    function( err ) {
+
+		    if( err ) {
+			    client.query( 'ROLLBACK', function() {
+
+				    console.log("log: ROLLED BACK POSTGRES.");
+				    client.end();
+
+				    if (req.xhr) {
+					    res.status(500).send({"error": err.message});
+					    return;
+				    }
+				    else {
+					    return next(err);
+				    }
+			    });
+		    }
+		    else {
+			    client.query('COMMIT', function() {
+
+				    console.log("log: COMMITTED POSTGRES.");
+				    console.log('doSeries finished\n', locals.mapping.collection.modelName);
+				    client.end();
+
+				    res.json({"status": "done", "data": locals.upload});
+			    });
+		    }
+
+	    }
+	);
 };
 
 function dofindUpload(uuid, callback) {
@@ -174,9 +195,6 @@ function dofindUploadPG(uuid, callback) {
   //
 
   console.log("log: dofindUploadPG","\nuuid:",uuid);
-  client = new pg.Client(config.conString);
-  console.log("log: before connect "+uuid);
-  client.connect();
   
   var q = cofk_collect_upload
   .select(cofk_collect_upload.star())
@@ -616,7 +634,7 @@ global.doCleanupPeople = function( uploadId, callbackComplete ) {
             if (!error) {
                 doCleanupObjects( _.uniq( links ), mainTable, mainField, uploadId, function( error ) {
                     callbackComplete( error );
-                } )
+                } );
             }
             else {
                 callbackComplete( error );

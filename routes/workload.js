@@ -185,33 +185,41 @@ global.doProcessWorks = function(data, callbackReturn) {
 };
 
 global.createWorkSummaryEntry = function( uploadId, iwork_id, callbackComplete ) {
-    /*
-        Add an entry to the work summary
+	/*
+	    Add an entry to the work summary
 
-        this is so the export in collect works.
-     */
-    console.log( "createWorkSummaryEntry : ", uploadId, iwork_id );
+	    this is so the export in collect works.
+	*/
 
-    var table = mm.cofk_collect_work_summary,
-        q = table
-        .insert(
-            table.upload_id.value( uploadId ),
-            table.work_id_in_tool.value(iwork_id)
-        )
-        .toQuery();
+	console.log( "createWorkSummaryEntry : ", uploadId, iwork_id );
 
-    client.query( q )
-        .on('error', function(error) {
-            if( error.code === "23505" ) {
-                // Duplicate entry, whatever, it's there.
-                error = null;
-            }
-            callbackComplete(error);
-        })
-        //q.on("row", function (row, result) {});
-        .on("end", function () {
-            callbackComplete();
-        });
+	var table = mm.cofk_collect_work_summary;
+
+	var qSelect = table.select(table.upload_id)
+		.from(table)
+		.where(table.upload_id.equals( uploadId ))
+		.and(table.work_id_in_tool.equals(iwork_id))
+		.toQuery();
+
+	client.query( qSelect, function( error, results ) {
+		if( !results || results.length == 0 ) {
+
+			var q = table
+				.insert(
+					table.upload_id.value( uploadId ),
+					table.work_id_in_tool.value(iwork_id)
+				)
+				.toQuery();
+
+			client.query( q, function( error ) {
+				callbackComplete(error);
+			});
+		}
+
+		callbackComplete();
+	})
+
+
 
 };
 
@@ -289,6 +297,10 @@ global.workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
         console.log( "workClearLinks deleting links with Query", q );
 
         client.query( q , function( error, result ) {
+	        if( error ) {
+		        console.log( "ERROR: ", q, uploadId, iWorkId );
+	        }
+
             if( result && result.rowCount > 0 ) {
                 console.log("workClearLinks - Deleted rows count =",result.rowCount);
             }

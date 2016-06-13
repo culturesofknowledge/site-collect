@@ -55,7 +55,7 @@ app.use(session({
 }));
 /**/
 
-var port     = process.env.PORT || 3000; // set our port
+var port     = process.env.PORT || config.port || 3000; // set our port
 
 // MODELS FOR OUR API
 // =============================================================================

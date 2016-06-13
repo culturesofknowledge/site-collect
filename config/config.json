@@ -17,6 +17,16 @@
     "host"        : "localhost",
     "conString"   : "postgres://postgres:postgres@127.0.0.1:32769/ouls"
   },
+	"mat-development-live-mongo": {
+		"dbURL"       : "mongodb://127.0.0.1:27016/emlo-edit",
+		"serverPgSQL" : "127.0.0.1:32769",
+		"pg_host"     : "127.0.0.1",
+		"pg_user"     : "postgres",
+		"pg_pass"     : "postgres",
+		"host"        : "localhost",
+		"conString"   : "postgres://postgres:postgres@127.0.0.1:32769/ouls",
+		"port"        : "3030"
+	},
   "emlo-edit-dev": {
     "dbURL"       : "mongodb://localhost:27017/emlo-edit",
     "serverPgSQL" : "localhost:5432",

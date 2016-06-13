@@ -181,16 +181,13 @@ $(document).ready(function() {
 			return html;
 		}
 		function templateCalendar( calendar ) {
-			if( data === "G" ) {
+			if( calendar === "G" ) {
 				return "Gregorian";
 			}
-			if( data === "J" ) {
-				return "Julian";
-			}
-			if( data === "JJ" ) {
+			if( calendar === "J" || calendar === "JJ" ) {
 				return "Julian (Jan start)";
 			}
-			if( data === "JM" ) {
+			if( calendar === "JM" ) {
 				return "Julian (March start)";
 			}
 			return "Unknown"

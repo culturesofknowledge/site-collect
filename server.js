@@ -135,5 +135,7 @@ app.use(function(err, req, res, next) {
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
-console.log('Magic happens on port ' + port);
+var server = app.listen(port, function() {
+	console.log('Magic happens on port ' + port);
+});
+server.timeout = 1000 * 10 * 60; // 10 minutes.

@@ -75,7 +75,7 @@ router.get(
     client.connect();
     
     console.log("before query "+req.params.search);
-    var b=req.params.search+'%';
+    var b='%'+req.params.search+'%';
     var q="SELECT location_id as value";
       q += ",location_name as label";
       q += ",location_id as emloid";

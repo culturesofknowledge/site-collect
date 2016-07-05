@@ -279,20 +279,17 @@ $(document).ready(function() {
 		          if( index1 === 0 ) {
 			          return -1;
 		          }
-
-		          if( index2 === 0 ) {
+		          else if( index2 === 0 ) {
 			          return 1;
 		          }
-
-		          if( index1Space !== -1 ) {
+		          else if( index1Space !== -1 ) {
 			          return -1;
 		          }
-
-		          if( index2Space !== -1 ) {
+		          else if( index2Space !== -1 ) {
 			          return 1;
 		          }
 
-		          return low1 > low2;//index1 - index2;
+		          return low1 > low2;
 	          });
             res($.map(data, function(item) {
               item.label = item.name + item.date;
@@ -355,8 +352,42 @@ $(document).ready(function() {
             term: req.term
           },
           success: function(data) {
-            console.log(data);
-            console.log(this);
+            //console.log(data);
+            //console.log(this);
+
+	          var lowerTerm = req.term.toLowerCase(),
+		          spaceLowerTerm = " " + lowerTerm;
+	          data.sort( function( o1, o2 ) {
+		          /*
+		           Order: term match at beginning, term match after space, compare case
+		           */
+		          var low1 = o1.label.toLowerCase(),
+			          low2 = o2.label.toLowerCase(),
+			          index1Space = low1.indexOf(spaceLowerTerm),
+			          index1 = low1.indexOf(lowerTerm),
+			          index2Space = low2.indexOf(spaceLowerTerm),
+			          index2 = low2.indexOf(lowerTerm);
+
+		          if( ( index1 === 0 && index2 === 0 ) ||                   // both at beginning
+			          ( index1Space !== -1 && index2Space !== -1 ) ) {      // both at beginning of a word
+			          return low1 > low2;
+		          }
+
+		          if( index1 === 0 ) {
+			          return -1;
+		          }
+		          else if( index2 === 0 ) {
+			          return 1;
+		          }
+		          else if( index1Space !== -1 ) {
+			          return -1;
+		          }
+		          else if( index2Space !== -1 ) {
+			          return 1;
+		          }
+
+		          return low1 > low2;
+	          });
             res($.map(data, function(item) {
               return {
                 label: item.label,
@@ -385,7 +416,17 @@ $(document).ready(function() {
         tabadd(this.id , ui.item);
                
       },
-      open: function() {
+      open: function( e, ui ) {
+	      var acData = $(this).data('ui-autocomplete');
+	      acData
+		      .menu
+		      .element
+		      .find('li')
+		      .each(function () {
+			      var me = $(this);
+			      var keywords = acData.term.split(' ').join('|');
+			      me.html(me.text().replace(new RegExp("(" + keywords + ")", "gi"), '<b>$1</b>'));// '<span style="text-decoration:underline">$1</span>'));
+		      });
         $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
       },
       close: function() {

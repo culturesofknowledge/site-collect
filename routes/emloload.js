@@ -141,16 +141,19 @@ global.doSeries = function(req, res, next) {
 		    if( err ) {
 			    client.query( 'ROLLBACK', function() {
 
-				    console.log("log: ROLLED BACK POSTGRES.");
-				    client.end();
+				var errorString = "UPLOAD ERROR: " + err.message + " <br/><hr/>" + err.detail;
 
-				    if (req.xhr) {
-					    res.status(500).send({"error": err.message});
-					    return;
-				    }
-				    else {
-					    return next(err);
-				    }
+				console.log("log: ROLLED BACK POSTGRES.");
+				console.error( errorString );
+				client.end();
+					
+				if (req.xhr) {
+				    res.status(500).send({"error": errorString});
+				    return;
+				}
+				else {
+				    return next(err);
+				}
 			    });
 		    }
 		    else {

@@ -23,7 +23,7 @@ doSearchPG = function(req, res, callback){
     client.connect();
     
     console.log("before query "+req.params.search);
-    var b=req.params.search+'%';
+    var b=['%'+req.params.search+'%'];
     var q="select";
       q += " foaf_name as name";
       q += ",' ('";
@@ -39,7 +39,7 @@ doSearchPG = function(req, res, callback){
       q += " order by foaf_name";
     console.log("the query ", q);
 
-    client.query( q , [b])
+	client.query( q , b)
 
     .on("error", function (error) {
       console.log( "Error in doSearchPG: " + error )

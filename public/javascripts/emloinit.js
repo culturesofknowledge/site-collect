@@ -326,7 +326,7 @@ $(document).ready(function() {
 	      acData
 		      .menu
 		      .element
-		      .find('li')
+		      .find('li a')
 		      .each(function () {
 			      var me = $(this);
 			      var keywords = acData.term.split(' ').join('|');
@@ -421,7 +421,7 @@ $(document).ready(function() {
 	      acData
 		      .menu
 		      .element
-		      .find('li')
+		      .find('li a')
 		      .each(function () {
 			      var me = $(this);
 			      var keywords = acData.term.split(' ').join('|');

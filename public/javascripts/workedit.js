@@ -99,7 +99,7 @@ $(document).ready(function() {
       data,
       function(rdata){
         //$("#renhart").text(rdata);
-        $('<div>Work Saved!</div>')
+        $('<div data-alert class="alert-box success radius">Work Saved!<a href="#" class="close">&times;</a></div>')
           .insertBefore('#frmWork')
           .delay(1000)
           .fadeOut(function() {

@@ -6,22 +6,25 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "*",
+    "body-parser": "~1.0.0",
+    "connect": "*",
+    "connect-mongo": "*",
+    "cookie-parser": "^1.0.1",
+    "debug": "~0.7.4",
     "express": "~4.0.0",
     "express-session": "^1.0.4",
-    "connect":"*",
-    "connect-mongo":"*",
-    "method-override": "~1.0.0",
-    "static-favicon": "~1.0.0",
-    "morgan": "~1.0.0",
-    "cookie-parser": "^1.0.1",
-    "body-parser": "~1.0.0",
-    "debug": "~0.7.4",
+    "forever": "^0.15.3",
     "jade": "*",
-    "async": "*",
+    "method-override": "~1.0.0",
     "mongoose": "*",
     "mongoose-auto-increment": "*",
     "mongoose-datatable": "*",
     "mongoose-paginate": "*",
-    "pg": "*"
+    "morgan": "~1.0.0",
+    "pg": "*",
+    "sql": "^0.78.0",
+    "static-favicon": "~1.0.0",
+    "underscore": "^1.8.3"
   }
 }

@@ -44,5 +44,15 @@
     "pg_pass"     : "Sperry95",
     "host"        : "emlo-edit.bodleian.ox.ac.uk",
     "conString"   : "postgres://cofkrenhart:Sperry95@localhost/ouls"
+  },
+  "docker-production": {
+    "dbURL"       : "mongodb://127.0.0.1:27017/emlo-edit",
+    "serverPgSQL" : "127.0.0.1:5432",
+    "pg_host"     : "127.0.0.1",
+    "pg_user"     : "postgres",
+    "pg_pass"     : "postgres",
+    "host"        : "localhost",
+    "conString"   : "postgres://postgres:postgres@127.0.0.1:45432/ouls",
+    "port"        : "8080"
   }
 }

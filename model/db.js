@@ -1,6 +1,7 @@
 // Bring Mongoose into the work
-var mongoose = require( 'mongoose-paginate' );
-console.log('config.', config);
+var mongoose = require('mongoose');//require( 'mongoose-paginate' );
+var autoIncrement = require('mongoose-auto-increment');
+var DataTable = require('mongoose-datatable');
 
 // Build the connection string
 // var dbURI = 'mongodb://localhost/MongoosePM';
@@ -31,10 +32,8 @@ process.on('SIGINT', function() {
 //console.log('mongoose-connect',mongoose.connection);
 
 //This is a one-time operation I think but is that per start-up as in singleton
-var autoIncrement = require('mongoose-auto-increment');
-autoIncrement.initialize(mongoose.connection);
 
-var DataTable = require('mongoose-datatable');
+autoIncrement.initialize(mongoose.connection);
 
 DataTable.configure({ verbose: true, debug : true });
 mongoose.plugin(DataTable.init);

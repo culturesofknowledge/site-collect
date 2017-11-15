@@ -112,7 +112,7 @@ button.DTTT_disabled:hover, div.DTTT_disabled:hover, a.DTTT_disabled:hover {
     box-shadow: 1px 1px 3px #ccc;
     cursor: pointer !important;
     border: 1px solid #D0D0D0;
-    background: transparent -moz-linear-gradient(center top , #FFF 0%, #F9F9F9 89%, #FAFAFA 100%) repeat scroll 0% 0%;
+    background: transparent -moz-linear-gradient(center top , #FFF 0%, #F9F9F9 89%, #FAFAFA 100%) repeat scroll 0 0;
 }
 
 input.show-columns {
@@ -178,4 +178,42 @@ p.dataset-name {
 }
 .chosen-container-single .chosen-single abbr {
     cursor:default;
+}
+
+label { font-weight: bold }
+label span.custom.radio, label span.custom.checkbox { font-weight: normal }
+label span.normal-weight { font-weight: normal}
+
+div.DTE_Body_Content div.DTE_Field {
+    padding: 5px 10% !important;
+}
+
+div.DTE_Field_Type_textarea textarea {
+    height: 99px;
+}
+
+div.DTE_Field_Type_textarea textarea {
+    height: 99px;
+}
+div.DTE_Field_Type_textarea textarea#DTE_Field_notes_on_person {
+    height: 60px;
+}
+div.DTE_Field_Type_textarea textarea#DTE_Field_editors_notes {
+     height: 150px;
+}
+
+textarea.large { min-height:94px}
+
+button, .button {
+    background-color: #008cba;/*#EFC319;*/
+}
+
+a.editor_edit {
+    background-color: #008cba;
+    padding: 7px 10px;
+    color: white
+}
+
+a.editor_edit:hover {
+    background-color: #006c9a;
 }

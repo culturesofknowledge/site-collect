@@ -1,8 +1,11 @@
 fieldset
   legend.radius.secondary.label DATES
   .row
-    .large-5.small-5.columns
+    .large-6.small-6.columns
       .row
+        .large-3.small-3.columns
+          label &nbsp;
+          label Sent:
         .large-3.small-3.columns
           label(for='date_of_work_std_day') Day
           input#std_day(type='number', placeholder='DD', name='date_of_work_std_day', value="#{work.date_of_work_std_day}", size='2', maxlength="2", pattern="/|^[0]?[1-9]$|^[1-2][0-9]$|^[3][0-1]$|/", tabindex='1')
@@ -15,33 +18,13 @@ fieldset
           label Year
           input#date_of_work_std_year(type='number', placeholder='YYYY', name='date_of_work_std_year', value="#{work.date_of_work_std_year}", size='4', maxlength="4", pattern='/|^([0-9]){4}$|/', tabindex='1')
           small.error Year if specified must be 4 digits.
-        .large-1.small-1.columns
-          label  
-        .large-2.small-2.columns
-          label  
-          label.label optionally to
-      .row.collapse
-        .large-2.small-2.columns
-          label Date is:
-        .large-3.small-3.columns
-          label(for='checkbox1')
-            input#checkbox1(name='date_of_work_uncertain', type='checkbox', checked=("true"=== "#{work.date_of_work_uncertain}" ? "checked" : undefined) )
-            span.custom.checkbox
-            | Uncertain
-        .large-3.small-3.columns
-          label(for='checkbox2')
-            input#checkbox2(name='date_of_work_inferred', type='checkbox', checked=("true"=== "#{work.date_of_work_inferred}" ? "checked" : undefined) )
-            span.custom.checkbox.checked
-            | Inferred
-        .large-3.small-3.columns
-          label(for='checkbox3')
-            input#checkbox3(name='date_of_work_approx', type='checkbox', checked=("true" === "#{work.date_of_work_approx}" ? "checked" : undefined) )
-            span.custom.checkbox.checked
-            | Approx
-        .large-1.small-1.columns
-          label  
-    .large-5.small-5.columns
+
+
+    .large-6.small-6.columns
       .row
+        .large-3.small-3.columns
+          label &nbsp;
+          label.label(style="text-align:right") optionally to
         .large-3.small-3.columns
           label(for='date_of_work2_std_day') Day
           input#date_of_work2_std_day(type='number', placeholder='DD', name='date_of_work2_std_day', value="#{work.date_of_work2_std_day}", size='2', maxlength="2", pattern="/|^[0]?[1-9]$|^[1-2][0-9]$|^[3][0-1]$|^[0][1-9]$/", tabindex='1')
@@ -54,8 +37,7 @@ fieldset
           label Year
           input#date_of_work2_std_year(type='number', placeholder='YYYY', name='date_of_work2_std_year', value="#{work.date_of_work2_std_year}", size='4', maxlength="4", pattern='/|^([0-9]){4}$|/', tabindex='1')
           small.error Year if specified must be 4 digits.
-        .large-3.small-3.columns
-          label  
+
       //.row.collapse
       //  .large-2.small-2.columns
       //    label Date is:
@@ -78,57 +60,63 @@ fieldset
       //    label
     .large-2.small-2.columns
       //label.label
+
+  .row
+    .large-3.small-5.columns
+      label Date is:
+    .large-9.small-7.columns
+      label(for='checkbox1')
+        input#checkbox1(name='date_of_work_uncertain', type='checkbox', checked=("true"=== "#{work.date_of_work_uncertain}" ? "checked" : undefined) )
+        span.custom.checkbox
+          |  Uncertain
+      label(for='checkbox2')
+        input#checkbox2(name='date_of_work_inferred', type='checkbox', checked=("true"=== "#{work.date_of_work_inferred}" ? "checked" : undefined) )
+        span.custom.checkbox.checked
+          |  Inferred
+      label(for='checkbox3')
+        input#checkbox3(name='date_of_work_approx', type='checkbox', checked=("true" === "#{work.date_of_work_approx}" ? "checked" : undefined) )
+        span.custom.checkbox.checked
+          |  Approx
+    .large-1.small-1.columns
+      label
+
   br
   .row
-    .large-9.columns
-      .row
-        .large-2.small-2.columns
-          label Calendar:
-        .large-3.small-3.columns
-          label()
-            input#radio1(type='radio', name='original_calendar', value="J" checked=("J"=== "#{work.original_calendar}" ? "checked" : undefined))
-            span.custom.radio
-            | Julian (previous setting)
-        .large-3.small-3.columns
-          label()
-            input#radio1(type='radio', name='original_calendar', value="JJ" checked=("JJ" === "#{work.original_calendar}" ? "checked" : undefined))
-            span.custom.radio
-            | Julian (Jan year start)
-        .large-4.small-4.columns
-          label()
-            input#radio1(type='radio', name='original_calendar', value="JM" checked=("JM" === "#{work.original_calendar}" ? "checked" : undefined))
-            span.custom.radio
-            | Julian (March year start)
-      .row
-        .large-2.small-2.columns
-          | &nbsp
-        .large-3.small-3.columns
-          label()
-            input#radio2(type='radio', name='original_calendar', value="G" checked=("G"=== "#{work.original_calendar}" ? "checked" : undefined))
-            span.custom.radio
-            | Gregorian
-        .large-3.small-3.columns
-          label()
-            input#radio3(type='radio', name='original_calendar', value="U" checked=("U"=== "#{work.original_calendar}" ? "checked" : undefined))
-            span.custom.radio.checked
-            | Unknown
-        .large-2.small-2.columns
-      .row.collapse
-        .large-2.small-2.columns
-          label(for='dateasmarked') Date as marked
-        .large-7.small-7
-          input#dateasmarked(type='text', name='date_of_work_as_marked' value="#{work.date_of_work_as_marked}", placeholder='Date as marked')
-      .row.collapse
-        .large-2.small-2.columns
-          label(for='NotesonDate') Notes on date
-        .large-7.small-7
-          textarea#notes_on_date_of_work(name='notes_on_date_of_work',placeholder='Notes on date (for public display)') #{work.notes_on_date_of_work}
-          //p some text here
-            p some #{work.date_of_work_uncertain} some
-            p more #{work.date_of_work_inferred} more
-            p more2 #{work.date_of_work2_inferred} more2
-            p thing #{work.date_of_work_approx} thing
-            p thing2 #{work.original_calendar} thing2
-            p thing3 #{work.origin_uncertain} thing3
-            p thing4 #{work.origin_inferred} thing4
-          //input.button.small.saveform(type='submit', id="saveform0" , value='#{buttonText}')
+    .large-3.small-5.columns
+      label Calendar of date provided above:
+    .large-9.small-7.columns
+      label()
+        input#radio1(type='radio', name='original_calendar', value="J" checked=("J"=== "#{work.original_calendar}" ? "checked" : undefined))
+        span.custom.radio
+          |  Julian (previous setting)
+
+      label()
+        input#radio1(type='radio', name='original_calendar', value="JJ" checked=("JJ" === "#{work.original_calendar}" ? "checked" : undefined))
+        span.custom.radio
+          |  Julian (Jan year start)
+
+      label()
+        input#radio1(type='radio', name='original_calendar', value="JM" checked=("JM" === "#{work.original_calendar}" ? "checked" : undefined))
+        span.custom.radio
+          |  Julian (March year start)
+
+      label()
+        input#radio2(type='radio', name='original_calendar', value="G" checked=("G"=== "#{work.original_calendar}" ? "checked" : undefined))
+        span.custom.radio
+          |  Gregorian
+
+      label()
+        input#radio3(type='radio', name='original_calendar', value="U" checked=("U"=== "#{work.original_calendar}" ? "checked" : undefined))
+        span.custom.radio.checked
+          |  Unknown
+
+  br
+  .row
+    .large-12.columns
+      label(for='dateasmarked') Date as marked
+      input#dateasmarked(type='text', name='date_of_work_as_marked' value="#{work.date_of_work_as_marked}", placeholder='Date as marked')
+
+  .row
+    .large-12.columns
+      label(for='NotesonDate') Notes on date
+      textarea#notes_on_date_of_work(name='notes_on_date_of_work',placeholder='Notes on date (for public display)') #{work.notes_on_date_of_work}

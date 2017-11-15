@@ -1,5 +1,6 @@
 .row.collapse
     label(for='author') Author/Sender
+      span.normal-weight  (type primary name as used in EMLO)
     .large-10.small-10.columns
       input#author.searchp(type='text', name='author',placeholder='Search EMLO Author/Sender')
     .large-2.small-2.columns
@@ -25,12 +26,12 @@
     label(for='authorsbox1')
       input#authorsbox1(name='authors_uncertain',type='checkbox', checked=("true"=== "#{work.authors_uncertain}" ? "checked" : undefined) )
       span.custom.checkbox
-      | Uncertain
+        |  Uncertain
   .large-3.small-3.columns
     label(for='authorsbox2')
       input#authorsbox2(name='authors_inferred',type='checkbox', checked=("true"=== "#{work.authors_inferred}" ? "checked" : undefined) )
       span.custom.checkbox.checked
-      | Inferred
+        |  Inferred
   .large-2.small-2.columns
 .row.collapse
     label(for='notes_on_authors') Notes

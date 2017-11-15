@@ -1,5 +1,6 @@
 .row.collapse
     label(for='addressee') Recipient
+      span.normal-weight  (type primary name as used in EMLO)
     .large-10.small-10.columns
       input#addressee.searchp(type='text', name='addressee',placeholder='Search EMLO Recipient')
     .large-2.small-2.columns
@@ -25,12 +26,12 @@
     label(for='addresseesbox1')
       input#addresseesbox1(name='addressees_uncertain',type='checkbox', checked=("true"=== "#{work.addressees_uncertain}" ? "checked" : undefined) )
       span.custom.checkbox
-      | Uncertain
+        |  Uncertain
   .large-3.small-3.columns
     label(for='addresseesbox2')
       input#addresseesbox2(name='addressees_inferred',type='checkbox', checked=("true"=== "#{work.addressees_inferred}" ? "checked" : undefined) )
       span.custom.checkbox.checked
-      | Inferred
+        |  Inferred
   .large-2.small-2.columns
 .row.collapse
     label(for='notes_on_addressees') Notes

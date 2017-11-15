@@ -5,7 +5,9 @@
     ul.title-area
       li.name
         h1
-          a(href='#') EmloCollect - #{title}
+          a(href='#')
+            b EMLO-Collect
+            |  - #{title}
 
       // Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone
       li.toggle-topbar.menu-icon
@@ -15,12 +17,9 @@
     section.top-bar-section
       // Right Nav Section 
       ul.right
-        unless loggedIn
+        if loggedIn
           li.active
-            a(href='/user/login') Login
-        else
-          li.active
-            a(href='/user/') Datasets
+            a(href='/user/') All datasets
           include nav_user_inc.jade
           if roles
             each role in roles
@@ -33,12 +32,22 @@
 
       // Left Nav Section
       ul.left
-        if (uploadName)
+        if (uploadName && workID)
           li.active
-            a(href='/work/byupload/#{uploadUuid}/#{uploadName}') [#{uploadName}]
+            a(href='/work/byupload/#{uploadUuid}/#{uploadName}') Back to
+              i  #{uploadName}
+
+        else if (uploadName)
+          li
+            a(href='/work/byupload/#{uploadUuid}/#{uploadName}') #{uploadName}
+
         if (workID)
+          li &nbsp;&nbsp;
           li.active
-            a#work-save-link.saveform(href='#') Save
+            a#work-save-link.saveform(href='#')
+              i(class="fa fa-floppy-o")
+              |  Save work
+
         if ( username == 'cofkrenhart')
             li.active 
               a(href='/user/') Datasets

@@ -1,9 +1,15 @@
 extends layout
 
 block content
+  br
   .row.collapse
-    .large-6.small-6.columns
-      h1= title
+    .large-3.small-3.columns
+      img(src="http://emlo.bodleian.ox.ac.uk/img/emlo_logo.png")
+    .large-9.small-9.columns
+      h2 EMLO-Collect
+      h3 User Login
+      br
+      br
       form(id="formUserLogin", method="post", action="")
 
         label(for="username") Username
@@ -12,4 +18,6 @@ block content
         label(for="password") Password
         input#password(type="password", name="password")
 
+        br
+        br
         input.button(type="submit", value="Login")

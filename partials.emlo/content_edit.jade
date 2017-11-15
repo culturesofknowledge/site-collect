@@ -1,35 +1,38 @@
 fieldset
   legend.radius.secondary.label CONTENT
-  .row
-    .large-9.columns
-      .row.collapse
-        .large-2.small-2.columns
-          label(for='abstract') Abstract
-        .large-7.small-7
-          textarea#abstract(name='abstract',placeholder='Abstract') #{work.abstract}
-      .row.collapse
-        .large-2.small-2.columns
-          label(for='keywords') Keywords
-        .large-7.small-7
-          textarea#keywords(name='keywords',placeholder='Keywords') #{work.keywords}
-      .row.collapse
-        .large-2.small-2.columns
-          label(for='incipit') Incipit
-        .large-7.small-7
-          textarea#incipit(name='incipit',placeholder='Incipit') #{work.incipit}
-      .row.collapse
-        .large-2.small-2.columns
-          label(for='explicit') Explicit
-        .large-7.small-7
-          textarea#explicit(name='explicit',placeholder='Explicit') #{work.explicit}
-      .row.collapse
-        .large-2.small-2.columns
-          label(for='notes_on_letter') Notes on letter
-        .large-7.small-7
-          textarea#notes_on_letter(name='notes_on_letter',placeholder='Notes on letter (for public display)') #{work.notes_on_letter}
-      .row.collapse
-        .large-2.small-2.columns
-          label(for='editors_notes') Editors notes
-        .large-7.small-7
-          textarea#editors_notes(name='editors_notes',placeholder='Editors notes (hidden)') #{work.editors_notes}
-          //input.button.small.saveform(type='submit', id="saveform3" , value='#{buttonText}')
+  .large-12.columns
+    .row
+      .large-3.small-12.column
+        label(for='abstract') Abstract
+      .large-9.small-12.column
+        textarea#abstract.large(name='abstract',placeholder='Abstract') #{work.abstract}
+    br
+    .row
+      .large-3.small-12.column
+        label(for='keywords') Keywords
+      .large-9.small-12.column
+        textarea#keywords.large(name='keywords',placeholder='Keywords') #{work.keywords}
+    br
+    .row
+      .large-3.small-12.column
+        label(for='incipit') Incipit
+      .large-9.small-12.columns
+        textarea#incipit.large(name='incipit',placeholder='Incipit') #{work.incipit}
+    br
+    .row
+      .large-3.small-12.column
+        label(for='explicit') Explicit
+      .large-9.small-12.columns
+        textarea#explicit.large(name='explicit',placeholder='Explicit') #{work.explicit}
+    br
+    .row
+      .large-3.small-12.column
+        label(for='notes_on_letter') Notes on letter
+      .large-9.small-12.columns
+        textarea#notes_on_letter.large(name='notes_on_letter',placeholder='Notes on letter (for public display)') #{work.notes_on_letter}
+    br
+    .row
+      .large-3.small-12.column
+        label(for='editors_notes') Editors notes
+      .large-9.small-12.columns
+        textarea#editors_notes.large(name='editors_notes',placeholder='Editors notes (hidden)') #{work.editors_notes}

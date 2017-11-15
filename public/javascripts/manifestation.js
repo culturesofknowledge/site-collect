@@ -258,13 +258,13 @@ function repoSelect() {
 function letterLoad() {
 
   letterType =  {
-      "Letter"      : "ALS"
+      "Manuscript letter sent"      : "ALS"
 //    , "Digital"     : "Dig"
     , "Draft"       : "D"
     , "Extract"     : "E"
     , "Other"       : "O"
     , "Printed copy": "P"
-    , "Scribal copy": "S"
+    , "Manuscript copy": "S"
   };
 
   rletterType = {};

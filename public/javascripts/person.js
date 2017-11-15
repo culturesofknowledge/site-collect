@@ -32,7 +32,6 @@ $(document).ready(function() {
       { "label": "upload_uuid",
         "name": "upload_uuid",
         "default": uploadUuid ,
-        "type": "text" ,
         "type": "hidden"
       },
       { "label": "upload_name:",
@@ -83,8 +82,8 @@ $(document).ready(function() {
       { "label": "Year flourished to:"      , "name": "flourished2_year" },
       //{ "label": "flourished2_month:"     , "name": "flourished2_month" },
       //{ "label": "flourished2_day:"       , "name": "flourished2_day" },
-      { "label": "Notes on person (for public display):"       , "name": "notes_on_person", "type": "textarea"  },
-      { "label": "Editor's notes (hidden):" , "name": "editors_notes", "type": "textarea"  }
+      { "label": "Notes on person (for public display; only use for worked-up data not included in list below):" , "name": "notes_on_person", "type": "textarea"  },
+      { "label": "Person Metadata, e.g. synonyms; titles; occupations; relationship to others; related resource URLs; editors’ notes:" , "name": "editors_notes", "type": "textarea"  }
     ]
   } );
   
@@ -98,8 +97,13 @@ $(document).ready(function() {
     console.log('a.pers_editor_create '+tSelector , e);
     console.log(tSelector , $(tSelector).val());
     pers_editor
-      .title( 'Create new person' )
-      .buttons( { "label": "Add", "fn": function () { pers_editor.submit() } } )
+      .title( '<b>Create new person</b> <span style="font-size: small">(N.B. check in EMLO to ensure duplicate is not created)</span>' )
+      .buttons( {
+          "label": "Add",
+          "fn": function () {
+              pers_editor.submit();
+          }
+      })
       .create()
       .set("primary_name",$(tSelector).val());
   } );

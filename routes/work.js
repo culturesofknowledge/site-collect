@@ -19,7 +19,7 @@ router.route('/byupload/:upload_uuid/:uploadName')
   console.log("log: upload-page work by uploads",req.session);
   res.render('upload-page', {     
     loggedIn : req.session.loggedIn,
-    title:      req.params.uploadName + " Dataset",
+    title:      "Dataset",
     uploadName :  req.params.uploadName,
     uploadUuid :  req.params.upload_uuid,
     name:       req.session.user.name,
@@ -327,7 +327,7 @@ router.route('/work/edit/:work_id')
           res.render('work-form', {            
             thesession  : req.session,
             loggedIn    : req.session.loggedIn,
-            title       : 'Edit record ['+work.iwork_id+'] for Upload:',
+            title       : 'Edit work',
             name:       req.session.user.name,
             email:      req.session.user.email,
             username:   req.session.user.username,

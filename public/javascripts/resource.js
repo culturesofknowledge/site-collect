@@ -24,12 +24,12 @@ $(document).ready(function() {
     idSrc: "_id",
     "fields": [
       {
-        "label": "Resource name",
+        "label": "Resource name, e.g. Printed copy (editor name) on The Internet Archive",
         "name": "resource_name",
         "type": "text"
       },
       {
-        "label": "Details",
+        "label": "Details (complete only if full bibliographic details not provided elsewhere in letter record)",
         "name": "resource_details",
         "type": "textarea"
       },

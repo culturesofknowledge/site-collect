@@ -3,7 +3,7 @@
 
 console.log("Server starting...");
 
-config = require('./config/config.json')[process.env.NODE_ENV];
+config = require('./config/config.json')[process.env.NODE_ENV || "production"];
 // call the packages we need
 var express = require('express');
 var db      = require('./model/db');

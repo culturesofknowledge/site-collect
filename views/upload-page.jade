@@ -10,6 +10,17 @@ block headjs
 				userID   = "#{userID }";
 
 block content
+
+	h3 Overview of Letters (concise view)
+	p
+		| Here you may sort letters by any of the categories below using up/down arrows.
+		br
+		b To edit a letter record:
+		|  click 'Edit' in relevant letter row.
+		br
+		b To delete a letter record:
+		|  click on relevant row to highlight; click ‘Delete’; and confirm ‘Delete’ as prompted.
+
 	p
 	div#buttonbar
 		a(href="/work/byupload/#{uploadUuid}/#{uploadName}/details",class="DTTT_button DTTT_button_text")

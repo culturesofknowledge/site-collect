@@ -1,35 +1,31 @@
 extends layout
 
 block headjs
-  script(type="text/javascript").
-      var fullname = "#{name}";
-      var email    = "#{email}";
-      var username = "#{username}";
-      var userID   = "#{userID}";
-  //script(type="text/javascript", src="/javascripts/user.js")
+	script(type="text/javascript").
+		var fullname = "#{name}", email = "#{email}", username = "#{username}", userID   = "#{userID}";
 
 block content
-  //p Upload for Username: #{username}
-  //p= title
-  // USER DATATABLE
-  //h3 Upload Table
-  #uploadTableDiv
-    p To add records to a dataset click 'Edit'. To change description or delete entire dataset, click on dataset name to select row, then click 'Rename dataset' or 'Delete' buttons.
-    table#uploadTable
-      thead
-        th Edit
-        th Dataset
-        th Source of data
-        //th upload_username
-        th Status
-        th Total works
-        //th Accepted
-        //th Rejected
-        //th uploader_email
-        //th upload_timestamp
-        //th header
-      tbody
-  // /USER DATATABLE
+
+	#uploadTableDiv
+		h3 EMLO-Collect Dataset Overview Page
+		p
+			b To create new dataset file:
+			|  click ‘New’; complete ‘Name of dataset’ and ‘Source of data’ fields as prompted; click ‘Create’.
+			br
+			b To add records to existing dataset file:
+			|  click 'Edit' at left of relevant dataset row.
+			br
+			b To rename dataset or delete dataset file:
+			|  click dataset name to select row; click either 'Rename dataset' or 'Delete' button; complete as required; click either ‘Update’ or ‘Delete’.
+
+		table#uploadTable
+			thead
+				th Edit
+				th Dataset
+				th Source of data
+				th Status
+				th Total works
+			tbody
 
 block footjs
-  script(src='/javascripts/upload.js')
+	script(src='/javascripts/upload.js')

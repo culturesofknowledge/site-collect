@@ -1,0 +1,9 @@
+.git
+.gitignore
+.foreverignore
+.idea
+docker-compose.yml
+docker-mongo
+install.txt
+node_modules
+startnode.sh

@@ -86,19 +86,14 @@ fieldset
       label Calendar of date provided above:
     .large-9.small-7.columns
       label()
-        input#radio1(type='radio', name='original_calendar', value="J" checked=("J"=== "#{work.original_calendar}" ? "checked" : undefined))
+        input#radio1(type='radio', name='original_calendar', value="JJ" checked=("JJ" === "#{work.original_calendar}" || "J" === "#{work.original_calendar}" ? "checked" : undefined))
         span.custom.radio
-          |  Julian (previous setting)
-
-      label()
-        input#radio1(type='radio', name='original_calendar', value="JJ" checked=("JJ" === "#{work.original_calendar}" ? "checked" : undefined))
-        span.custom.radio
-          |  Julian (Jan year start)
+          |  Julian (January 1st year start)
 
       label()
         input#radio1(type='radio', name='original_calendar', value="JM" checked=("JM" === "#{work.original_calendar}" ? "checked" : undefined))
         span.custom.radio
-          |  Julian (March year start)
+          |  Julian (March 25th year start)
 
       label()
         input#radio2(type='radio', name='original_calendar', value="G" checked=("G"=== "#{work.original_calendar}" ? "checked" : undefined))

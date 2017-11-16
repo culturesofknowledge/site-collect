@@ -93,42 +93,39 @@ $(document).ready(function() {
   $('.saveform').on( 'click', function () {
     var data = {};
     data.data = $("#frmWork").serializeObject();
-    console.log('.saveform',data);
+
     var response = $.post(
       "/work/work/" + workID, //  + "/standalone",
       data,
       function(rdata){
-        //$("#renhart").text(rdata);
-        $('<div data-alert class="alert-box success radius">Work Saved!<a href="#" class="close">&times;</a></div>')
-          .insertBefore('#frmWork')
+       $('<div style="position:fixed;left:50px;top:50px;z-index:20;width:90%" data-alert class="alert-box success radius">Work Saved!</div>')
+	        .appendTo('body')
           .delay(1000)
           .fadeOut(function() {
             $(this).remove(); 
           });
-        console.log("rdata:",rdata);
       });
     
   } );
-  
-  //readyDataTable();
+
   
 } );
 
 // Functions =============================================================
 function frmsubmit(thied){
   alert("frmWork Submitted1" + thied);
-};
+}
 
 
 function emptynull(selector){
   var that = $('#' + selector);
-  var value= that.val()
+  var value= that.val();
   alert ("value:",value);
-  var newvalue = (value == null ) ? "renhart" : "" ;
+  var newvalue = (value === null ) ? "renhart" : "" ;
   alert ("new value:",newvalue);
   //that.val((value == null ) ? "" : value)
   that.val(newvalue)
-};
+}
 
 function readyDataTable(){
   emptynull("date_of_work2_std_year"); 

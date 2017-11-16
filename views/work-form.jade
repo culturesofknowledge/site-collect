@@ -19,38 +19,51 @@ block headjs
 
 
 block content
+  h3 Edit Work
   section
     if errors.length > 0
       ul(class="errors")
         each error in errors
           li= error
-    p.title(data-section-title='')
-      a(href='#section0' name='top')
+
     .content(data-slug='section1', data-section-content='')
-      form.custom(data-abide='data-abide',id="frmWork",method="post", action="")
+      form.custom(data-abide='data-abide', id="frmWork", method="post", action="")
         include ../partials.emlo/dates_edit
         if work._id
           p
+            input.button.small.saveform(type='submit', id="saveform-at-dates" , value='#{buttonText}')
+            br
             a(href='#top') to top
+
           include ../partials.emlo/people_edit
           p
+            input.button.small.saveform(type='submit', id="saveform-at-people" , value='#{buttonText}')
+            br
             a(href='#top') to top
           include ../partials.emlo/places_edit
           p
+            input.button.small.saveform(type='submit', id="saveform-at-places" , value='#{buttonText}')
+            br
             a(href='#top') to top
           include ../partials.emlo/manifestations2_edit
           p
+            input.button.small.saveform(type='submit', id="saveform-at-manifestations" , value='#{buttonText}')
+            br
             a(href='#top') to top
         else
           p ( please save work as id is still #{work.iwork_id} )
 
         include ../partials.emlo/content_edit
         p
+           input.button.small.saveform(type='submit', id="saveform-at-content" , value='#{buttonText}')
+           br
            a(href='#top') to top
         //include ../partials.emlo/manifestations_edit
         include ../partials.emlo/languages_edit
 
         p
+          input.button.small.saveform(type='submit', id="saveform-at-languages" , value='#{buttonText}')
+          br
           a(href='#top') to top
         include ../partials.emlo/resources_edit
         p

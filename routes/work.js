@@ -338,7 +338,7 @@ router.route('/work/edit/:work_id')
             uploadUuid: work.upload_uuid._id,
             workID:     req.params.work_id,
             workName:   work.iwork_id,
-            buttonText: 'Save',
+            buttonText: 'Save work',
             errors: arrErrors
           });
         }

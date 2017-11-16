@@ -35,29 +35,29 @@ doSearchPG = function(req, res, callback){
       q += ",iperson_id as value";
       q += ",iperson_id as emloid";
       q += " from cofk_union_person";
-      q += " where foaf_name ilike $1 ";
+      q += " where (foaf_name ilike $1 or skos_altlabel ilike $1)";
       q += " order by foaf_name";
     console.log("the query ", q);
 
 	client.query( q , b)
 
-    .on("error", function (error) {
-      console.log( "Error in doSearchPG: " + error )
-    })
+	    .on("error", function (error) {
+	      console.log( "Error in doSearchPG: " + error );
+	    })
 
-    .on("row", function (row, result) {
-      result.addRow(row);
-    })
-    
-    .on("end", function (result) {
-      var results = JSON.stringify(result.rows, null, "    ");
-      //res.end(req.query.callback + "(" + results + ")");
-      res.datarows   = result.rows;
-      //res.dataresult = results;
-      callback(req, res);
-      client.end();
-      //console.log("\tResponded with '" + results + "'\n");
-    });      
+	    .on("row", function (row, result) {
+	      result.addRow(row);
+	    })
+
+	    .on("end", function (result) {
+	      var results = JSON.stringify(result.rows, null, "    ");
+	      //res.end(req.query.callback + "(" + results + ")");
+	      res.datarows   = result.rows;
+	      //res.dataresult = results;
+	      callback(req, res);
+	      client.end();
+	      //console.log("\tResponded with '" + results + "'\n");
+	    });
 };
   
 // SELECT "location_id","location_name" FROM "cofk_union_location" WHERE "location_name" ILIKE 'aB%'

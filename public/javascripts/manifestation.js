@@ -208,13 +208,14 @@ $(document).ready(function() {
 function updateChosen() {
 	// Replaces drop down in Repository, see https://harvesthq.github.io/chosen/options.html
 
-	$("#DTE_Field_repository_id").chosen({
-		no_results_text: "No repository found.",
-		allow_single_deselect: true,
-		width: "150%",
-		placeholder_text_single : "Repository...",
-		search_contains : true
-	})
+	$("#DTE_Field_repository_id")
+		.chosen({
+			no_results_text: "No repository found.",
+			allow_single_deselect: true,
+			width: "100%",
+			placeholder_text_single : "Repository...",
+			search_contains : true
+		})
 		.trigger("chosen:updated");
 }
 

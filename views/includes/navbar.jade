@@ -1,5 +1,5 @@
 - var thelogged= loggedIn
-
+a(name='top')
 #navbar.fixed
   nav.top-bar(data-topbar='data-topbar')
     ul.title-area
@@ -18,8 +18,9 @@
       // Right Nav Section 
       ul.right
         if loggedIn
-          li.active
-            a(href='/user/') All datasets
+          if !datasetsPage
+            li.active
+              a(href='/user/') All datasets
           include nav_user_inc.jade
           if roles
             each role in roles

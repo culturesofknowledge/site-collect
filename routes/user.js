@@ -84,14 +84,15 @@ router.get('/', function (req, res) {
 	if( userHelper.loggedIn(req.session) ) {
 		res.render('user-page', {
 			thesession : req.session,
-			title: "Datasets [" + req.session.user.name + ']',
+			title: "Datasets for " + req.session.user.name,
 			loggedIn : true,
 			name: req.session.user.name,
 			email: req.session.user.email,
 			username: req.session.user.username,
 			password: req.session.user.password,
 			userID: req.session.user._id,
-			roles: req.session.user.roles
+			roles: req.session.user.roles,
+			datasetsPage: true
 		} );
     }
 	else {

@@ -34,13 +34,6 @@ div.DTE_Form_Buttons .button{
 }
 
 
-div.DTED_Lightbox_Content {
-position:absolute !important;
-top:100px !important;
-width:600px !important;
-
-}
-
 #buttonbar .back,
 #buttonbar .print,
 #workTableDiv .delete,
@@ -217,3 +210,5 @@ a.editor_edit {
 a.editor_edit:hover {
     background-color: #006c9a;
 }
+
+#navbar.fixed { z-index: 10 !important}

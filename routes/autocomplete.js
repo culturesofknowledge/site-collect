@@ -7,8 +7,6 @@ var router = express.Router();
 // Postgresql databaase
 var pg = require('pg');
 
-console.log(config.conString);
-  
 router.get(
   '/person/:search', function(req, res) {
     console.log("Search person PG database");

@@ -7,7 +7,7 @@ config = require('./config/config.json')[process.env.NODE_ENV || "production"];
 // call the packages we need
 var express = require('express');
 var db      = require('./model/db');
-console.log("still in server");
+
 var _       = require('underscore');
 var path    = require('path');
 
@@ -22,8 +22,8 @@ var app        = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(bodyParser());
-app.use(cookieParser())
+app.use( bodyParser() );
+app.use( cookieParser() );
 
 var confstore = {
 	db: 'emlo-edit',
@@ -31,9 +31,9 @@ var confstore = {
 	cookie_secret: '076ee61d63aa10a125ea872411e433b9'
 };
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use( express.static(path.join(__dirname, 'public')) );
 
-app.use(session({
+app.use( session({
   secret: confstore.cookie_secret,
   store: new MongoStore({
       url : config.dbURL,
@@ -52,7 +52,6 @@ Person = require('./data/models/person');
 Language = require('./data/models/language');
 Location = Place = require('./data/models/location');
 Institution = require('./data/models/institution');
-console.log("server.js Institution: \n", Institution);
 Work = require('./data/models/work');
 Manifestation = require('./data/models/manifestation');
 

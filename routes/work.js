@@ -327,7 +327,7 @@ router.route('/work/edit/:work_id')
           res.render('work-form', {            
             thesession  : req.session,
             loggedIn    : req.session.loggedIn,
-            title       : 'Edit work',
+            title       : 'Editing ' + work.iwork_id + " ",
             name:       req.session.user.name,
             email:      req.session.user.email,
             username:   req.session.user.username,

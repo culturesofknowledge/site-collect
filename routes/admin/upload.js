@@ -7,9 +7,7 @@ var userHelper = require('../../lib/user-helper');
 // middleware to use for all requests
 router.use(function(req, res, next) {
   // do logging
-  console.log('log: Some(upload) is happening method[%s] url[%s] path[%s] ', req.method, req.url, req.path);
-  console.log("log: Request session: ==> ", req.session," route => ", req.route);
-  console.log("log: Request data: ==> ", req.query,"params => ", req.params,"body => ", req.body);
+  console.log('log: Upload middleware', req.method, req.url);
   next();
 });
 

@@ -11,7 +11,7 @@ var dbURI = config.dbURL;
 mongoose.connect(dbURI);
 
 // Define connection events
-mongoose.connection.on('connected', function () {
+/*mongoose.connection.on('connected', function () {
   console.log('Mongoose connected to ' + dbURI);
 });
 
@@ -21,7 +21,7 @@ mongoose.connection.on('error',function (err) {
 
 mongoose.connection.on('disconnected', function () {
   console.log('Mongoose disconnected');
-});
+});*/
 
 process.on('SIGINT', function() {
   mongoose.connection.close(function () {

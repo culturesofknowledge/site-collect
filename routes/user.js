@@ -10,7 +10,7 @@ var User = mongoose.model( 'User' );
 router.use(function(req, res, next) {
   
   // log each request to the console
-  console.log('log: user middleware:',req.method, req.url,'session:',req.session);
+  console.log('log: user middleware:',req.method, req.url);
   
   // continue doing what we were doing and go to the route
   next(); 
@@ -18,8 +18,6 @@ router.use(function(req, res, next) {
 
 // GET login page
 router.get('/login', function (req, res) {
-  console.log('log: router: get /login :', req.body);
-  console.log('log: router: get /login session:', req.session);
 
   if( userHelper.loggedIn( req.session ) ) {
     res.redirect( '/user/' );
@@ -35,7 +33,6 @@ router.get('/login', function (req, res) {
 
 // POST login page
 router.post('/login', function (req, res) {
-  console.log('log: router: post attempting to login :', req.body);
   if (req.body.username) {
     User.findOne(
       {
@@ -63,7 +60,7 @@ router.post('/login', function (req, res) {
             User.update(
               {_id:user._id},
               { $set: {lastLogin: Date.now() } },
-              function( err ){
+              function(){
                 res.redirect( '/user/' );
             });
           }
@@ -78,8 +75,6 @@ router.post('/login', function (req, res) {
 
 // GET logged in user page
 router.get('/', function (req, res) {
-	console.log('log: router: get / :', req.body);
-	console.log('log: router: get / session:', req.session);
 
 	if( userHelper.loggedIn(req.session) ) {
 		res.render('user-page', {
@@ -264,7 +259,6 @@ router.post('/delete', function(req, res) {
 
 // GET user logout
 router.get('/logout', function(req, res) {
-  console.log('log: destroy session ',req.session);
   // below doesn't work with express4 and mongostore
   clearSession(req.session, function () {
     res.redirect('/');

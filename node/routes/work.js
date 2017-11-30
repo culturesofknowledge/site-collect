@@ -4,31 +4,35 @@ var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
 var async   = require('async');
 
+var userHelper = require('../lib/user-helper');
+
 // middleware to use for all requests
 router.use(function(req, res, next) {
-  // do logging
-  console.log('log: Some(work.js) is happening method[%s] url[%s] path[%s] ', req.method, req.url, req.path);
-  console.log("log: Request session: ==> ", req.session," \nroute => ", req.route);
-  console.log("log: Request data: ==> ", req.query,"\nparams => ", req.params,"\nbody => ", req.body);
+  console.log('log: Work.js. method[%s] url[%s] path[%s] ', req.method, req.url, req.path);
+
   next();
 });
 
 // works routes
 router.route('/byupload/:upload_uuid/:uploadName')
-.get(function (req, res) {
-  console.log("log: upload-page work by uploads",req.session);
-  res.render('upload-page', {     
-    loggedIn : req.session.loggedIn,
-    title:      "Dataset",
-    uploadName :  req.params.uploadName,
-    uploadUuid :  req.params.upload_uuid,
-    name:       req.session.user.name,
-    email:      req.session.user.email,
-    username:   req.session.user.username,
-    userID:     req.session.user._id,
-	  roles: req.session.user.roles
-  });
-});
+	.get(function (req, res) {
+
+	if( !userHelper.loggedIn( req.session ) ) {
+		res.redirect( '/login' );
+	}
+
+	  res.render('upload-page', {
+	    loggedIn : req.session.loggedIn,
+	    title:      "Dataset",
+	    uploadName :  req.params.uploadName,
+	    uploadUuid :  req.params.upload_uuid,
+	    name:       req.session.user.name,
+	    email:      req.session.user.email,
+	    username:   req.session.user.username,
+	    userID:     req.session.user._id,
+		  roles: req.session.user.roles
+	  });
+	});
 
 router.route('/byupload/:upload_uuid/:uploadName/details')
     .get(function (req, res) {

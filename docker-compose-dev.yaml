@@ -2,7 +2,7 @@ mongo:
   image: mongo:2.4
 
   ports:
-    - 27017:27017
+    - 47017:27017
 
   volumes:
     - ./volumes/mongo:/data/db
@@ -21,3 +21,5 @@ node:
 
   links:
     - mongo
+
+  command: ["node_modules/forever/bin/forever", "-w", "./server.js"]

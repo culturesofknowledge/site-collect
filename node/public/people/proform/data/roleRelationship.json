@@ -1,0 +1,396 @@
+[                
+          
+{"id":"Acquaintance","text":"Acquaintance" , "children": [          
+        {"id": "acquaintanceOf", "text": "acquaintanceOf"}, {"id":"", "text": ""}]},          
+{"id":"Addressee","text":"Addressee" , "children": [          
+        {"id": "addresseeOf", "text": "addresseeOf"}, {"id":"", "text": ""}]},          
+{"id":"Administrator", "text":"Administrator" , "children": [ {"id":"", "text": ""}]},          
+{"id":"AdministratorOfInstitution", "text":"AdministratorOfInstitution" , "children": [ {"id":"", "text": ""}]},          
+{"id":"AdministratorOfAcademicInstitution", "text":"AdministratorOfAcademicInstitution" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Conrector", "text":"Conrector" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Subrector", "text":"Subrector" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Director", "text":"Director" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Rector", "text":"Rector" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Advertiser", "text":"Advertiser" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Advocate", "text":"Advocate" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Agent", "text":"Agent" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Apprentice", "text":"Apprentice" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Assistant", "text":"Assistant" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Bookseller", "text":"Bookseller" , "children": [ {"id":"", "text": ""}]},          
+{"id":"CauseOfDeath", "text":"CauseOfDeath" , "children": [          
+        {"id": "causedDeathOf", "text": "causedDeathOf"}, {"id":"", "text": ""}]},          
+{"id":"Chair", "text":"Chair" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Client", "text":"Client" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Collaborator", "text":"Collaborator" , "children": [          
+        {"id": "hasCollaborator", "text": "hasCollaborator"}, {"id":"", "text": ""}]},          
+{"id":"Colleague", "text":"Colleague" , "children": [          
+        {"id": "hasColleague", "text": "hasColleague"}, {"id":"", "text": ""}]},          
+{"id":"Commentator", "text":"Commentator" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Annotator", "text":"Annotator" , "children": [ {"id":"", "text": ""}]},          
+{"id":"CommissioningBody","text":"Commissioning Body" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Contractee", "text":"Contractee" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Correspondent", "text":"Correspondent" , "children": [          
+        {"id": "hasCorrespondent", "text": "hasCorrespondent"}, {"id":"", "text": ""}]},          
+{"id":"LetterRecipient","text":"Letter Recipient" , "children": [
+{"id": "hasCorrespondent", "text": "hasCorrespondent"},
+
+{"id": "receivesFrom", "text": "receivesFrom"},
+
+{"id": "recipientOf", "text": "recipientOf"},
+ {"id":"", "text": ""}]},          
+{"id":"LetterSender","text":"Letter Sender" , "children": [
+{"id": "hasCorrespondent", "text": "hasCorrespondent"},
+
+{"id": "senderOf", "text": "senderOf"},
+
+{"id": "sendsTo", "text": "sendsTo"},
+ {"id":"", "text": ""}]},          
+{"id":"Counsellor", "text":"Counsellor" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Courtier", "text":"Courtier" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Creator", "text":"Creator" , "children": [          
+        {"id": "creatorOf", "text": "creatorOf"}, {"id":"", "text": ""}]},          
+{"id":"Artist", "text":"Artist" , "children": [
+{"id": "creatorOf", "text": "creatorOf"},
+ {"id":"", "text": ""}]},          
+{"id":"Author", "text":"Author" , "children": [
+{"id": "creatorOf", "text": "creatorOf"},
+          
+        {"id": "authorOf", "text": "authorOf"}, {"id":"", "text": ""}]},          
+{"id":"Glossist", "text":"Glossist" , "children": [
+{"id": "authorOf", "text": "authorOf"},
+ {"id":"", "text": ""}]},          
+{"id":"Librettist", "text":"Librettist" , "children": [
+{"id": "authorOf", "text": "authorOf"},
+ {"id":"", "text": ""}]},          
+{"id":"TuneAuthor","text":"Tune Author" , "children": [
+{"id": "authorOf", "text": "authorOf"},
+ {"id":"", "text": ""}]},          
+{"id":"Composer", "text":"Composer" , "children": [
+{"id": "creatorOf", "text": "creatorOf"},
+ {"id":"", "text": ""}]},          
+{"id":"MusicComposer","text":"Music Composer" , "children": [ {"id":"", "text": ""}]},          
+{"id":"TextComposer","text":"Text Composer" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Copyist", "text":"Copyist" , "children": [
+{"id": "creatorOf", "text": "creatorOf"},
+ {"id":"", "text": ""}]},          
+{"id":"Inscriber", "text":"Inscriber" , "children": [
+{"id": "creatorOf", "text": "creatorOf"},
+          
+        {"id": "inscriberOf", "text": "inscriberOf"}, {"id":"", "text": ""}]},          
+{"id":"Photographer", "text":"Photographer" , "children": [
+{"id": "creatorOf", "text": "creatorOf"},
+ {"id":"", "text": ""}]},          
+{"id":"SceneryDesigner","text":"Scenery Designer" , "children": [
+{"id": "creatorOf", "text": "creatorOf"},
+ {"id":"", "text": ""}]},          
+{"id":"Criminal", "text":"Criminal" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Deceased", "text":"Deceased" , "children": [          
+        {"id": "hasCauseOfDeath", "text": "hasCauseOfDeath"}, {"id":"", "text": ""}]},          
+{"id":"Dedicatee", "text":"Dedicatee" , "children": [          
+        {"id": "dedicateeOf", "text": "dedicateeOf"}, {"id":"", "text": ""}]},          
+{"id":"Dedicator", "text":"Dedicator" , "children": [          
+        {"id": "dedicatorOf", "text": "dedicatorOf"}, {"id":"", "text": ""}]},          
+{"id":"DisplacedPerson", "text":"DisplacedPerson" , "children": [ {"id":"", "text": ""}]},          
+{"id":"DisputationRespondent", "text":"DisputationRespondent" , "children": [          
+        {"id": "hasPraeses", "text": "hasPraeses"}, {"id":"", "text": ""}]},          
+{"id":"Disqualified", "text":"Disqualified" , "children": [ {"id":"", "text": ""}]},          
+{"id":"DisqualifiedFromOffice","text":"Disqualified From Office" , "children": [          
+        {"id": "disqualifiedFrom", "text": "disqualifiedFrom"},          
+        {"id": "disqualifiedFromOffice", "text": "disqualifiedFromOffice"}, {"id":"", "text": ""}]},          
+{"id":"DisqualifiedFromOffice","text":"Disqualified From Office" , "children": [          
+        {"id": "disqualifiedFrom", "text": "disqualifiedFrom"},          
+        {"id": "disqualifiedFromOffice", "text": "disqualifiedFromOffice"}, {"id":"", "text": ""}]},          
+{"id":"Editor", "text":"Editor" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Emigrant", "text":"Emigrant" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Employee", "text":"Employee" , "children": [          
+        {"id": "hasEmployer", "text": "hasEmployer"}, {"id":"", "text": ""}]},          
+{"id":"Employer", "text":"Employer" , "children": [          
+        {"id": "hasEmployee", "text": "hasEmployee"}, {"id":"", "text": ""}]},          
+{"id":"Engraver", "text":"Engraver" , "children": [          
+        {"id": "engraverOf", "text": "engraverOf"}, {"id":"", "text": ""}]},          
+{"id":"ExiledPerson","text":"Exiled Person" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Factor", "text":"Factor" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Gift", "text":"Gift" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Giver", "text":"Giver" , "children": [          
+        {"id": "giverOf", "text": "giverOf"},          
+        {"id": "givesTo", "text": "givesTo"}, {"id":"", "text": ""}]},          
+{"id":"Contributor", "text":"Contributor" , "children": [
+{"id": "giverOf", "text": "giverOf"},
+
+{"id": "givesTo", "text": "givesTo"},
+          
+        {"id": "contributorOf", "text": "contributorOf"}, {"id":"", "text": ""}]},          
+{"id":"Donor", "text":"Donor" , "children": [
+{"id": "giverOf", "text": "giverOf"},
+
+{"id": "givesTo", "text": "givesTo"},
+ {"id":"", "text": ""}]},          
+{"id":"Endower", "text":"Endower" , "children": [
+{"id": "giverOf", "text": "giverOf"},
+
+{"id": "givesTo", "text": "givesTo"},
+ {"id":"", "text": ""}]},          
+{"id":"Funder", "text":"Funder" , "children": [
+{"id": "giverOf", "text": "giverOf"},
+
+{"id": "givesTo", "text": "givesTo"},
+ {"id":"", "text": ""}]},          
+{"id":"GiftGiver","text":"Gift Giver" , "children": [
+{"id": "giverOf", "text": "giverOf"},
+
+{"id": "givesTo", "text": "givesTo"},
+ {"id":"", "text": ""}]},          
+{"id":"Patron", "text":"Patron" , "children": [
+{"id": "giverOf", "text": "giverOf"},
+
+{"id": "givesTo", "text": "givesTo"},
+ {"id":"", "text": ""}]},          
+{"id":"Host", "text":"Host" , "children": [          
+        {"id": "hasGuest", "text": "hasGuest"},          
+        {"id": "hostOf", "text": "hostOf"}, {"id":"", "text": ""}]},          
+{"id":"Housemate", "text":"Housemate" , "children": [          
+        {"id": "residesWith", "text": "residesWith"}, {"id":"", "text": ""}]},          
+{"id":"Illustrator", "text":"Illustrator" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Immigrant", "text":"Immigrant" , "children": [          
+        {"id": "immigrantTo", "text": "immigrantTo"}, {"id":"", "text": ""}]},          
+{"id":"Inhabitant", "text":"Inhabitant" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Instigator", "text":"Instigator" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Intermediary", "text":"Intermediary" , "children": [          
+        {"id": "intermediaryOf", "text": "intermediaryOf"}, {"id":"", "text": ""}]},          
+{"id":"CorrespondenceIntermediary","text":"Correspondence Intermediary" , "children": [
+{"id": "intermediaryOf", "text": "intermediaryOf"},
+ {"id":"", "text": ""}]},          
+{"id":"Interviewee", "text":"Interviewee" , "children": [          
+        {"id": "interviewedBy", "text": "interviewedBy"}, {"id":"", "text": ""}]},          
+{"id":"Interviewer", "text":"Interviewer" , "children": [          
+        {"id": "interviews", "text": "interviews"}, {"id":"", "text": ""}]},          
+{"id":"Licenser", "text":"Licenser" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Master", "text":"Master" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Member", "text":"Member" , "children": [          
+        {"id": "memberOf", "text": "memberOf"}, {"id":"", "text": ""}]},          
+{"id":"Merchant", "text":"Merchant" , "children": [ {"id":"", "text": ""}]},          
+{"id":"OfficeHolder", "text":"OfficeHolder" , "children": [          
+        {"id": "hasOffice", "text": "hasOffice"}, {"id":"", "text": ""}]},          
+{"id":"Owner", "text":"Owner" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Participant", "text":"Participant" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Attendee", "text":"Attendee" , "children": [          
+        {"id": "attendeeOf", "text": "attendeeOf"}, {"id":"", "text": ""}]},          
+{"id":"Saloniste", "text":"Saloniste" , "children": [
+{"id": "attendeeOf", "text": "attendeeOf"},
+ {"id":"", "text": ""}]},          
+{"id":"Patient", "text":"Patient" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Performer", "text":"Performer" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Praeses", "text":"Praeses" , "children": [          
+        {"id": "hasDisputationRespondent", "text": "hasDisputationRespondent"}, {"id":"", "text": ""}]},          
+{"id":"Printer", "text":"Printer" , "children": [          
+        {"id": "printerOf", "text": "printerOf"}, {"id":"", "text": ""}]},          
+{"id":"Producer", "text":"Producer" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Publisher", "text":"Publisher" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Recipient", "text":"Recipient" , "children": [          
+        {"id": "receivesFrom", "text": "receivesFrom"},          
+        {"id": "recipientOf", "text": "recipientOf"}, {"id":"", "text": ""}]},          
+{"id":"FundsRecipient","text":"Funds Recipient" , "children": [
+{"id": "receivesFrom", "text": "receivesFrom"},
+
+{"id": "recipientOf", "text": "recipientOf"},
+          
+        {"id": "hasFunder", "text": "hasFunder"}, {"id":"", "text": ""}]},          
+{"id":"Endowee", "text":"Endowee" , "children": [
+{"id": "hasFunder", "text": "hasFunder"},
+ {"id":"", "text": ""}]},          
+{"id":"LetterRecipient","text":"Letter Recipient" , "children": [
+{"id": "hasCorrespondent", "text": "hasCorrespondent"},
+
+{"id": "receivesFrom", "text": "receivesFrom"},
+
+{"id": "recipientOf", "text": "recipientOf"},
+ {"id":"", "text": ""}]},          
+{"id":"Refugee", "text":"Refugee" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Researcher", "text":"Researcher" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Reviewer", "text":"Reviewer" , "children": [          
+        {"id": "reviewerOf", "text": "reviewerOf"}, {"id":"", "text": ""}]},          
+{"id":"Ruler", "text":"Ruler" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Sender", "text":"Sender" , "children": [          
+        {"id": "senderOf", "text": "senderOf"},          
+        {"id": "sendsTo", "text": "sendsTo"}, {"id":"", "text": ""}]},          
+{"id":"LetterSender","text":"Letter Sender" , "children": [
+{"id": "hasCorrespondent", "text": "hasCorrespondent"},
+
+{"id": "senderOf", "text": "senderOf"},
+
+{"id": "sendsTo", "text": "sendsTo"},
+ {"id":"", "text": ""}]},          
+{"id":"Signatory", "text":"Signatory" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Steward", "text":"Steward" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Student", "text":"Student" , "children": [          
+        {"id": "hasTeacher", "text": "hasTeacher"},          
+        {"id": "hasTutor", "text": "hasTutor"}, {"id":"", "text": ""}]},          
+{"id":"Supervisor", "text":"Supervisor" , "children": [ {"id":"", "text": ""}]},          
+{"id":"AcademicSupervisor","text":"Academic Supervisor" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Teacher", "text":"Teacher" , "children": [          
+        {"id": "hasStudent", "text": "hasStudent"}, {"id":"", "text": ""}]},          
+{"id":"Tutor", "text":"Tutor" , "children": [
+{"id": "hasStudent", "text": "hasStudent"},
+          
+        {"id": "hasStudent", "text": "hasStudent"}, {"id":"", "text": ""}]},          
+{"id":"Trader", "text":"Trader" , "children": [          
+        {"id": "traderOf", "text": "traderOf"},          
+        {"id": "tradesWith", "text": "tradesWith"}, {"id":"", "text": ""}]},          
+{"id":"Buyer", "text":"Buyer" , "children": [
+{"id": "traderOf", "text": "traderOf"},
+
+{"id": "tradesWith", "text": "tradesWith"},
+          
+        {"id": "buyerOf", "text": "buyerOf"},          
+        {"id": "buysFrom", "text": "buysFrom"}, {"id":"", "text": ""}]},          
+{"id":"Seller", "text":"Seller" , "children": [
+{"id": "traderOf", "text": "traderOf"},
+
+{"id": "tradesWith", "text": "tradesWith"},
+          
+        {"id": "sellerOf", "text": "sellerOf"},          
+        {"id": "sellsTo", "text": "sellsTo"}, {"id":"", "text": ""}]},          
+{"id":"Transcriber", "text":"Transcriber" , "children": [          
+        {"id": "transcriberOf", "text": "transcriberOf"}, {"id":"", "text": ""}]},          
+{"id":"Translator", "text":"Translator" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Traveller", "text":"Traveller" , "children": [ {"id":"", "text": ""}]},          
+{"id":"TravelCompanion","text":"Travel Companion" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Victim", "text":"Victim" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Visitor", "text":"Visitor" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Guest", "text":"Guest" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Witness", "text":"Witness" , "children": [ {"id":"", "text": ""}]},
+
+
+        
+{"id":"FamilyRelation", "text":"FamilyRelation" , "children": [          
+        {"id": "isFamilyRelationOf", "text": "isFamilyRelationOf"}, {"id":"", "text": ""}]},          
+{"id":"BloodRelation", "text":"BloodRelation" , "children": [
+{"id": "isFamilyRelationOf", "text": "isFamilyRelationOf"},
+          
+        {"id": "isBloodRelationOf", "text": "isBloodRelationOf"}, {"id":"", "text": ""}]},          
+{"id":"FamilyRole", "text":"FamilyRole" , "children": [ {"id":"", "text": ""}]},          
+{"id":"Ancestor", "text":"Ancestor" , "children": [          
+        {"id": "ancestorOf", "text": "ancestorOf"},          
+        {"id": "hasDescendent", "text": "hasDescendent"}, {"id":"", "text": ""}]},          
+{"id":"Aunt", "text":"Aunt" , "children": [          
+        {"id": "auntOf", "text": "auntOf"},          
+        {"id": "hasNephew", "text": "hasNephew"},          
+        {"id": "hasNiece", "text": "hasNiece"}, {"id":"", "text": ""}]},          
+{"id":"Cousin", "text":"Cousin" , "children": [          
+        {"id": "hasCousin", "text": "hasCousin"}, {"id":"", "text": ""}]},          
+{"id":"CousinInLaw","text":"Cousin in Law" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasCousinInLaw", "text": "hasCousinInLaw"}, {"id":"", "text": ""}]},          
+{"id":"DoubleCousin","text":"Cousin" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasDoubleCousin", "text": "hasDoubleCousin"}, {"id":"", "text": ""}]},          
+{"id":"FirstCousin","text":"First Cousin" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasFirstCousin", "text": "hasFirstCousin"}, {"id":"", "text": ""}]},          
+{"id":"FirstCousinOnceRemoved","text":"First Cousin Once Removed" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasFirstCousinOnceRemoved", "text": "hasFirstCousinOnceRemoved"}, {"id":"", "text": ""}]},          
+{"id":"FirstCousinTwiceRemoved","text":"First Cousin Twice Removed" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasFirstCousinTwiceRemoved", "text": "hasFirstCousinTwiceRemoved"}, {"id":"", "text": ""}]},          
+{"id":"HalfCousin","text":"Half Cousin" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+ {"id":"", "text": ""}]},          
+{"id":"MaternalCousin","text":"Maternal Cousin" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasMaternalCousin", "text": "hasMaternalCousin"}, {"id":"", "text": ""}]},          
+{"id":"PaternalCousin","text":"Paternal Cousin" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasPaternalCousin", "text": "hasPaternalCousin"}, {"id":"", "text": ""}]},          
+{"id":"SecondCousin","text":"Second Cousin" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasSecondCousin", "text": "hasSecondCousin"}, {"id":"", "text": ""}]},          
+{"id":"SecondCousinOnceRemoved","text":"Second Cousin Once Removed" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasSecondCousinOnceRemoved", "text": "hasSecondCousinOnceRemoved"}, {"id":"", "text": ""}]},          
+{"id":"StepCousin","text":"Step Cousin" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+ {"id":"", "text": ""}]},          
+{"id":"ThirdCousin","text":"Third Cousin" , "children": [
+{"id": "hasCousin", "text": "hasCousin"},
+          
+        {"id": "hasThirdCousin", "text": "hasThirdCousin"}, {"id":"", "text": ""}]},          
+{"id":"Descendent", "text":"Descendent" , "children": [          
+        {"id": "descendentOf", "text": "descendentOf"},          
+        {"id": "hasAncestor", "text": "hasAncestor"}, {"id":"", "text": ""}]},          
+{"id":"GreatAunt","text":"Great Aunt" , "children": [ {"id":"", "text": ""}]},          
+{"id":"GreatUncle","text":"Great Uncle" , "children": [ {"id":"", "text": ""}]},          
+{"id":"InLaw","text":"In Law" , "children": [          
+        {"id": "hasInLaw", "text": "hasInLaw"}, {"id":"", "text": ""}]},          
+{"id":"BrotherInLaw","text":"Brother in Law" , "children": [
+{"id": "hasInLaw", "text": "hasInLaw"},
+          
+        {"id": "brotherInLawOf", "text": "brotherInLawOf"}, {"id":"", "text": ""}]},          
+{"id":"FatherInLaw","text":"Father in Law" , "children": [
+{"id": "hasInLaw", "text": "hasInLaw"},
+          
+        {"id": "fatherInLawOf", "text": "fatherInLawOf"}, {"id":"", "text": ""}]},          
+{"id":"MotherInLaw","text":"Mother in Law" , "children": [
+{"id": "hasInLaw", "text": "hasInLaw"},
+          
+        {"id": "motherInLawOf", "text": "motherInLawOf"}, {"id":"", "text": ""}]},          
+{"id":"SisterInLaw","text":"Sister in Law" , "children": [
+{"id": "hasInLaw", "text": "hasInLaw"},
+          
+        {"id": "sisterInLawOf", "text": "sisterInLawOf"}, {"id":"", "text": ""}]},          
+{"id":"Nephew", "text":"Nephew" , "children": [          
+        {"id": "hasAunt", "text": "hasAunt"},          
+        {"id": "hasUncle", "text": "hasUncle"},          
+        {"id": "nephewOf", "text": "nephewOf"}, {"id":"", "text": ""}]},          
+{"id":"Niece", "text":"Niece" , "children": [          
+        {"id": "hasAunt", "text": "hasAunt"},          
+        {"id": "hasUncle", "text": "hasUncle"},          
+        {"id": "nieceOf", "text": "nieceOf"}, {"id":"", "text": ""}]},          
+{"id":"Sibling", "text":"Sibling" , "children": [          
+        {"id": "hasBrother", "text": "hasBrother"},          
+        {"id": "hasSibling", "text": "hasSibling"},          
+        {"id": "hasSister", "text": "hasSister"}, {"id":"", "text": ""}]},          
+{"id":"Brother", "text":"Brother" , "children": [
+{"id": "hasBrother", "text": "hasBrother"},
+
+{"id": "hasSibling", "text": "hasSibling"},
+
+{"id": "hasSister", "text": "hasSister"},
+          
+        {"id": "brotherOf", "text": "brotherOf"}, {"id":"", "text": ""}]},          
+{"id":"Sister", "text":"Sister" , "children": [
+{"id": "hasBrother", "text": "hasBrother"},
+
+{"id": "hasSibling", "text": "hasSibling"},
+
+{"id": "hasSister", "text": "hasSister"},
+          
+        {"id": "sisterOf", "text": "sisterOf"}, {"id":"", "text": ""}]},          
+{"id":"Spouse", "text":"Spouse" , "children": [          
+        {"id": "hasSpouse", "text": "hasSpouse"}, {"id":"", "text": ""}]},          
+{"id":"Husband", "text":"Husband" , "children": [
+{"id": "hasSpouse", "text": "hasSpouse"},
+          
+        {"id": "hasWife", "text": "hasWife"},          
+        {"id": "husbandOf", "text": "husbandOf"}, {"id":"", "text": ""}]},          
+{"id":"Wife", "text":"Wife" , "children": [
+{"id": "hasSpouse", "text": "hasSpouse"},
+          
+        {"id": "hasHusband", "text": "hasHusband"},          
+        {"id": "wifeOf", "text": "wifeOf"}, {"id":"", "text": ""}]},          
+{"id":"Uncle", "text":"Uncle" , "children": [          
+        {"id": "hasNephew", "text": "hasNephew"},          
+        {"id": "hasNiece", "text": "hasNiece"},          
+        {"id": "uncleOf", "text": "uncleOf"}, {"id":"", "text": ""}]},
+
+
+{}      ]

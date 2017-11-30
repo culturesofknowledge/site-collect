@@ -1,0 +1,362 @@
+[
+
+
+ { "id": "CreationActivity", "text": "Creation Activity",
+ 
+  "children": [
+  	{"id": "Creator", "text": "Creator"},
+  	{"id":"Contributor","text":"Contributor"},
+  	{"id":"Dedicatee","text":"Dedicatee"} 
+  ]
+ 
+ 
+ 
+ },
+ 
+  { "id": "PrintingActivity", "text": "Printing Activity",
+ 
+  "children": [
+  {"id":"Printer","text":"Printer"},
+  {"id":"Illustrator","text":"Illustrator"},
+  {"id":"Engraver","text":"Engraver"}
+ 
+  ]},
+      { "id": "PublishingActivity", "text": "Publishing Activity",
+ 
+  "children": [
+  {"id":"Publisher","text":"Publisher"}
+  ]},
+
+
+      { 
+      	"id": "Birth", 
+      	"text": "Birth",
+      		"children": [
+      			{"id": "Child", "text": "Child"},   
+      			{"id": "Mother", "text": "Mother"},     
+      			{"id":"Father","text":"Father"}
+] 
+      },
+      { 
+      "id": "Death", 
+      "text": "Death",
+      "children": [
+      	{"id":"Deceased","text":"Deceased"},
+      	{"id":"CauseOfDeath","text":"Cause of Death"}
+      
+      
+      ] },
+      
+      { "id": "FamilyRelationships", "text": "Family Relationships",
+      
+      "children": [
+      
+      	 {"id":"Ancestor","text":"Ancestor"},
+		 {"id":"Aunt","text":"Aunt"},
+		 {"id":"Cousin","text":"Cousin"},
+		 {"id":"CousinInLaw","text":"Cousin In Law"},
+		 {"id":"DoubleCousin","text":"Double Cousin"},
+		 {"id":"FirstCousin","text":"First Cousin"},
+		 {"id":"FirstCousinOnceRemoved","text":"First Cousin Once Removed"},
+		 {"id":"FirstCousinTwiceRemoved","text":"First Cousin Twice Removed"},
+		 {"id":"HalfCousin","text":"Half Cousin"},
+		 {"id":"MaternalCousin","text":"Maternal Cousin"},
+		 {"id":"PaternalCousin","text":"Paternal Cousin"},
+		 {"id":"SecondCousin","text":"Second Cousin"},
+		 {"id":"SecondCousinOnceRemoved","text":"Second Cousin Once Removed"},
+		 {"id":"StepCousin","text":"Step Cousin"},
+		 {"id":"ThirdCousin","text":"Third Cousin"},
+		 {"id":"Descendent","text":"Descendent"},
+		 {"id":"GreatAunt","text":"Great Aunt"},
+		 {"id":"GreatUncle","text":"Great Uncle"},
+		 {"id":"InLaw","text":"In Law"},
+		 {"id":"BrotherInLaw","text":"Brother In Law"},
+		 {"id":"FatherInLaw","text":"Father In Law"},
+		 {"id":"MotherInLaw","text":"Mother In Law"},
+		 {"id":"SisterInLaw","text":"Sister In Law"},
+		 {"id":"Nephew","text":"Nephew"},
+		 {"id":"Niece","text":"Niece"},
+		 {"id":"Sibling","text":"Sibling"},
+		 {"id":"Brother","text":"Brother"},
+		 {"id":"Sister","text":"Sister"},
+		 {"id":"Spouse","text":"Spouse"},
+		 {"id":"Husband","text":"Husband"},
+		 {"id":"Wife","text":"Wife"},
+		 {"id":"Uncle","text":"Uncle"}
+      
+      
+      ] },
+      { "id": "UniversityMatriculation", "text": "University Matriculation",
+      
+      "children": [
+      {"id":"Matriculant","text":"Matriculant"},
+      {"id":"Participant","text":"Participant"}
+      
+      ] },
+      { "id": "InclusionClassList", "text": "Inclusion Class List",
+      
+      "children": [
+      
+       {"id":"Student","text":"Student"}
+      
+      ] },
+      { "id": "Disputation", "text": "Disputation",
+      
+      "children": [
+      
+      	{"id":"Praeses","text":"Praeses"},
+ 		{"id":"Respondent","text":"Respondent"}
+      
+      ] },
+      { "id": "PersonalTestimony", "text": "Personal Testimony",
+      
+      "children": [
+      
+      	 {"id":"Testifier","text":"Testifier"}
+      
+      ] },
+      { "id": "PromotionToDegree", "text": "Promotion To Degree",
+      
+      "children": [
+      
+       {"id":"Graduate","text":"Graduate"}
+       
+      
+      ] },
+      { "id": "Study", "text": "Study",
+      
+      "children": [
+      
+      	{"id":"Student","text":"Student"},
+ 		{"id":"Teacher","text":"Teacher"},
+ 		{"id":"Tutor","text":"Tutor"}
+ 		
+      
+      ] },
+      { "id": "Teaching", "text": "Teaching",
+      
+      "children": [
+      	{"id":"Student","text":"Student"},
+ 		{"id":"Teacher","text":"Teacher"},
+ 		{"id":"Tutor","text":"Tutor"}
+      
+      
+      ] },
+      { "id": "Employment", "text": "Employment",
+      
+      "children": [
+      
+      	{"id":"Employee","text":"Employee"},
+ 		{"id":"Employer","text":"Employer"}
+      
+      ] },
+      
+      { "id": "DisqualificationFromOffice", "text": "Disqualification From Office",
+      
+      "children": [
+      
+       {"id":"DisqualifiedFromOffice","text":"Disqualified From Office"}
+      
+      ] },
+      { "id": "HoldOffice", "text": "Hold Office",
+      
+      "children": [
+      
+      {"id":"OfficeHolder","text":"Office Holder"}
+      
+      ] },
+   
+      
+      
+      { "id": "DedicationActivity", "text": "Dedication Activity",
+      
+      "children": [
+      
+      {"id":"Dedicatee","text":"Dedicatee"},
+ 		{"id":"Dedicator","text":"Dedicator"}
+      
+      ] },
+      { "id": "DedicationOfItem", "text": "Dedication Of Item",
+      
+      "children": [
+      
+      {"id":"Dedicatee","text":"Dedicatee"},
+ 		{"id":"Dedicator","text":"Dedicator"}
+      
+      ] },
+      { "id": "DedicationOfWork", "text": "Dedication Of Work",
+      
+      "children": [
+      
+      {"id":"Dedicatee","text":"Dedicatee"},
+ 		{"id":"Dedicator","text":"Dedicator"}
+      
+      ] },
+     
+    
+      { "id": "Salon", "text": "Salon",
+      
+      "children": [
+       {"id":"Attendee","text":"Attendee"},
+      {"id":"Saloniste","text":"Saloniste"}
+      
+      ] },
+     
+      { "id": "Baptism", "text": "Baptism",
+      
+      "children": [
+      
+      {"id":"BaptismalCandidate","text":"Baptismal Candidate"},
+ 		{"id":"Godchild","text":"Godchild"},
+ 		{"id":"Godfather","text":"Godfather"},
+ 		{"id":"Godmother","text":"Godmother"},
+ 		{"id":"Officiant","text":"Officiant"}
+      
+      ] },
+      
+      { "id": "MembershipProfessionalBody", "text": "Membership Professional Body",
+      
+      "children": [
+      
+      {"id":"Member","text":"Member"}
+      
+      ] },
+     
+      { "id": "Trade", "text": "Trade",
+      
+      "children": [
+      	{"id":"Buyer","text":"Buyer"},
+      	{"id":"Seller","text":"Seller"}
+      ] },
+      { "id": "Contract", "text": "Contract",
+      
+      "children": [
+       		{"id":"Signatory","text":"Signatory"},
+       		{"id":"Witness","text":"Witness"}
+      
+      ] },
+      { "id": "InclusionAlbumAmicorum", "text": "Inclusion Album Amicorum",
+      
+      "children": [
+      
+      	{"id":"Inscriber","text":"Inscriber"},
+      	{"id":"Owner","text":"Owner"}
+      
+      ] },
+      { "id": "ExchangeOccasionalVerse", "text": "Exchange Occasional Verse",
+      
+      "children": [
+       {"id":"Author","text":"Author"},
+       {"id":"Recipient","text":"Recipient"}
+      
+      ] },
+      { "id": "Collaboration", "text": "Collaboration",
+      
+      "children": [
+      
+       	{"id":"Collaborator","text":"Collaborator"}
+      
+      ] },
+      { "id": "Travel", "text": "Travel",
+      
+      "children": [
+      
+       {"id":"TravelCompanion","text":"TravelCompanion"}
+      
+      ] },
+      { "id": "SocialVisit", "text": "Social Visit",
+      
+      "children": [
+      
+      	
+ 		{"id":"Guest","text":"Guest"},
+ 		{"id":"Host","text":"Host"}
+      
+      ] },
+      { "id": "Meeting", "text": "Meeting",
+      
+      "children": [
+      
+      {"id":"Participant","text":"Participant"}
+      
+      ] },
+      { "id": "Introduction", "text": "Introduction",
+      
+      "children": [
+      {"id":"Intermediary","text":"Intermediary"},
+      {"id":"LetterAuthor","text":"LetterAuthor"}
+      
+      ] },
+      { "id": "Acquaintanceship", "text": "Acquaintanceship",
+      
+      "children": [
+      
+      {"id":"Acquaintance","text":"Acquaintance"}
+      
+      ] },
+      { "id": "Correspondence", "text": "Correspondence",
+      
+      "children": [
+      
+      		{"id":"Correspondent","text":"Correspondent"},
+ 			{"id":"LetterRecipient","text":"Letter Recipient"},
+ 			{"id":"LetterSender","text":"Letter Sender"},
+      		{"id":"LetterAuthor","text":"Letter Author"}
+      ] },
+      { "id": "Friendship", "text": "Friendship",
+      
+      "children": [
+      		
+      {"id":"Acquaintance","text":"Acquaintance"}
+      
+      ] },
+      
+      
+      { "id": "Displacement", "text": "Displacement",
+      
+      "children": [
+      
+      {"id":"Refugee","text":"Refugee"}
+      
+      ] },
+      { "id": "Emmigration", "text": "Emmigration",
+      
+      "children": [
+      	
+      {"id":"Emigrant","text":"Emigrant"}
+      
+      ] },
+      { "id": "Exile", "text": "Exile",
+      
+      "children": [
+      
+      {"id":"ExiledPerson","text":"Exiled Person"}
+      
+      ] },
+      { "id": "Immigration", "text": "Immigration",
+      
+      "children": [
+      
+      {"id":"Immigrant","text":"Immigrant"}
+      
+      
+      
+      
+      ] },
+      { "id": "Residence", "text": "Residence",
+      
+      "children": [
+      
+      {"id":"Inhabitant","text":"Inhabitant"}
+      
+      ] },
+     
+      { "id": "Ennoble", "text": "Ennoble",
+      
+      "children": [
+      	{"id":"EnnobledPerson","text":"Ennobled Person"}
+      
+      
+      ] }
+  
+]

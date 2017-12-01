@@ -22,4 +22,4 @@ node:
   links:
     - mongo
 
-  command: ["node_modules/forever/bin/forever", "-w", "./server.js"]
+  command: ["/src/node_modules/forever/bin/forever", "-w", "./server.js"]

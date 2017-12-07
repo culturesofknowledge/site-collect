@@ -83,13 +83,13 @@ app.use('/autocomplete' , autocomplete);
 app.use('/emloload'     , emloload);
 
 // catch 404 and forwarding to error handler
-app.use(function(err, req, res, next) {
+/*app.use(function(err, req, res, next) {
 	console.log('Error(server.js) is happening method[%s] url[%s] path[%s] ', req.method, req.url, req.path);
 	console.log("Request session: ==> ", req.session," req.route => ", req.route);
 	console.log("Req.query: ==> ", req.query,"req.params => ", req.params,"body => ", req.body);
 
     next(err);
-});
+});*/
 
 /// error handlers
 
@@ -104,16 +104,17 @@ if (app.get('env').indexOf('development') !== -1 ) {
 		});
 	});
 }
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-	res.status(err.status || 500);
-	res.render('error', {
-		message: err.message,
-		error: {}
+else {
+	// production error handler
+	// no stacktraces leaked to user
+	app.use(function (err, req, res, next) {
+		res.status(err.status || 500);
+		res.render('error', {
+			message: err.message,
+			error: {}
+		});
 	});
-});
+}
 
 // START THE SERVER
 // =============================================================================

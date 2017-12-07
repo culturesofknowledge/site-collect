@@ -22,7 +22,7 @@
     "mongoose-datatable": "*",
     "mongoose-paginate": "*",
     "morgan": "~1.0.0",
-    "pg": "*",
+    "pg": "~6.3.0",
     "sql": "^0.78.0",
     "static-favicon": "~1.0.0",
     "underscore": "^1.8.3"

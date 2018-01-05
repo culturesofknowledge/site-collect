@@ -23,3 +23,15 @@ node:
     - mongo
 
   command: ["node_modules/forever/bin/forever", "-w", "./server.js"]
+
+nginx:
+
+  build: ./nginx
+
+  restart: always
+
+  links:
+    - node
+
+  ports:
+    - 80:80

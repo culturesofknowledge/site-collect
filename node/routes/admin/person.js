@@ -54,7 +54,7 @@ router.route('/persons')
   var q = {'upload_id': 'deGroot_01'};
   var limit = req.query.length || LIMIT;
   var skip = req.query.start || SKIP;
-  var fields = 'iperson_id  union_iperson_id  primary_name  alternative_names roles_or_titles gender  is_organisation organisation_type date_of_birth_year  date_of_birth_month date_of_birth_day date_of_birth_is_range  date_of_birth2_year date_of_birth2_month  date_of_birth2_day  date_of_birth_inferred  date_of_birth_uncertain date_of_birth_approx  date_of_death_year  date_of_death_month date_of_death_day date_of_death_is_range  date_of_death2_year date_of_death2_month  date_of_death2_day  date_of_death_inferred  date_of_death_uncertain date_of_death_approx  flourished_year flourished_month  flourished_day  flourished_is_range flourished2_year flourished2_month flourished2_day notes_on_person editors_notes';
+  //var fields = 'iperson_id  union_iperson_id  primary_name  alternative_names roles_or_titles gender  is_organisation organisation_type date_of_birth_year  date_of_birth_month date_of_birth_day date_of_birth_is_range  date_of_birth2_year date_of_birth2_month  date_of_birth2_day  date_of_birth_inferred  date_of_birth_uncertain date_of_birth_approx  date_of_death_year  date_of_death_month date_of_death_day date_of_death_is_range  date_of_death2_year date_of_death2_month  date_of_death2_day  date_of_death_inferred  date_of_death_uncertain date_of_death_approx  flourished_year flourished_month  flourished_day  flourished_is_range flourished2_year flourished2_month flourished2_day notes_on_person editors_notes';
   //Processing...without datatables plugin
   Person.find(q)
     .limit(limit)
@@ -73,9 +73,9 @@ router.route('/persons')
               recordsFiltered : count,
               data : data
             });
-          };
+          }
         });
-      };
+      }
     });  
 });
 
@@ -187,7 +187,7 @@ router.route('/persons/:id')
 })
 
 // update the data with this id
-.put(function(req, res) {
+.put(function(req, res, next) {
   console.log("Put(3) Request for Data Table made with data: ", req.params, req.body);
   var obj = req.body.data;
   obj.updated = new Date();
@@ -207,7 +207,7 @@ router.route('/persons/:id')
 .delete(function(req, res) {
   Person.remove(
     { _id: req.params.id },
-    function(err, data) {
+    function(err /*, data*/) {
       if (err)
         res.send(err);    
       res.json({ message: 'Successfully deleted' });

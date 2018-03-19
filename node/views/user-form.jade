@@ -9,11 +9,11 @@ block content
           each error in errors
             li= error
 
-      form(id="formUserProfile", method="post", action="")
+      form(id="formUserProfile", method="post", action="", autocomplete="off")
         label(for="username") Username
         input#username(type="text",name="username", value="#{username}")
-        label(for="password") Password
-        input#password(type="password", name="password", value="#{password}")
+        label(for="password") Change password (Leave blank to use old one)
+        input#password(type="password", name="password", value="")
         label(for="FullName") Full name
         input(type="text", name="FullName", id="FullName", value="#{name}")
         label(for="Email") Email

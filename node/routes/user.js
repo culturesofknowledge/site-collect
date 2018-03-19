@@ -65,6 +65,7 @@ router.post('/login', function (req, res) {
             });
           }
         } else {
+	      console.error(err);
           res.redirect('/user/login?404=error');
         }
       });
@@ -106,7 +107,7 @@ router.get('/new', function(req, res){
   }
   if (req.query){
     if (req.query.name === 'invalid'){
-      arrErrors.push('Please enter a valid name, minimun 5 characters');
+      arrErrors.push('Please enter a valid name, minimum 5 characters');
     }
     if (req.query.email === 'invalid'){
       arrErrors.push('Please enter a valid email address');
@@ -274,7 +275,9 @@ var doEditSave = function(req, res, err, user) {
     user.name = req.body.FullName;
     user.email = req.body.Email;
     user.username = req.body.username;
-    user.password = req.body.password;
+    if( req.body.password ) {
+	    user.password = req.body.password;
+    }
     user.modifiedOn = Date.now();
     user.save(
       function (err, user) {

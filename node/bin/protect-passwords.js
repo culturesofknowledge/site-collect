@@ -63,7 +63,7 @@ MongoClient.connect("mongodb://mongo:27017/emlo-edit", function (error, db) {
 		}).toArray( function(error, users) {
 			users.forEach(function (user, i) {
 				user.hash = bcrypt.hashSync( user.password, 12 );
-				collection.updateOne( {_id: user._id}, user, function (error) {
+				collection.update( {_id: user._id}, user, function (error) {
 					// done
 					console.log( i, "Updated", user.username );
 				})

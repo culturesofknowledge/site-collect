@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require( 'mongoose' );
+var bcrypt = require( 'bcryptjs' );
 
 var userHelper = require('../lib/user-helper');
 
@@ -33,45 +34,48 @@ router.get('/login', function (req, res) {
 
 // POST login page
 router.post('/login', function (req, res) {
-  if (req.body.username) {
-    User.findOne(
-      {
-        'username': req.body.username,
-        'password': req.body.password // TODO: ENCRYPT!
-      }, 
-      '_id name email username modifiedOn roles',
-      function(err, user) {
-        if (!err) {
-          if (!user){
-            res.redirect('/user/login?404=user');
-          }else{
-
-            req.session.user = { 
-              "name" : user.name, 
-              "email": user.email, 
-              "username" : user.username,
-              "_id": user._id,
-	          "roles" : user.roles
-            };
-
-            req.session.loggedIn = true;
-
-            console.log('log: Logged in user: ' + user);
-            User.update(
-              {_id:user._id},
-              { $set: {lastLogin: Date.now() } },
-              function(){
-                res.redirect( '/user/' );
-            });
-          }
-        } else {
-	      console.error(err);
-          res.redirect('/user/login?404=error');
-        }
-      });
-  } else {
-    res.redirect('/user/login?404=error');
+  if (!req.body.username || !req.body.password ) {
+      // try again
+	  return res.redirect('/user/login?nousername');
   }
+
+  User.findOne( { 'username': req.body.username }, '_id name email username roles hash password',
+      function(err, user) {
+
+        if( err ) {
+            // o'oh;
+            console.error(err);
+            return res.redirect('/user/login?404=error');
+        }
+
+        if (!user) {
+          // No user with username found
+          return res.redirect('/user/login?nouser');
+        }
+
+        console.log(req.body.password, user.hash, user.password);
+        if( !bcrypt.compareSync( req.body.password, user.hash ) ) {
+          // Incorrect password
+	        return res.redirect('/user/login?nopass');
+        }
+
+        // Create session
+
+          req.session.user = {
+            "name" : user.name,
+            "email": user.email,
+            "username" : user.username,
+            "_id": user._id,
+            "roles" : user.roles
+          };
+
+          req.session.loggedIn = true;
+
+          User.update(  {_id:user._id},  { $set: {lastLogin: Date.now() } },
+            function() {
+              res.redirect( '/user/' );
+            });
+      });
 });
 
 // GET logged in user page
@@ -85,7 +89,7 @@ router.get('/', function (req, res) {
 			name: req.session.user.name,
 			email: req.session.user.email,
 			username: req.session.user.username,
-			password: req.session.user.password,
+			//password: req.session.user.password,
 			userID: req.session.user._id,
 			roles: req.session.user.roles,
 			datasetsPage: true
@@ -132,7 +136,8 @@ router.get('/new', function(req, res){
 router.post('/new', function(req, res){
   User.create({
     username: req.body.username,
-    password: req.body.password,
+    //password: req.body.password,
+      hash: bcrypt.bcrypt.hashSync( req.body.password, 12 ), // todo, none sync version.
     name: req.body.FullName,
     email: req.body.Email,
     modifiedOn : Date.now(),
@@ -154,7 +159,7 @@ router.post('/new', function(req, res){
 //    req.session.tmpUser = {"name" : req.body.FullName, "email": req.body.Email};
       req.session.tmpUser = {
         "username": req.body.username,
-        "password": req.body.password,
+        //"password": req.body.password,
         "name" : req.body.FullName, 
         "email": req.body.Email
       };
@@ -167,7 +172,7 @@ router.post('/new', function(req, res){
         "name" : user.name, 
         "email": user.email, 
         "username" : user.username, 
-        "password": user.password, 
+        //"password": user.password,
         "_id": user._id 
       };
       req.session.loggedIn = true;
@@ -205,7 +210,7 @@ router.get('/edit', function(req, res){
       name: req.session.user.name,
       email: req.session.user.email,
       username: req.session.user.username,
-      password: req.session.user.password,
+      //password: req.session.user.password,
       buttonText: "Save",
       errors: arrErrors,
 	    loggedIn : req.session.loggedIn,
@@ -276,7 +281,7 @@ var doEditSave = function(req, res, err, user) {
     user.email = req.body.Email;
     user.username = req.body.username;
     if( req.body.password ) {
-	    user.password = req.body.password;
+	    user.hash = bcrypt.hashSync( req.body.password, 12 ); // todo, none sync version.
     }
     user.modifiedOn = Date.now();
     user.save(

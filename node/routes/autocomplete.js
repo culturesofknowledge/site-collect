@@ -24,11 +24,11 @@ doSearchPG = function(req, res, callback){
     var b=['%'+req.params.search+'%'];
     var q="select";
       q += " foaf_name as name";
-      q += ",' ('";
-      q += "||' b:'|| coalesce(to_char(date_of_birth_year,'9999'),' ')";
-      q += "||' d:'|| coalesce(to_char(date_of_death_year,'9999'),' ')";
-      q += "||' fl:'|| coalesce(to_char(flourished_year,'9999'),' ')";
-      q += "||' )'";        
+      q += ",' | '";
+      q += "||'b:'|| coalesce(to_char(date_of_birth_year,'9999'),'-')";
+      q += "||', d:'|| coalesce(to_char(date_of_death_year,'9999'),'-')";
+      q += "||', fl:'|| coalesce(to_char(flourished_year,'9999'),'-')";
+      q += "||''";
       q += " as date";
       q += ",iperson_id as value";
       q += ",iperson_id as emloid";
@@ -259,9 +259,9 @@ router.get(
           for(var j = 0 ; j < newperson.length; j++ ){
             // alabel  = newperson[j].primary_name;
             alabel  = ' (' ;
-            alabel += ' b:' + newperson[j].date_of_birth_year;
-            alabel += ' d:' + newperson[j].date_of_death_year;
-            alabel += ' fl:' + newperson[j].flourished_year;
+            alabel += ' b:' + newperson[j].date_of_birth_year || "-";
+            alabel += ', d:' + newperson[j].date_of_death_year || "-";
+            alabel += ', fl:' + newperson[j].flourished_year || "-";
             alabel += ' )' ;
             results.push(
               {

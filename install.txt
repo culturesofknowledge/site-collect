@@ -46,17 +46,14 @@ You need a database
 
 ### build it
 If not already done build in folder docker-mongo (make sure bson and json files in mongo-dump folder)
-> docker build -t mongo-with-emlo .
+> docker build -t mongo-emlo-collect .
 
 ### instance
 Now create an container instance, I'm using port my port 32768
-> docker create --name emlo-edit-mongo-with-emlo -p 32768:27017 mongo-with-emlo
-> docker run emlo-edit-mongo-with-emlo
+> docker run --name emlo-edit-mongo-with-emlo -p 47017:27017 mongo-emlo-collect
 
-### load mongo database (I couldnt get the image to do this for me as mongo wasnt running)
-> docker exec -it emlo-edit-mongo-with-emlo /bin/bash
-Now inside container do:
-> > mongorestore --db emlo-edit /data/db/mongo-dump
+### load mongo database (I couldnt get the image to do this for me as mongo wasn't running)
+> docker exec -it emlo-edit-mongo-with-emlo mongorestore --db emlo-edit --drop /data/db/mongo-dump
 
 
 

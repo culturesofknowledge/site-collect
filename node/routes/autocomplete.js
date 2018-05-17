@@ -14,27 +14,17 @@ router.get(
 });      
 
 // Search Person PG database
-doSearchPG = function(req, res, callback){
-    console.log('called1 /autocomplete/person/:upload_uuid/:search');
+var doSearchPG = function(req, res, callback){
+
     var client = new pg.Client(config.conString);
-    console.log("before connect "+req.params.search);
     client.connect();
-    
-    console.log("before query "+req.params.search);
+
     var b=['%'+req.params.search+'%'];
-    var q="select";
-      q += " foaf_name as name";
-      q += ",' | '";
-      q += "||'b:'|| coalesce(to_char(date_of_birth_year,'9999'),'-')";
-      q += "||', d:'|| coalesce(to_char(date_of_death_year,'9999'),'-')";
-      q += "||', fl:'|| coalesce(to_char(flourished_year,'9999'),'-')";
-      q += "||''";
-      q += " as date";
-      q += ",iperson_id as value";
-      q += ",iperson_id as emloid";
-      q += " from cofk_union_person";
-      q += " where (foaf_name ilike $1 or skos_altlabel ilike $1)";
-      q += " order by foaf_name";
+	var q="select";
+	q += " foaf_name,iperson_id,date_of_birth_year,date_of_death_year,flourished_year";
+	q += " from cofk_union_person";
+	q += " where (foaf_name ilike $1 or skos_altlabel ilike $1)";
+	q += " order by foaf_name";
     console.log("the query ", q);
 
 	client.query( q , b)
@@ -44,17 +34,23 @@ doSearchPG = function(req, res, callback){
 	    })
 
 	    .on("row", function (row, result) {
-	      result.addRow(row);
+		    var dates = " | ";
+		    dates += "db:" + (row.date_of_birth_year || "-") + ", ";
+		    dates += "d:" + (row.date_of_death_year || "-") + ", ";
+		    dates += "fl:" + (row.flourished_year || "-");
+
+		    result.addRow({
+			    name: row.foaf_name,
+			    emloid: row.iperson_id,
+			    value: row.iperson_id,
+			    date: dates
+		    });
 	    })
 
 	    .on("end", function (result) {
-	      var results = JSON.stringify(result.rows, null, "    ");
-	      //res.end(req.query.callback + "(" + results + ")");
 	      res.datarows   = result.rows;
-	      //res.dataresult = results;
 	      callback(req, res);
 	      client.end();
-	      //console.log("\tResponded with '" + results + "'\n");
 	    });
 };
   
@@ -66,7 +62,7 @@ router.get(
 });      
   
   // Search Person PG database
-  doSearchPlace = function(req, res, callback){
+var doSearchPlace = function(req, res, callback){
     console.log('called /autocomplete/place/:upload_uuid/:search');
     var client = new pg.Client(config.conString);
     console.log("before connect "+req.params.search);
@@ -110,7 +106,7 @@ router.get(
 });      
 
 // Search Person PG database
-doSearchRepo = function(req, res, callback){
+var doSearchRepo = function(req, res, callback){
   console.log('called /autocomplete/institution/:search');
     var client = new pg.Client(config.conString);
     console.log("before connect "+req.params.search);
@@ -158,7 +154,7 @@ router.get(
 });      
 
 // Search Local Place
-doSearchLocalRepo =  function(req, res ) {
+var doSearchLocalRepo =  function(req, res ) {
   console.log("Get(repository) Request for Data Table made with data: ", req.query);
   //console.log("\tCalled with '" , res.datarows , "'\n");
   //console.log("\tCalled with dataresult'" , res.dataresult , "'\n");
@@ -234,7 +230,7 @@ router.get(
 });      
   
   // Search Local Person
-  doSearchLocal =  function(req, res ) {
+var doSearchLocal =  function(req, res ) {
     console.log("Get(newperson) Request for autocomplete: ", req.query);
     //console.log("\tCalled with '" , res.datarows , "'\n");
     //console.log("\tCalled with dataresult'" , res.dataresult , "'\n");
@@ -290,7 +286,7 @@ router.get(
   });      
 
 // Search Local Place
-doSearchLocalPlace =  function(req, res ) {
+var doSearchLocalPlace =  function(req, res ) {
   console.log("Get(newplace) Request for autocomplete: ", req.query);
   //console.log("\tCalled with '" , res.datarows , "'\n");
   //console.log("\tCalled with dataresult'" , res.dataresult , "'\n");

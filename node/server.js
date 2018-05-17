@@ -69,10 +69,7 @@ var admin_place  = require('./routes/admin/place');
 var admin_repo   = require('./routes/admin/repo');
 var autocomplete = require('./routes/autocomplete');
 var emloload     = require('./routes/emloload');
-<<<<<<< HEAD
-=======
 var api     = require('./routes/api');
->>>>>>> 521c558576cc44237b2dbeda396861abcbada30a
 
 // REGISTER OUR ROUTES -------------------------------
 app.use('/'             , user);
@@ -85,10 +82,7 @@ app.use('/admin/place'  , admin_place);
 app.use('/admin/repo'   , admin_repo);
 app.use('/autocomplete' , autocomplete);
 app.use('/emloload'     , emloload);
-<<<<<<< HEAD
-=======
 app.use('/api'     , api);
->>>>>>> 521c558576cc44237b2dbeda396861abcbada30a
 
 // catch 404 and forwarding to error handler
 /*app.use(function(err, req, res, next) {

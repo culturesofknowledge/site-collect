@@ -5,10 +5,8 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 
-var keys = require('../config/config.json')['api_keys'];
-
 var checkAllowed = function( req, res ) {
-	if ( !req.query.key || keys.indexOf( req.query.key ) === -1 ) {
+	if ( !req.query.key || config.apiKeys.indexOf( req.query.key ) === -1 ) {
 		res.end();
 		return false;
 	}

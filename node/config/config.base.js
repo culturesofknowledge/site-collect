@@ -6,7 +6,7 @@ var config = {
 
 	port: "3000",
 
-	api_keys:  []
+	apiKeys:  []
 };
 
 module.exports = config;

@@ -17,13 +17,6 @@ Index mongo
 
 Get data and copy to container:
 
-<<<<<<< HEAD
-    docker cp mongo-dump <container_name>:\
-
-Decompress if needs be, then restore:
-
-    mongorestore --db emlo-edit /mongo-dump
-=======
     docker cp mongo-dump.tar.gz <container_name>:\
 
 Decompress if needs be:
@@ -36,5 +29,4 @@ Current backups produce a folder path, so find the files we need:
 
 then restore:
   mongorestore --drop --db emlo-edit .
->>>>>>> 521c558576cc44237b2dbeda396861abcbada30a
     

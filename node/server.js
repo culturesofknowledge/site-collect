@@ -1,10 +1,10 @@
 // BASE SETUP
 // =============================================================================
 
-configSection = process.env.NODE_ENV || "production";
-console.log("Server starting...", 'config section is:', configSection);
+//configSection = process.env.NODE_ENV || "production";
+//console.log("Server starting...", 'config section is:', configSection);
 
-config = require('./config/config.json')[configSection];
+config = require('./config/config.js'); //[configSection];
 
 // call the packages we need
 var express = require('express');

@@ -24,8 +24,8 @@ router.get( '/person/:search', function(req, res) {
 			if( req.query.upload_uuid ) {
 				// Search new people
 				doSearchLocalPeople(req, res, function (resultsLocal) {
-					resultsLocal.concat( resultsPG );
-					res.jsonp(resultsLocal);
+					var resultsAll = resultsLocal.concat( resultsPG );
+					res.jsonp(resultsAll);
 				});
 			}
 			else {
@@ -43,11 +43,12 @@ var doSearchPGPeople = function(req, res, callbackDone){
 	client.connect();
 
 	var b=['%'+req.params.search+'%'];
-	var q="select";
-	q += " foaf_name,uuid,iperson_id,date_of_birth_year,date_of_death_year,flourished_year";
-	q += " from cofk_union_person";
-	q += " where (foaf_name ilike $1 or skos_altlabel ilike $1)";
-	q += " order by foaf_name";
+	var q="" +
+		"SELECT foaf_name,uuid,iperson_id,date_of_birth_year,date_of_death_year,flourished_year" +
+		" FROM cofk_union_person" +
+		" WHERE (foaf_name ilike $1 or skos_altlabel ilike $1)" +
+		" ORDER by foaf_name" +
+		" LIMIT 100";
 
 	client.query( q , b)
 
@@ -96,30 +97,33 @@ var doSearchLocalPeople =  function(req, res, callbackDone ) {
 		.select('primary_name iperson_id union_iperson_id date_of_birth_year date_of_death_year flourished_year')
 		.sort( 'primary_name' )
 		.exec(
-			function(err, newperson) {
-				console.log("Local after query ", newperson, " err ", err);
+			function(err, newPeople) {
+				console.log("Local after query ", newPeople, " err ", err);
 				if (err) {
 					res.json({ "error" : err });
 					callbackDone( res.datarows );
 				} else {
 					var results = [];
-					if ( newperson ) {
-						var j, alabel;
-						for(j = 0 ; j < newperson.length; j++ ){
+					if ( newPeople ) {
+						for(var j = 0 ; j < newPeople.length; j++ ){
+							var person = newPeople[j];
+							var personData = {
+									"name"    : person.primary_name,
+									"additionid"   : person.iperson_id,
+									"id"  : person.union_iperson_id,
+									"addition" : true
+								};
 
-							alabel  = ' (' ;
-							alabel += ' b:' + newperson[j].date_of_birth_year || "-";
-							alabel += ', d:' + newperson[j].date_of_death_year || "-";
-							alabel += ', fl:' + newperson[j].flourished_year || "-";
-							alabel += ' )' ;
-							results.push(
-								{
-									"name"    : newperson[j].primary_name,
-									"date"    : alabel,
-									"value"   : newperson[j].iperson_id,
-									"emloid"  : newperson[j].union_iperson_id
-								}
-							);
+							if( person.date_of_birth_year ) {
+								personData.b = person.date_of_birth_year;
+							}
+							if( person.date_of_death_year ) {
+								personData.d = person.date_of_death_year;
+							}
+							if( person.flourished_year ) {
+								personData.fl = person.flourished_year;
+							}
+							results.push( personData );
 						}
 					}
 
@@ -132,16 +136,17 @@ router.get( '/place/:search',  function(req, res) {
 
 	if( checkAllowed( req, res) ) {
 
-		doSearchPGPlace(req, res, function (results) {
+		doSearchPGPlace(req, res, function (resultsPG) {
 
 			if( req.query.upload_uuid ) {
-				res.datarows = results;
-				doSearchLocalPlace(req, res, function (results) {
-					res.jsonp(results);
+				res.datarows = resultsPG;
+				doSearchLocalPlace(req, res, function (resultsLocal) {
+					var resultsAll = resultsLocal.concat( resultsPG );
+					res.jsonp(resultsAll);
 				});
 			}
 			else {
-				res.jsonp(results);
+				res.jsonp(resultsPG);
 			}
 		});
 	}
@@ -153,10 +158,12 @@ var doSearchPGPlace = function(req, res, callback) {
 	var client = new pg.Client(config.conString);
 	client.connect();
 
-	var q="SELECT uuid,location_id,location_name,latitude,longitude";
-	q += " FROM cofk_union_location ";
-	q += " WHERE location_name ilike $1 ";
-	q += " order by location_name";
+	var q="" +
+		"SELECT uuid,location_id,location_name,latitude,longitude" +
+		" FROM cofk_union_location" +
+		" WHERE location_name ilike $1" +
+		" ORDER by location_name" +
+		" LIMIT 100";
 
 	client.query( q , ['%'+req.params.search+'%'] )
 
@@ -187,14 +194,6 @@ var doSearchPGPlace = function(req, res, callback) {
 		});
 };
 
-
-
-router.get(
-	'/newplace/:upload_uuid/:search', function(req, res) {
-		console.log("Search place to doAttach");
-		doSearchPlace(req, res, doSearchLocalPlace);
-	});
-
 // Search Local Place
 var doSearchLocalPlace =  function(req, res, callbackComplete ) {
 
@@ -218,9 +217,9 @@ var doSearchLocalPlace =  function(req, res, callbackComplete ) {
 						for(var j = 0 ; j < newplace.length; j++ ){
 							results.push(
 								{
-									"label"    : newplace[j].location_name,
-									"value"   : newplace[j].location_id,
-									"emloid"  : newplace[j].union_location_id
+									"loc" : newplace[j].location_name,
+									"id" : newplace[j].union_location_id,
+									"addition" : true
 								}
 							);
 						}

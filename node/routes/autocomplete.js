@@ -35,7 +35,7 @@ var doSearchPG = function(req, res, callback){
 
 	    .on("row", function (row, result) {
 		    var dates = " | ";
-		    dates += "db:" + (row.date_of_birth_year || "-") + ", ";
+		    dates += "b:" + (row.date_of_birth_year || "-") + ", ";
 		    dates += "d:" + (row.date_of_death_year || "-") + ", ";
 		    dates += "fl:" + (row.flourished_year || "-");
 

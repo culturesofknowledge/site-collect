@@ -1,12 +1,13 @@
-FROM node:6.12
+FROM node:6.14-alpine
 
 RUN mkdir /src
 WORKDIR /src
+
+ADD ./package.json /src/
+RUN npm install --production
+
+# Likely better to just copy over package.json then npm install then copy everything else. caching of container should work better.
 ADD . /src/
-
-ENV NODE_ENV='docker-production'
-
-RUN npm install
 
 EXPOSE 3000
 

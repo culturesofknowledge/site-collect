@@ -65,4 +65,4 @@ node/.env
 /docker-mongo/mongo-dump/*
 !/docker-mongo/mongo-dump/.gitkeep
 
-node/config/config.js
+node/config/config.local.js

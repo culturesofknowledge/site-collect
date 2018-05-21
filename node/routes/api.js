@@ -7,7 +7,9 @@ var pg = require('pg');
 
 var checkAllowed = function( req, res ) {
 	if ( !req.query.key || config.apiKeys.indexOf( req.query.key ) === -1 ) {
+		res.status(400).send('Key missing.');
 		res.end();
+
 		return false;
 	}
 
@@ -53,8 +55,9 @@ var doSearchPGPeople = function(req, res, callbackDone){
 	client.query( q , b)
 
 		.on("error", function (error) {
-			console.error( "Error in doSearchPG: " + error );
-			callbackDone([]);
+			//console.error( "Error in doSearchPG: " + error );
+			//callbackDone([]);
+			res.status(500).send('Service down.');
 			client.end();
 		})
 
@@ -168,7 +171,8 @@ var doSearchPGPlace = function(req, res, callback) {
 	client.query( q , ['%'+req.params.search+'%'] )
 
 		.on("error", function (error) {
-			console.log( "Error in doSearchPlace: " + error )
+			console.log( "Error in doSearchPlace: " + error );
+			res.status(500).send('Service down.');
 		})
 
 		.on("row", function (row, result) {

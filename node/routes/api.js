@@ -14,7 +14,7 @@ var checkAllowed = function( req, res ) {
 	return true;
 };
 
-router.get( '/person/:search', function(req, res) {
+router.get( '/people/:search', function(req, res) {
 
 	if( checkAllowed( req, res) ) {
 
@@ -132,7 +132,7 @@ var doSearchLocalPeople =  function(req, res, callbackDone ) {
 			});
 };
 
-router.get( '/place/:search',  function(req, res) {
+router.get( '/places/:search',  function(req, res) {
 
 	if( checkAllowed( req, res) ) {
 

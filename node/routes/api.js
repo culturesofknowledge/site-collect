@@ -7,7 +7,7 @@ var pg = require('pg');
 
 var checkAllowed = function( req, res ) {
 	if ( !req.query.key || config.apiKeys.indexOf( req.query.key ) === -1 ) {
-		res.status(400).send('Key missing.');
+		res.status(400).send('Key error.');
 		res.end();
 
 		return false;
@@ -19,7 +19,6 @@ var checkAllowed = function( req, res ) {
 router.get( '/people/:search', function(req, res) {
 
 	if( checkAllowed( req, res) ) {
-
 		// Search person PG database
 		doSearchPGPeople(req, res, function (resultsPG) {
 
@@ -101,10 +100,12 @@ var doSearchLocalPeople =  function(req, res, callbackDone ) {
 		.sort( 'primary_name' )
 		.exec(
 			function(err, newPeople) {
-				console.log("Local after query ", newPeople, " err ", err);
+
 				if (err) {
-					res.json({ "error" : err });
-					callbackDone( res.datarows );
+					//res.json({ "error" : err });
+					res.status(500).send('Service down.');
+					res.end();
+					callbackDone( [] );
 				} else {
 					var results = [];
 					if ( newPeople ) {
@@ -213,7 +214,9 @@ var doSearchLocalPlace =  function(req, res, callbackComplete ) {
 			function(err, newplace) {
 
 				if (err) {
-					res.json({ "error" : err });
+					res.status(500).send('Service down.');
+					res.end();
+
 					callbackComplete([]);
 				} else {
 					var results = [];

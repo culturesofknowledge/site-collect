@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo
-echo "Setting up PRODUCTION copy of EMLO-EDIT..."
+echo "Setting up PRODUCTION copy of EMLO-COLLECT..."
 echo
 echo
 

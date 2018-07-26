@@ -53,10 +53,15 @@ router.post('/login', function (req, res) {
           return res.redirect('/user/login?nouser');
         }
 
-        console.log(req.body.password, user.hash, user.password);
-        if( !bcrypt.compareSync( req.body.password, user.hash ) ) {
+        if( !user.hash ) {
+          console.error("ERROR: NO HASH AVAILABLE! - YOU SHOULD HAVE GENERATED ALL THESE!");
+            if( req.body.password !== user.password ) {
+	            return res.redirect('/user/login?nopass');
+            }
+        }
+        else if( !bcrypt.compareSync( req.body.password, user.hash ) ) {
           // Incorrect password
-	        return res.redirect('/user/login?nopass');
+	      return res.redirect('/user/login?nopass');
         }
 
         // Create session

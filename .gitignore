@@ -59,10 +59,13 @@ node/.yarn-integrity
 # dotenv environment variables file
 node/.env
 
+node/config/config.local.js
+
 .idea/
 /volumes/
 /docker-mongo/*.gz
 /docker-mongo/mongo-dump/*
 !/docker-mongo/mongo-dump/.gitkeep
 
-node/config/config.local.js
+nginx/ssl/ssl.crt
+nging/ssl/ssl.key

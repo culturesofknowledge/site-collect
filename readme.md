@@ -22,7 +22,7 @@ Setup server
 -----------
 
  - Copy node/config/config.base.js to node/config/config.local.js and update the values.
-
+ - generate/obtain ssl key and cert file for nginx build (e.g. sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nginx/ssl/ssl.key -out nginx/ssl/ssl.crt )
 
 Start server
 -----------

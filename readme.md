@@ -36,12 +36,20 @@ Add cron job. Run daily.
 
     /data/emlo-collect/backup.sh
 
-Index mongo
+Index mongo (IF needed, don't overwrite new data!)
 -----------
 
-Get data and copy to container:
+Get data 
 
-    docker cp mongo-dump.tar.gz <container_name>:\
+    mongodump -d emlo-edit -o /tmp/mongo-dump
+    
+	tar -czf mongo-dump.tar.gz mongo-dump
+	
+and copy to container:
+
+    docker cp mongo-dump.tar.gz <container_name>:\tmp
+
+	docker-compose exec <container_name> bash
 
 Decompress if needs be:
 
@@ -49,7 +57,7 @@ Decompress if needs be:
 
 Current backups produce a folder path, so find the files we need:
 
-    cd /var/backups/mongo/dump/emlo-edit
+    cd mongodump/emlo-edit
 
 then restore:
 

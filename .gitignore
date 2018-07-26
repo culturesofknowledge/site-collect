@@ -68,4 +68,4 @@ node/config/config.local.js
 !/docker-mongo/mongo-dump/.gitkeep
 
 nginx/ssl/ssl.crt
-nging/ssl/ssl.key
+nginx/ssl/ssl.key

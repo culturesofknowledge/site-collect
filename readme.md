@@ -29,6 +29,13 @@ Start server
 
  - Run ./start.sh
 
+Run backup
+----------
+
+Add cron job. Run daily.
+
+    /data/emlo-collect/backup.sh
+
 Index mongo (IF needed, don't overwrite new data!)
 -----------
 

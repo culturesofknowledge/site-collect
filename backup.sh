@@ -20,7 +20,7 @@ now=$(date)
 
 echo "Backing up at ${now} to ${destination}/${filename} ..."
 
-docker-compose exec mongo sh -c 'mongodump -d emlo-edit -o /data/db/dump'
+docker-compose exec -T mongo sh -c 'mongodump -d emlo-edit -o /data/db/dump'
 tar -czf ${destination}/${filename} -C volumes/mongo/ dump
 
 backup_rotate_store ${destination} ${filename}

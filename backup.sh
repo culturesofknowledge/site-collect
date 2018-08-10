@@ -2,7 +2,7 @@
 
 # An example backup script using backup-helper. To be run daily.
 destination=/data/backups
-filename=my-backup.tar.gz
+filename=mongodump.tar.gz
 
 cd /data/emlo-collect
 

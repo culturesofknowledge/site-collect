@@ -69,3 +69,5 @@ node/config/config.local.js
 
 nginx/ssl/ssl.crt
 nginx/ssl/ssl.key
+
+backup-script

@@ -49,7 +49,7 @@ and copy to container:
 
     docker cp mongo-dump.tar.gz <container_name>:\tmp
 
-	docker-compose exec <container_name> bash
+	docker-compose exec mongo bash
 
 Decompress if needs be:
 

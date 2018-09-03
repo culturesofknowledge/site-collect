@@ -142,7 +142,7 @@ router.post('/new', function(req, res){
   User.create({
     username: req.body.username,
     //password: req.body.password,
-      hash: bcrypt.bcrypt.hashSync( req.body.password, 12 ), // todo, none sync version.
+      hash: bcrypt.hashSync( req.body.password, 12 ), // todo, none sync version.
     name: req.body.FullName,
     email: req.body.Email,
     modifiedOn : Date.now(),

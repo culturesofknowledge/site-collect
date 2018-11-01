@@ -94,9 +94,7 @@ doProcessRecords = function(data, callback) {
       data.obj= data.mapping.pgMap(data.mapping.pgTable, item);
       data.obj['upload_name']  = data.upload_name ;
       data.obj['upload_id']    = data.pgUploadId;
-      if( data.mapping.pgTable.upload_status ) {
-        data.obj['upload_status']    = '1'; // set status in collect to "Awaiting review" (It may have been set to "Rejected" (5) before.)
-      }
+      // update data.obj['upload_status'] at a later stage once we know postgres value
 
       if (data.mapping.field_key) {
         data.obj[data.mapping.field_key] = i++;
@@ -165,6 +163,15 @@ doUpsertTable = function(table, data, callback) {
     if (result.rows.length < 1) {
       doInsertTable(table, data, callback);
     } else {
+    	// Work out if upload status needs to change. (If it's previously rejected make it reviewable)
+	    // 1	Awaiting review
+	    // 2	Partly reviewed
+	    // 3	Review complete
+	    // 4	Accepted and saved into main database
+	    // 5	Rejected
+
+	    data.upload_status = (result.rows[0].upload_status === 5) ? 1 : result.rows[0].upload_status;
+
       doUpdateTable(table, data, callback);
     }
   });

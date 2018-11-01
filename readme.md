@@ -63,3 +63,14 @@ then restore:
 
     mongorestore --drop --db emlo-edit .
     
+Add Language
+------------
+
+Until a dedicated language adminstration is added, this is entirely a manual process.
+
+You'll need to log into the Mongo container and manually add a language to the table. You'll need the name and the code, you can find a list of codes in the language-all collection in mongo.
+
+    docker-compose exec mongo mongo
+    use emlo-edit
+    db["language-fav"].insert({language_code:"por","language_name":"Portuguese"})
+

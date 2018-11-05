@@ -170,7 +170,9 @@ doUpsertTable = function(table, data, callback) {
 	    // 4	Accepted and saved into main database
 	    // 5	Rejected
 
-	    data.upload_status = (result.rows[0].upload_status === 5) ? 1 : result.rows[0].upload_status;
+        if( data.iwork_id ) { // if it's a work.
+	        data.upload_status = (result.rows[0].upload_status === 5) ? 1 : result.rows[0].upload_status;
+        }
 
       doUpdateTable(table, data, callback);
     }

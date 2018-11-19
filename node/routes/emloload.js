@@ -408,15 +408,14 @@ global.doPgSqlMap = function( table, data ) {
 
       if (name !== 'image_filenames') {
         obj[name] = toPg(value);
-        console.log("name [", i, "] --> ", name, " --> ", value, " --> ", obj[name]);
       }
       else {
-        console.log("nulling image_filenames from manifestation");
+        // nulling image_filenames from manifestation
         obj[name] = null;
       }
     }
   }
-  //console.log("\nprocess doPgSqlMap done\n", obj);
+
   return obj;
 };
 
@@ -428,30 +427,19 @@ global.doPgLocSqlMap = function(table, data ) {
   var i = 0;
   console.log("log: locationMap ",locationMap);
   for ( theName in locationMap ){
-    console.log("log: handle locationMap[theName] ",locationMap[theName]);
-    console.log("log: handle data[locationMap[theName]]",data[locationMap[theName]]);
     theValue = data[locationMap[theName]];
     if ( theValue !== undefined ) {
       obj[theName] = toPg(theValue) ;
-      console.log(
-        "theName [", i++ , 
-        "] --> ", theName, 
-        " --> " , theValue,
-        " --> " , obj[theName]
-      );
     }
   }
   return obj;
 };
 
 global.doPgWorkSqlMap = function(table, data ) {
-  console.log("log: process doPgWorkSqlMap ");
-  var x = table.columns;
+
   var theName, theValue ;
   var obj = {};
-  //for (var i=0;i<x.length;i++) {
-    //theName  = x[i].name;
-  var i = 0;
+
   for ( theName in workMap ){
 
     theValue = data[workMap[theName]];
@@ -472,18 +460,11 @@ global.doPgWorkSqlMap = function(table, data ) {
 
       obj[theName] = toPg(theValue) ;
       if ( workNumericFlds.indexOf(theName) > -1 ){
-        console.log("log: handle numeric field here ",theName);
         obj[theName] = (obj[theName] === "") ? null : obj[theName] ;
       }
-      console.log(
-        "theName [", i++ , 
-        "] --> ", theName, 
-        " --> " , theValue,
-        " --> " , obj[theName]
-      );
     }
   }
-  //console.log("\nprocess doPgWorkSqlMap done\n");
+
   return obj;
 };
 

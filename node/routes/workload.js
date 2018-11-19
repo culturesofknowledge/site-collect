@@ -149,7 +149,7 @@ global.doProcessWorks = function(data, callbackReturn) {
 
         async.series( [
             function ( callbackDone ) {
-                console.log("doWorkMapping -0 ", item);
+                console.log("doWorkMapping -0 ", (item) ? item.iwork_id : "no work" );
                 locals.itemWork = item;
                 doProcessItems(
                     locals,
@@ -234,8 +234,6 @@ global.doProcessItems = function(data, callbackReturn) {
     data.itemTab,
     function(item, callbackSeriesDone) {
 
-      console.log("\ndoProcessItems -3a record -->",++i,"\t",item);
-
       data.mapping = data.itemMappings[item];
 
       async.series(
@@ -249,9 +247,6 @@ global.doProcessItems = function(data, callbackReturn) {
 
               function (callback) {
                 // Make the new links
-
-                console.log("\ndoProcessItems -3b for item ",data.mapping.field);
-                console.log("\ndoProcessItems -3c for fields \n",data.itemWork[data.mapping.field]);
 
                 if( data.itemWork[data.mapping.field].length > 0 ) {
 
@@ -276,8 +271,7 @@ global.doProcessItems = function(data, callbackReturn) {
 	            callbackSeriesDone( err );
             }
             else {
-              console.log('doProcessItems(for each of authors addressees mentioned etc ) \n');
-	            callbackSeriesDone(null,data);
+ 	            callbackSeriesDone(null,data);
             }
           }
       );
@@ -294,19 +288,12 @@ global.workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
         .toQuery();
 
 	if (uploadId > 0) {
-        console.log( "workClearLinks deleting links with Query", q );
 
         client.query( q , function( error, result ) {
 	        if( error ) {
 		        console.log( "ERROR: ", q, uploadId, iWorkId );
 	        }
 
-            if( result && result.rowCount > 0 ) {
-                console.log("workClearLinks - Deleted rows count =",result.rowCount);
-            }
-	        else {
-		        console.log("workClearLinks - Deleted rows count = 0" );
-	        }
             callReturn( error, result );
         });
     }
@@ -327,8 +314,7 @@ global.doProcessItemRows = function(data, callbackReturn) {
       data.obj['upload_id'] = data.pgUploadId;
       data.obj[data.mapping.field_key] = i++;
       data.obj['_id'] = data.obj['_id'].toString() ;
-      console.log("\ndata.obj -->",i,"\n",data.obj);
-      console.log("data",data.mapping.pgTable._name);
+
       doWorkUpsertTable(
         data.mapping.pgTable, 
         data.obj, 
@@ -351,7 +337,7 @@ global.doProcessItemRows = function(data, callbackReturn) {
 
 global.doPSqlMap = function(table, data ) {
 	// TODO: Investigate if this function should call doPgSqlMap... sigh...
-  console.log("\nprocess doPSqlMap \n", data);
+
   var x = table.columns;
   var theName, theValue ;
   var obj = {};
@@ -360,20 +346,14 @@ global.doPSqlMap = function(table, data ) {
     theValue = data[theName];
     if ( theValue !== undefined ) {
       obj[theName] = toPg(theValue) ;
-      console.log(
-        "theName [", i , 
-        "] --> ", theName, 
-        " --> " , theValue,
-        " --> " , obj[theName]
-      );
     }
   }
-  console.log("\nprocess doPSqlMap done\n", obj);
+
   return obj;
 };
 
 global.doWorkUpsertTable = function(table, data, callback) {
-  console.log("\ndoWorkUpsertTable 1");
+
   // Check whether row exists already
   var q = table
   .select(table.star())
@@ -383,11 +363,9 @@ global.doWorkUpsertTable = function(table, data, callback) {
   .and(table.upload_id.equals(data.upload_id))
   .toQuery();
 
-  console.log("\ndoWorkUpsertTable query :",q);
-
   client.query( q , function(error, result) {
     if(error) { callback(error); }
-    console.log("\ndoWorkUpsertTable " +result.rows.length + ' rows were received');
+
     if (result.rows.length < 1) {
       doWorkInsertTable(table, data, function(err, data) {
         if (err) {
@@ -410,25 +388,19 @@ global.doWorkUpsertTable = function(table, data, callback) {
 };
 
 global.doWorkInsertTable = function(table, data, callback) {
-  console.log('doWorkInsertTable upload for insert \n',data);  
+
   var q = table
   .insert(data)
   .returning(table.star())
   .toQuery();
 
-  console.log("\ndoWorkInsertTable query :",q);
   client.query( q )
-  .on('row', function (row) {
-    console.log("doWorkInsertTable inserted row" , row);
-  })
+  .on('row', function (row) {})
   .on("error", function (error) {
     console.log("\ndoWorkInsertTable do insert error " , error , "\n");
     callback(error);
   })
   .on("end", function (result) {
-          if( result ) {
-              console.log("\ndoWorkInsertTable do insert end  ", result.rowCount );
-          }
     callback(null, result);
   });
 };

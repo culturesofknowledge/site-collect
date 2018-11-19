@@ -140,18 +140,15 @@ function doFetchRepos(data, callback) {
   //
   console.log("doFetchRepos -8: ", data.reposTab);
   data.reposTab2 = [];
-  var i = 8;
+
   async.eachSeries(
     data.reposTab,
     function(item,callback) {
-      console.log("\nrecord-9 -->",++i,"\t",item);
       data.search_id = item ;
-      //console.log("\ndata.obj-10 -->",i,"\t",data.reposTab2);
       doQueryRepo(data, callback);
     },
     function (err) {
       if (err) { return callback(err) }
-      console.log('doFetchRepos -Tab2: ',data.reposTab2);
       callback(null,data.reposTab2)
     });
 }

@@ -93,7 +93,7 @@ router.route('/forupload/:upload_uuid')
       req.params.upload_uuid,
       function (err, works) {
         if(!err){
-          console.log(works);
+	        console.log("Work count:", (works) ? works.length : 0 );
           res.json({
             draw            : req.query.draw,
             recordsTotal    : works.length,

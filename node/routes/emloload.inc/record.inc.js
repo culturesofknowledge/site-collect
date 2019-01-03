@@ -11,7 +11,9 @@ doRecord = function(data, callback) {
         doFind(
           locals, 
           function(err, records) {
-            if (err) { callback(err); }
+            if (err) {
+                return callback(err);
+            }
 
             locals.records = records;
             callback();
@@ -24,7 +26,9 @@ doRecord = function(data, callback) {
           locals.mapping.pgTable, 
           locals, 
           function(err, result) {
-            if (err) { callback(err); }
+            if (err) {
+                return callback(err);
+            }
             //locals.records = records;  //not needed as only delete performed
             callback();
           }
@@ -36,7 +40,9 @@ doRecord = function(data, callback) {
         doProcessRecords(
           locals, 
           function(err, result) {
-            if (err) { callback(err); }
+            if (err) {
+	            return callback(err);
+            }
             locals.result = result;
 
             callback();
@@ -45,7 +51,9 @@ doRecord = function(data, callback) {
       }
     ],
     function(err) {
-      if (err) { callback(err); }
+      if (err) {
+          return callback(err);
+      }
       console.log('log: doRecord done\n');  
       callback();
     }
@@ -64,7 +72,7 @@ function doFind(data, callback) {
     .populate('origin_id', 'location_id')
     .populate('destination_id', 'location_id')
     .exec(function(err, records) {
-      if (err) { callback(err) };
+      if (err) { return callback(err) };
       console.log("log: doFind -2",data.upload_uuid);
       callback(null, records);
     });
@@ -73,7 +81,7 @@ function doFind(data, callback) {
     data.mapping.collection
     .find({ 'upload_uuid' :data.upload_uuid})
     .exec(function(err, records) {
-      if (err) { callback(err) };
+      if (err) { return callback(err) };
           console.log("log: doFind -2a",data.upload_uuid);
           console.log("\nlog: doFind -2b",records.length, records[0]);
           callback(null, records);
@@ -124,7 +132,7 @@ doUpsertTest = function(data, callback) {
       }
     ],
     function(err) {
-      if (err) { callback(err); }
+      if (err) { return callback(err); }
       callback();
     }
   );
@@ -140,7 +148,7 @@ doUpsertTable = function(table, data, callback) {
   .toQuery();
 
   client.query( q , function(error, result) {
-    if(error) { callback(error); }
+    if(error) { return callback(error); }
 
     if (result.rows.length < 1) {
       doInsertTable(table, data, callback);

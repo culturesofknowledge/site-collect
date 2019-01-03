@@ -359,7 +359,9 @@ global.processUpload = function(data, callback) {
       doRecord(
         locals, 
         function(err, records) {
-          if (err) { return callback(err); }
+          if (err) {
+          	return callback(err);
+          }
           console.log("log: doMapping -1 ",locals.mapping.collection.modelName);
           locals.records = records;
           callback();
@@ -471,6 +473,13 @@ global.doPgWorkSqlMap = function(table, data ) {
 global.doGetPersonId = function(table, data, callback) {
   console.log("log: doGetPersonId -",data.iperson_id);
   // Find person_id for existing person
+
+	if( data.iperson_id === 915121 ) {
+		data.iperson_id = 915119;
+		data.union_iperson_id = 915119;
+		var stop = 1;
+	}
+
   var q = table
   .select(table.person_id)
   .from(table)

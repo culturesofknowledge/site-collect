@@ -29,6 +29,7 @@ router.get('/flush/:upload_uuid', function(req, res, next) {
 
 router.post('/flush/:upload_uuid', function(req, res, next) {
   console.log("log: emloload: Post find Upload");
+  req.setTimeout(500000); // This can take ages...
   doSeries(req, res, next);
 });      
 

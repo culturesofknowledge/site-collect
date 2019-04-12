@@ -145,7 +145,7 @@ urlPersonAll = "http://emlo-edit.bodleian.ox.ac.uk/people/proform/person.php/";
       	'<ul class="small-block-grid-4">'+
       	'<li><label for="location">Location </label>'+
       	' <input type="hidden" name="location_id_1"	class="Location small-12" value="" /><small class="error"></small></li>'+
-      	'<li><br /><span class="addLocation button tiny">Add</span>&nbsp;</li><li>If the location does not appear in the selection, you can add a location to the selection using the EMLO Edit <a target="_new" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?menu_item_id=39"> "Add New Place" </a> form.</li></ul>';
+      	'<li><br /><span class="addLocation button tiny">Add</span>&nbsp;</li><li>If the location does not appear in the selection, you can add a location to the selection using the EMLO Edit <a target="_new" href="https://emlo-edit.bodleian.ox.ac.uk/union.php?menu_item_id=39"> "Add New Place" </a> form.</li></ul>';
 
       	var htmlRoles = '<fieldset id="fieldsetRole" class="fieldsetRole">' +
       		'<legend>Roles and Relationships</legend> ' +

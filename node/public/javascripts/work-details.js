@@ -589,7 +589,7 @@ $(document).ready(function() {
 		var newVal = "";
 		$.each(people, function(key, obj){
 			if( obj.union_iperson_id ) {
-				newVal += '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?iperson_id='+ obj.union_iperson_id + '">' + obj.union_iperson_id + '</a>';
+				newVal += '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/union.php?iperson_id='+ obj.union_iperson_id + '">' + obj.union_iperson_id + '</a>';
 			}
 			else {
 				newVal += "new";
@@ -607,7 +607,7 @@ $(document).ready(function() {
 		$.each(places, function(key, obj){
 
 			if( obj.union_location_id ) {
-				newVal += '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?location_id=' + obj.union_location_id + '">' + obj.union_location_id + "</a>";
+				newVal += '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/union.php?location_id=' + obj.union_location_id + '">' + obj.union_location_id + "</a>";
 			}
 			else {
 				newVal += "new";

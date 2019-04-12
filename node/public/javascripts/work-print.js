@@ -228,7 +228,7 @@ $(document).ready(function() {
 					html += '<br/>';
 
 					if( person["union_iperson_id"] ) {
-						//html += 'ID: ' + '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?iperson_id=' + person["union_iperson_id"] + '">' + person["union_iperson_id"] + "</a>";
+						//html += 'ID: ' + '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/union.php?iperson_id=' + person["union_iperson_id"] + '">' + person["union_iperson_id"] + "</a>";
 						html += 'ID: ' + person["union_iperson_id"];
 					}
 					else {
@@ -319,7 +319,7 @@ $(document).ready(function() {
 					html += '<br/>';
 
 					if( place["union_location_id"] ) {
-						//html += 'ID: ' + '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/interface/union.php?location_id=' + person["union_iperson_id"] + '">' + person["union_iperson_id"] + "</a>";
+						//html += 'ID: ' + '<a target="_blank" href="https://emlo-edit.bodleian.ox.ac.uk/union.php?location_id=' + person["union_iperson_id"] + '">' + person["union_iperson_id"] + "</a>";
 						html += 'ID: ' + place["union_location_id"];
 					}
 					else {

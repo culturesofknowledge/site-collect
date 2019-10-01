@@ -22,7 +22,7 @@
     "mongoose-auto-increment": "2.1.4",
     "mongoose-datatable": "0.2.5",
     "mongoose-paginate": "2.2.0",
-    "morgan": "~1.0.0",
+    "morgan": "~1.9.1",
     "pg": "~6.3.0",
     "sql": "^0.78.0",
     "static-favicon": "~1.0.0",

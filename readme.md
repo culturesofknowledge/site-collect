@@ -74,3 +74,6 @@ You'll need to log into the Mongo container and manually add a language to the t
     use emlo-edit
     db["language-fav"].insert({language_code:"por","language_name":"Portuguese"})
 
+## Acknowledgements
+
+EMLO has received funding from the Andrew W. Mellon Foundation, the UK Arts and Humanities Research Council, and the Unibersity of Oxford's John Fell Fund.

@@ -18,7 +18,7 @@
     "forever": "^0.15.3",
     "jade": "*",
     "method-override": "~1.0.0",
-    "mongoose": "3.8.8",
+    "mongoose": "5.10.2",
     "mongoose-auto-increment": "2.1.4",
     "mongoose-datatable": "0.2.5",
     "mongoose-paginate": "2.2.0",

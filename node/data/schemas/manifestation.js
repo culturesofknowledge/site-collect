@@ -2,6 +2,7 @@ var Schema = require('mongoose').Schema,
     autoIncrement = require('mongoose-auto-increment');
 
 var manifestationSchema = new Schema({
+  id                          : Number,
   upload_id               :   { type: Number },
   iwork_id                :   { type: Number },
   union_manifestation_id  :   { type: String },

@@ -5,6 +5,7 @@ var autoIncrement = require('mongoose-auto-increment');
 var locationSchema = Schema({
   //_id       : Number,
   //name                   : String,
+  id                          : Number,
   upload_id              : Number,
   location_id            :  { type: Number },
   union_location_id      :  { type: Number },

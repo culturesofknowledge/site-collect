@@ -11,6 +11,7 @@ var languageSchema = require('./emlolang');
 var resourceSchema = require('./resource');
 
 var workSchema = new Schema({
+  id:                       Number,
   iwork_id:                 { type: Number },
   date_of_work_as_marked:   { type: String, default : "" },
   original_calendar:        { type: String, default : "" },

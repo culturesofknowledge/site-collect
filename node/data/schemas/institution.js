@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
 var autoIncrement = require('mongoose-auto-increment');
 
 var institutionSchema = Schema({
+  id                          : Number,
   upload_id                   : Number,
   institution_id              :  { type: Number },
   union_institution_id        :  { type: Number },

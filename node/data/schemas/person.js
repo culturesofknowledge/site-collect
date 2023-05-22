@@ -4,7 +4,8 @@ var autoIncrement = require('mongoose-auto-increment');
 
 var personSchema = new Schema({
 //  _id                     : Number,
-  upload_uuid:              { type: Schema.ObjectId, ref: 'Upload', required: true },
+  id                      : Number,
+  upload_uuid             : { type: Schema.ObjectId, ref: 'Upload', required: true },
   name                    : String,
   iperson_id              : Number,
   union_iperson_id        : Number,

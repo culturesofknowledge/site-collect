@@ -411,18 +411,12 @@ global.doWorkUpdateTable = function(table, data, callback) {
   .toQuery(); 
   console.log("\nquery :",q); //query is parameterized by default
   var query = client.query( q );
-  query.on("row", function (row, result) {
-    result.addRow(row);
-  });    
-  query.on("error", function (error) {
-    console.log("\ndoWorkUpdateTable query error " , error , "\n");
-    callback(error);
-  });
-  query.on("end", function (result) {
-    console.log("\ndoWorkUpdateTable query end Responded with " 
-    , result.command, " rowCount ", result.rowCount , "\n");
-    callback(null, result);
-  });
+
+    query.then(function(result, s) {
+        console.log("\ndoWorkUpdateTable query end Responded with "
+        , result.command, " rowCount ", result.rowCount , "\n");
+      callback(null, result);
+    });
 };
 
 module.exports = doWorkRecord;

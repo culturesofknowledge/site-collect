@@ -178,16 +178,10 @@ doInsertTable = function(table, data, callback) {
 
   //console.log("\nlog: query :",q);
 
-  client.query( q )
-  .on('row', function (row, result) {
-  })
-  .on("error", function (error) {
-    console.log("log: do insert row " , error , "\n");
-    callback(error);
-  })
-  .on("end", function (result) {
-    callback(null, result);
-  });
+  var query = client.query( q );
+    query.then(function(result, s) {
+      callback(null, result);
+    });
 };
 
 doDeleteTable = function(table, data, callback) {
@@ -201,14 +195,8 @@ doDeleteTable = function(table, data, callback) {
 
     //console.log("log: query :",q);
 
-    client.query( q )
-    .on('row', function (row, result) {
-    })
-    .on("error", function (error) {
-      console.log("log: do delete row " , error , "\n");
-      callback(error);
-    })
-    .on("end", function (result) {
+    var query = client.query( q );
+    query.then(function(result, s) {
       console.log("log: do delete row count =", result.rowCount , "\n");
       callback(null, result);
     });
@@ -228,19 +216,12 @@ doUpdateTable = function(table, data, callback) {
   //console.log("log: query :",q); //query is parameterized by default
 
   var query = client.query( q );
-  query.on("row", function (row, result) {
-    result.addRow(row);
-  });    
-  query.on("error", function (error) {
-    console.log("log: doUpdateTable query error " , error , "\n");
-    callback(error);
-  });
-  query.on("end", function (result) {
-    if( result ) {
+    query.then(function(result, s) {
+      if( result ) {
       console.log("log: doUpdateTable query end Responded with ", result.rowCount);
-    }
-    callback(null, result);
-  });
+        }
+        callback(null, result);
+    });
 };
 
 module.exports = doRecord;

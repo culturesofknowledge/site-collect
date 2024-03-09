@@ -172,16 +172,12 @@ doQueryRepo = function(data , callback){
   q += " WHERE institution_id = $1 ";
   q += " order by institution_name";
   var query = client.query( q , [b]);
-  
-  query.on("row", function (row, result) {
-    result.addRow(row);
-  });
-  
-  query.on("end", function (result) {
-    data.datarows  = result.rows;
-    console.log("\ndoQueryRepo-14 result.rows b4 doQueryLocalRepo " , data.datarows , "\n");
-    doQueryLocalRepo(data, callback);
-  });      
+
+  query.then(function(result, s) {
+      data.datarows  = result.rows;
+      console.log("\ndoQueryRepo-14 result.rows b4 doQueryLocalRepo " , data.datarows , "\n");
+      doQueryLocalRepo(data, callback);
+    });
 };
 
 doQueryLocalRepo =  function(data, callback ) {

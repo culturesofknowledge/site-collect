@@ -158,13 +158,31 @@ global.doSeries = function(req, res, next) {
 			    });
 		    }
 		    else {
-			    client.query('COMMIT', function() {
+			    client.query('COMMIT', function(err) {
+			        if(err) {
+                        var errorString = "UPLOAD ERROR <br/><hr/>" + err.detail;
+                        console.log(err)
 
-				    console.log("log: COMMITTED POSTGRES.");
-				    console.log('doSeries finished\n', locals.mapping.collection.modelName);
-				    client.end();
+                        if (req.xhr) {
+                            res.status(500).send({"error": errorString});
+                            return;
+                        }
+                        else {
+                            return next(err);
+                        }
+			        }
+			        else {
+                        console.log("log: COMMITTED POSTGRES.");
+                        console.log('doSeries finished\n', locals.mapping.collection.modelName);
 
-				    res.json({"status": "done", "data": locals.upload});
+                        /*doCleanup( locals.upload, function(err) {
+                            callback(err);
+                        } );*/
+
+                        client.end();
+
+                        res.json({"status": "done", "data": locals.upload});
+				    }
 			    });
 		    }
 
@@ -213,26 +231,11 @@ function dofindUploadPG(uuid, callback) {
   //query is parameterized by default
   var query = client.query( q );
   var rows = []; //example1. method
-  
-  query.on('error', function(error) {
-    //handle the error
-    callback(error);
-  });
-  
-  query.on("row", function (row, result) {
-    //fired once for each row returned
-    rows.push(row);     //example1. method
-    result.addRow(row); //example2. method
-  });
-  
-  query.on("end", function (result) {
-    //fired once and only once, after the last row has been returned and after all 'row' events are emitted
-    //in this example, the 'rows' array now contains an ordered set of all the rows which we received from postgres
-    console.log("log: dofindUploadPG  -- " ,result.rowCount + ' rows were received');
-    //console.log("\ndofindUploadPG  --rows: " , rows );
-    //client.end();
-    callback(null, result);
-  }); 
+
+  query.then(function(r, s) {
+    console.log("log: dofindUploadPG  -- " ,r.rowCount + ' rows were received');
+    callback(null, r);
+    });
   
 }
 
@@ -265,15 +268,11 @@ function doinsertUpload(data, callback) {
     .toQuery();
     
     console.log("log: query :",q);
-    client.query( q )
-    .on('error', function(error) {
-      //handle the error
-      console.log("log: doinsertUpload row insert error " , error , "\n");
-      callback(error);
-    })
-    .on('row', function (row) {
-      console.log("log: doinsertUpload row insert Responded with " , row , "\n");
-      pgUploadId = row.upload_id;
+    var query = client.query( q );
+
+    query.then(function(result, s) {
+      console.log("log: doinsertUpload row insert Responded with " , result , "\n");
+      pgUploadId = result.rows[0].upload_id;
       callback(null, pgUploadId);
     });
   } else {
@@ -288,19 +287,11 @@ function doinsertUpload(data, callback) {
     //query is parameterized by default
     console.log("log: query :",q); 
     var query = client.query( q );
-    query.on('error', function(error) {
-      //handle the error
-      console.log("log: doupsertUpload row update error " , error , "\n");
-      callback(error);
-    });
-    query.on("row", function (row, result) {
-      console.log("log: doupsertUpload2 query on " , row," \nresult", result , "\n");
-      result.addRow(row);
-    });    
-    query.on("end", function (result) {
+
+    query.then(function(result, s) {
       console.log("log: doupsertUpload end update Responded with " , result , "\n");
-      callback(null, pgUploadId);
-    }); 
+      callback(null, pgUploadId)
+    });
   }
   //dofindWorkbyUpload(req, res);  // this moved to insert/update
 }
@@ -505,16 +496,16 @@ global.doCleanup = function( uploadData, callbackComplete ) {
 
     async.series(
         [
-            function( callbackStepDone ) {
+            /*function( callbackStepDone ) {
                 doCleanupPeople( uploadData.upload_id, function( error ) {
                     callbackStepDone( error );
                 })
-            },
-            function( callbackStepDone ) {
+            }//,
+            /*function( callbackStepDone ) {
                 doCleanupLocations( uploadData.upload_id, function( error ) {
                     callbackStepDone( error )
                 })
-            }
+            }*/
         ],
 
         function( error ) {
@@ -539,21 +530,20 @@ global.doCleanupLocations = function( uploadId, callbackComplete ) {
                     )
                     .toQuery();
 
-                client.query( q )
-                    .on("row", function( row ) {
+                var query = client.query( q );
+                query.then(function(result, s) {
+                    links += result.rows.map(function(row) {
+                    //console.log(row)
                         if (row.origin_id) {
-                            links.push(row.origin_id);
+                             return row.origin_id;
                         }
                         if( row.destination_id ) {
-                            links.push(row.destination_id);
+                            return row.destination_id;
                         }
-                    })
-                    .on("error", function (error) {
-                        callbackDone(error);
-                    })
-                    .on("end", function () {
-                        callbackDone();
-                    })
+                     });
+                  callbackDone();
+                });
+
             },
             function( callbackDone ) {
                 // Locations mentioned
@@ -564,16 +554,13 @@ global.doCleanupLocations = function( uploadId, callbackComplete ) {
                 )
                     .toQuery();
 
-                client.query( q )
-                    .on("row", function( row ) {
-                        links.push( row.location_id )
-                    })
-                    .on("error", function (error) {
-                        callbackDone(error);
-                    })
-                    .on("end", function () {
-                        callbackDone();
-                    })
+                var query = client.query( q );
+                query.then(function(result, s) {
+                    // console.log(result)
+                    //links += result.rows.map(function(s) { return s.location_id});
+                  callbackDone();
+                });
+
             }
         ],
         function( error ) {
@@ -613,16 +600,12 @@ global.doCleanupPeople = function( uploadId, callbackComplete ) {
             )
                 .toQuery();
 
-            client.query( q )
-                .on("row", function( row ) {
-                    links.push( row[mainField] )
-                })
-                .on("error", function (error) {
-                    callbackDone(error);
-                })
-                .on("end", function () {
-                    callbackDone();
-                })
+                var query = client.query( q );
+                query.then(function(result, s) {
+                    links += result.rows.map(function(s) { return s[mainField]});
+                  callbackDone();
+                });
+
         },
         function( error ) {
             if (!error) {
@@ -654,16 +637,11 @@ global.doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id
         .toQuery();
 
     var ids = [];
-    client.query( q )
-        .on("row", function( data ) {
-            ids.push( data[mainField] );
-        })
-        .on("error", function (error) {
-            callbackComplete(error);
-        })
-        .on("end", function () {
-            async.eachSeries(
-                _.uniq( ids ),
+
+    var query = client.query( q );
+    query.then(function(result, s) {
+      async.eachSeries(
+                _.uniq( result.rows.map(function(s) { return s[mainField]})),
                 function( id, callbackDone ) {
                     if( linksUnique.indexOf( id, 0 ) === -1 ) {
                         // Not found, we need to remove this row from mainTable
@@ -681,15 +659,11 @@ global.doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id
 	                    // For some reason I got a problem with callbackDone() being called by both "end" and "error"
 	                    // (which is supposed to be impossible), I think there may have been a timing issue... somehow, breaking an already ended query...
 	                    // Anyway, making this async seriel seems to have fixed the problem...
-                        client.query( q )
-                            .on("error", function (error) {
-		                        console.log("Error on row " + id);
-                                callbackDone(error);
-                            })
-                            .on("end", function () {
-		                        console.log("Finished row " + id);
-		                        callbackDone();
-                            });
+                        var query = client.query( q );
+                        query.then(function(result, s) {
+                            console.log("Finished row " + id);
+                            callbackDone();
+		                        });
                     }
                     else {
                         callbackDone();

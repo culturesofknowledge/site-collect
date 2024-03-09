@@ -147,32 +147,34 @@ global.doProcessWorks = function(data, callbackReturn) {
     data.works,
     function(item, callbackComplete) {
 
-        async.series( [
-            function ( callbackDone ) {
-                console.log("doWorkMapping -0 ", (item) ? item.iwork_id : "no work" );
-                locals.itemWork = item;
-                doProcessItems(
-                    locals,
-                    function (err /*, records*/) {
-                        if (err) {
-                            callbackDone(err);
-                        }
-                        console.log("doWorkMapping -1 ", locals.itemWork.iwork_id);
-                        //locals.records = records;
-                        callbackDone();
-                    }
-                );
-            },
-            function( callbackDone ) {
+        const collect_work_id_query = {
+          text: 'SELECT id FROM cofk_collect_work WHERE upload_id=$1 AND iwork_id=$2',
+          values: [data.pgUploadId, item.iwork_id],
+          }
 
-                // data.pgUploadId item.iwork_id
-                createWorkSummaryEntry( data.pgUploadId, item.iwork_id, function( err ) {
-                    callbackDone( err );
-                } );
-            }
-        ],
-        function( err ) {
-            callbackComplete( err )
+        const res = client.query(collect_work_id_query).then(function(collect_work){
+            item.iwork_id = collect_work.rows[0].id;
+
+            async.series( [
+                function ( callbackDone ) {
+                    console.log("doWorkMapping -0 ", (item) ? item.iwork_id : "no work" );
+                    locals.itemWork = item;
+                    doProcessItems(
+                        locals,
+                        function (err /*, records*/) {
+                            if (err) {
+                                callbackDone(err);
+                            }
+                            console.log("doWorkMapping -1 ", locals.itemWork.iwork_id);
+                            //locals.records = records;
+                            callbackDone();
+                        }
+                    );
+                }
+            ],
+            function( err ) {
+                callbackComplete( err )
+            });
         });
     },
     function(err) {
@@ -182,45 +184,6 @@ global.doProcessWorks = function(data, callbackReturn) {
 	    callbackReturn();
     }
   );  
-};
-
-global.createWorkSummaryEntry = function( uploadId, iwork_id, callbackComplete ) {
-	/*
-	    Add an entry to the work summary
-
-	    this is so the export in collect works.
-	*/
-
-	console.log( "createWorkSummaryEntry : ", uploadId, iwork_id );
-
-	var table = mm.cofk_collect_work_summary;
-
-	var qSelect = table.select(table.upload_id)
-		.from(table)
-		.where(table.upload_id.equals( uploadId ))
-		.and(table.work_id_in_tool.equals(iwork_id))
-		.toQuery();
-
-	client.query( qSelect, function( error, results ) {
-		if( !results || results.length == 0 ) {
-
-			var q = table
-				.insert(
-					table.upload_id.value( uploadId ),
-					table.work_id_in_tool.value(iwork_id)
-				)
-				.toQuery();
-
-			client.query( q, function( error ) {
-				callbackComplete(error);
-			});
-		}
-
-		callbackComplete();
-	})
-
-
-
 };
 
 global.doProcessItems = function(data, callbackReturn) {

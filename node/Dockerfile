@@ -3,6 +3,10 @@ FROM node:6.14-alpine
 RUN mkdir /src
 WORKDIR /src
 
+RUN apk update \
+    && apk --no-cache --update add build-base postgresql-dev python
+RUN npm install -g node-gyp
+
 ADD ./package.json /src/
 RUN npm install --production
 

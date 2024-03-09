@@ -1,35 +1,55 @@
-mongo:
-  image: mongo:2.4
+version: "3.3"
 
-  ports:
-    - 47017:27017
+services:
+  db:
+    image: postgres:14
+    environment:
+      PGDATA: /var/lib/postgresql/data/emlo_db/
+    volumes:
+      - data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 25432:5432
+    command: ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr"]
 
-  volumes:
-    - ./volumes/mongo:/data/db
+  mongo:
+    image: mongo:2.4
+    ports:
+      - 47017:27017
+    volumes:
+      - ./volumes/mongo:/data/db
 
-node:
-  build: ./node
+  node:
+    build: ./node
+    ports:
+      - 3000:3000
+    volumes:
+      - ./node:/src
+    links:
+      - mongo
+    command: ["node_modules/forever/bin/forever", "-w", "./server.js"]
 
-  ports:
-    - 3000:3000
+  nginx:
+    build: ./nginx
+    restart: always
+    links:
+      - node
+    ports:
+      - 80:80
+      - 443:443
 
-  volumes:
-    - ./node:/src
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=name@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    links:
+      - db
+    depends_on:
+      - db
 
-  links:
-    - mongo
-
-  command: ["node_modules/forever/bin/forever", "-w", "./server.js"]
-
-nginx:
-
-  build: ./nginx
-
-  restart: always
-
-  links:
-    - node
-
-  ports:
-    - 80:80
-    - 443:443
+volumes:
+  data:

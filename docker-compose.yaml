@@ -1,25 +1,30 @@
-mongo:
-  image: mongo:2.4
-  restart: always
+version: "3.3"
 
-  volumes:
-    - ./volumes/mongo:/data/db
+services:
+  mongo:
+    image: mongo:2.4
+    restart: always
 
-node:
-  build: ./node
-  restart: always
+    volumes:
+      - ./volumes/mongo:/data/db
 
-  links:
-    - mongo
+  node:
+    build: ./node
+    environment:
+      NODE_ENV: 'development'
+    restart: always
 
-nginx:
+    links:
+      - mongo
 
-  build: ./nginx
-  restart: always
+  nginx:
 
-  links:
-    - node
+    build: ./nginx
+    restart: always
 
-  ports:
-    - 80:80
-    - 443:443
+    links:
+      - node
+
+    ports:
+      - 80:80
+      - 443:443

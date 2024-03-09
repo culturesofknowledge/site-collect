@@ -351,21 +351,54 @@ global.doWorkUpsertTable = function(table, data, callback) {
 };
 
 global.doWorkInsertTable = function(table, data, callback) {
+   function insertData(insertTable, insertData, insertCallback)   {
+        var q = insertTable
+            .insert(insertData)
+            .returning(table.star())
+            .toQuery();
+        console.log(data);
+        var query = client.query( q );
 
-  var q = table
-  .insert(data)
-  .returning(table.star())
-  .toQuery();
+        query.then(function(result, s) {
+            insertCallback(null, result);
+        });
+    }
 
-  client.query( q )
-  .on('row', function (row) {})
-  .on("error", function (error) {
-    console.log("\ndoWorkInsertTable do insert error " , error , "\n");
-    callback(error);
-  })
-  .on("end", function (result) {
-    callback(null, result);
-  });
+    if(data.iperson_id) {
+        const collect_person_id_query = {
+          text: 'SELECT id FROM cofk_collect_person WHERE upload_id=$1 AND iperson_id=$2',
+          values: [data.upload_id, data.iperson_id],
+        }
+
+        const res2 = client.query(collect_person_id_query).then(function(collect_person)    {
+            if(collect_person.rows.length)  {
+                data.iperson_id = collect_person.rows[0].id;
+            }
+
+            insertData(table, data, callback);
+
+        });
+    }
+    else if(data.location_id)   {
+        const collect_location_id_query = {
+          text: 'SELECT id FROM cofk_collect_location WHERE upload_id=$1 AND location_id=$2',
+          values: [data.upload_id, data.location_id],
+        }
+
+        const res2 = client.query(collect_location_id_query).then(function(collect_location)    {
+
+            if(collect_location.rows.length)  {
+                data.location_id = collect_location.rows[0].id;
+            }
+
+            insertData(table, data, callback);
+
+        });
+    }
+    else {
+        insertData(table, data, callback);
+    }
+
 };
 
 global.doWorkUpdateTable = function(table, data, callback) {

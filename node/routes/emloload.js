@@ -175,10 +175,6 @@ global.doSeries = function(req, res, next) {
                         console.log("log: COMMITTED POSTGRES.");
                         console.log('doSeries finished\n', locals.mapping.collection.modelName);
 
-                        /*doCleanup( locals.upload, function(err) {
-                            callback(err);
-                        } );*/
-
                         client.end();
 
                         res.json({"status": "done", "data": locals.upload});
@@ -496,16 +492,16 @@ global.doCleanup = function( uploadData, callbackComplete ) {
 
     async.series(
         [
-            /*function( callbackStepDone ) {
+            function( callbackStepDone ) {
                 doCleanupPeople( uploadData.upload_id, function( error ) {
                     callbackStepDone( error );
                 })
-            }//,
-            /*function( callbackStepDone ) {
+            },
+            function( callbackStepDone ) {
                 doCleanupLocations( uploadData.upload_id, function( error ) {
                     callbackStepDone( error )
                 })
-            }*/
+            }
         ],
 
         function( error ) {
@@ -520,27 +516,35 @@ global.doCleanupLocations = function( uploadId, callbackComplete ) {
 
     async.series(
         [
-            // First get a list of all locations we link to.
+
             function( callbackDone ) {
-                // Work's destination and origin
-                var q = mm.cofk_collect_work
-                    .select( mm.cofk_collect_work.origin_id, mm.cofk_collect_work.destination_id )
+                // Destinations
+                var q = mm.cofk_collect_destination_of_work
+                    .select( mm.cofk_collect_destination_of_work.location_id )
                     .where(
-                    mm.cofk_collect_work.upload_id.equals( uploadId )
-                    )
+                    mm.cofk_collect_destination_of_work.upload_id.equals( uploadId )
+                )
                     .toQuery();
 
                 var query = client.query( q );
                 query.then(function(result, s) {
-                    links += result.rows.map(function(row) {
-                    //console.log(row)
-                        if (row.origin_id) {
-                             return row.origin_id;
-                        }
-                        if( row.destination_id ) {
-                            return row.destination_id;
-                        }
-                     });
+                    result.rows.forEach(function(s) { links.push(s.location_id) });
+                  callbackDone();
+                });
+
+            },
+            function( callbackDone ) {
+                // Origins
+                var q = mm.cofk_collect_origin_of_work
+                    .select( mm.cofk_collect_origin_of_work.location_id )
+                    .where(
+                    mm.cofk_collect_origin_of_work.upload_id.equals( uploadId )
+                )
+                    .toQuery();
+
+                var query = client.query( q );
+                query.then(function(result, s) {
+                    result.rows.forEach(function(s) { links.push(s.location_id) });
                   callbackDone();
                 });
 
@@ -556,15 +560,13 @@ global.doCleanupLocations = function( uploadId, callbackComplete ) {
 
                 var query = client.query( q );
                 query.then(function(result, s) {
-                    // console.log(result)
-                    //links += result.rows.map(function(s) { return s.location_id});
+                    result.rows.forEach(function(s) { links.push(s.location_id) });
                   callbackDone();
                 });
 
             }
         ],
         function( error ) {
-
             if (!error) {
                 doCleanupObjects( _.uniq( links ), cofk_collect_location, "location_id", uploadId, function( error ) {
                     callbackComplete( error );
@@ -602,7 +604,7 @@ global.doCleanupPeople = function( uploadId, callbackComplete ) {
 
                 var query = client.query( q );
                 query.then(function(result, s) {
-                    links += result.rows.map(function(s) { return s[mainField]});
+                  result.rows.forEach(function(s) { links.push(s[mainField])});
                   callbackDone();
                 });
 
@@ -630,7 +632,8 @@ global.doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id
     // Now get the list of objects in this upload
     //
     var q = mainTable
-        .select( mainTable[mainField] )
+        //.select( mainTable[mainField] )
+        .select( 'id' )
         .where(
         mainTable.upload_id.equals( upload_id )
         )
@@ -641,29 +644,26 @@ global.doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id
     var query = client.query( q );
     query.then(function(result, s) {
       async.eachSeries(
-                _.uniq( result.rows.map(function(s) { return s[mainField]})),
+                _.uniq( result.rows.map(function(s) { return s['id']})),
                 function( id, callbackDone ) {
                     if( linksUnique.indexOf( id, 0 ) === -1 ) {
                         // Not found, we need to remove this row from mainTable
                         console.log("Delete row " + id);
-                        var q = mainTable
-                            .delete(  )
-                            .where(
-                                mainTable.upload_id.equals( upload_id )
-                            )
-                            .and (
-                                mainTable[mainField].equals( id )
-                            )
-                            .toQuery();
 
-	                    // For some reason I got a problem with callbackDone() being called by both "end" and "error"
-	                    // (which is supposed to be impossible), I think there may have been a timing issue... somehow, breaking an already ended query...
-	                    // Anyway, making this async seriel seems to have fixed the problem...
-                        var query = client.query( q );
+                        const delete_query = {
+                          text: 'DELETE FROM ' + mainTable._name + ' WHERE upload_id=$1 AND id=$2',
+                          values: [upload_id, id],
+                        }
+
+
+                        // For some reason I got a problem with callbackDone() being called by both "end" and "error"
+                        // (which is supposed to be impossible), I think there may have been a timing issue... somehow, breaking an already ended query...
+                        // Anyway, making this async seriel seems to have fixed the problem...
+                        var query = client.query( delete_query );
                         query.then(function(result, s) {
-                            console.log("Finished row " + id);
+                            console.log("Finished row " + id, result.rowCount);
                             callbackDone();
-		                        });
+                                });
                     }
                     else {
                         callbackDone();
@@ -673,8 +673,6 @@ global.doCleanupObjects = function( linksUnique, mainTable, mainField, upload_id
                     callbackComplete();
                 });
         });
-
-    //callbackComplete( null );
 };
 
 var workNumericFlds = [

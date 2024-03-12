@@ -256,6 +256,7 @@ global.workClearLinks = function( table, uploadId, iWorkId, callReturn ) {
 	        if( error ) {
 		        console.log( "ERROR: ", q, uploadId, iWorkId );
 	        }
+	        console.log('CLEARING: ', table._name, result.rowCount)
 
             callReturn( error, result );
         });

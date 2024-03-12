@@ -27,31 +27,26 @@ var doSearchPG = function(req, res, callback){
 	q += " order by foaf_name";
     console.log("the query ", q);
 
-	client.query( q , b)
-
-	    .on("error", function (error) {
-	      console.log( "Error in doSearchPG: " + error );
-	    })
-
-	    .on("row", function (row, result) {
-		    var dates = " | ";
+	var query = client.query( q , b);
+	query.then(function(result, s) {
+	    res.datarows  = result.rows.map(function(row){
+	        var dates = " | ";
 		    dates += "b:" + (row.date_of_birth_year || "-") + ", ";
 		    dates += "d:" + (row.date_of_death_year || "-") + ", ";
 		    dates += "fl:" + (row.flourished_year || "-");
 
-		    result.addRow({
+		    return {
 			    name: row.foaf_name,
 			    emloid: row.iperson_id,
 			    value: row.iperson_id,
 			    date: dates
-		    });
-	    })
-
-	    .on("end", function (result) {
-	      res.datarows   = result.rows;
-	      callback(req, res);
-	      client.end();
+		    };
 	    });
+        callback(req, res);
+        client.end();
+
+	});
+
 };
   
 // SELECT "location_id","location_name" FROM "cofk_union_location" WHERE "location_name" ILIKE 'aB%'
@@ -77,25 +72,16 @@ var doSearchPlace = function(req, res, callback){
       q += " WHERE location_name ilike $1  ";
       q += " order by location_name";
 
-    client.query( q , [b] )
+    var query = client.query( q , [b] );
 
-    .on("error", function (error) {
-      console.log( "Error in doSearchPlace: " + error )
-    })
+    query.then(function(result, s) {
+        var results = JSON.stringify(result.rows, null, "    ");
+        console.log("\tResponded with '" + results + "'\n");
+        res.datarows   = result.rows;
+        callback(req, res);
+        client.end();
+    });
 
-    .on("row", function (row, result) {
-      result.addRow(row);
-    })
-    
-    .on("end", function (result) {
-      var results = JSON.stringify(result.rows, null, "    ");
-      //res.end(req.query.callback + "(" + results + ")");
-      res.datarows   = result.rows;
-      //res.dataresult = results;
-      callback(req, res);
-      client.end();
-      //console.log("\tResponded with '" + results + "'\n");
-    });      
 };
   
 // SELECT "institution_id","institution_name" FROM "cofk_union_institution" WHERE "institution_name" ILIKE 'aB%'
@@ -125,25 +111,16 @@ var doSearchRepo = function(req, res, callback){
     q += " order BY NULLIF(institution_city, '') ASC NULLS LAST;";
     //var query = client.query( q , [b]);
 
-    client.query( q )
+    var query = client.query( q );
 
-    .on("error", function (error) {
-      console.log( "Error in doSearchRepo: " + error )
-    })
-
-    .on("row", function (row, result) {
-      result.addRow(row);
-    })
-
-    .on("end", function (result) {
-      var results = JSON.stringify(result.rows, null, "    ");
-      //res.end(req.query.callback + "(" + results + ")");
-      res.datarows   = result.rows;
-      //res.dataresult = results;
-      callback(req, res);
-      client.end();
-      //console.log("\tResponded with '" + results + "'\n");
+    query.then(function(result, s) {
+        var results = JSON.stringify(result.rows, null, "    ");
+        console.log("\tResponded with '" + results + "'\n");
+        res.datarows   = result.rows;
+        callback(req, res);
+        client.end();
     });
+
 };
 
 // get all the users (accessed at GET http://localhost:8080/api/users)

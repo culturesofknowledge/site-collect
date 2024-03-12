@@ -405,7 +405,7 @@ doAttach = function(req, res) {
 };
 
 // POST Person form
-doPersonSave = function(req, res) {
+doPersonSave = function(req, res, again) {
   console.log("log: Enter doAttachPerson");
   console.log("log: Person ",req.body.itemID);
   console.log("log: Person ",req.body.itemData);
@@ -416,13 +416,24 @@ doPersonSave = function(req, res) {
     req.body.itemData,
     {upsert:true},
     function (err, item) {
-      onItemSave (req, res, err, item);
+        // Logic to try again if first attempt returns empty was put in
+        if(item === null)   {
+            if(!again)  {
+                doPersonSave(req, res, true);
+            }
+            else {
+                res.json({"status":"error", "data":"Couldn't find person with iperson id: " + req.body.itemID});
+            }
+        }
+        else {
+              onItemSave (req, res, err, item);
+        }
     }
   );
 };
 
 // POST Place form
-doPlaceSave = function(req, res) {
+doPlaceSave = function(req, res, again) {
   console.log("log: Enter doAttachPlace");
   console.log("log: Place ",req.body.itemID);
   console.log("log: Place ",req.body.itemData);
@@ -433,15 +444,26 @@ doPlaceSave = function(req, res) {
     req.body.itemData,
     {upsert:true},
     function (err, item) {
-      onItemSave (req, res, err, item);
+        // Logic to try again if first attempt returns empty was put in
+      if(item === null)   {
+            if(!again)  {
+                doPlaceSave(req, res, true);
+            }
+            else {
+                res.json({"status":"error", "data":"Couldn't find place with location id: " + req.body.itemID});
+            }
+      }
+      else {
+        onItemSave (req, res, err, item);
+      }
     }
   );
 };
 
 var onItemSave = function(req, res, err, item) {
   console.log("log: Enter onItemSave");
-  console.log(item);
-  console.log(req.body);
+  //console.log(item);
+  //console.log(req.body);
   var qstring = '';
   if(err){
     console.log(err);
@@ -462,8 +484,8 @@ var onItemSave = function(req, res, err, item) {
 
 var doWorkSave = function(req, res, err, item) {
   console.log("log: Enter doWorkSave");
-  console.log(item);
-  console.log(req.body);
+  //console.log(item);
+  //console.log(req.body);
   Work.findById( 
     req.body.workID,
     req.body.data,

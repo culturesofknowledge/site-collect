@@ -191,19 +191,25 @@ var selectorMap = { };
       console.log("enter tabcallback");
       console.log(data);
       console.log(status);
-      var item_name = itemTypeNameMap[data.itemType];
-      var emlo_id   = itemTypeIdMap[data.itemType];
-      var uemlo_id  = "union_"+emlo_id;
-      console.log("item-name",data.item[item_name]);
-      console.log("item-id",data.item[emlo_id]);
-      console.log("item-uid",data.item[uemlo_id]);
-      t.row.add( [
-        data.item[item_name],
-        data.item[emlo_id],
-        data.item[uemlo_id],
-        data.item._id,
-        ""
-      ] ).draw();
+
+      if(data.item)  {
+          var item_name = itemTypeNameMap[data.itemType];
+          var emlo_id   = itemTypeIdMap[data.itemType];
+          var uemlo_id  = "union_"+emlo_id;
+          console.log("item-name",data.item[item_name]);
+          console.log("item-id",data.item[emlo_id]);
+          console.log("item-uid",data.item[uemlo_id]);
+          t.row.add( [
+            data.item[item_name],
+            data.item[emlo_id],
+            data.item[uemlo_id],
+            data.item._id,
+            ""
+          ] ).draw();
+      }
+      else  {
+        alert('ERROR: ' + data.data);
+      }
       console.log("table t: ",t)
     }
   }

@@ -171,17 +171,47 @@ doUpsertTable = function(table, data, callback) {
 
 doInsertTable = function(table, data, callback) {
 
-  var q = table
-  .insert(data)
-  .returning(table.star())
-  .toQuery();
+    // If we're about to create a manifestation we have to update
+    // the work id, so nest the insert into a get query that establishes
+    // the real primary key of the work
+    if(data.upload_id && data.iwork_id) {
+        const collect_work_id_query = {
+              text: 'SELECT id FROM cofk_collect_work WHERE upload_id=$1 AND iwork_id=$2',
+              values: [data.upload_id, data.iwork_id],
+              }
 
-  //console.log("\nlog: query :",q);
+        const res = client.query(collect_work_id_query).then(function(collect_work){
+        data.iwork_id = collect_work.rows[0].id;
 
-  var query = client.query( q );
-    query.then(function(result, s) {
-      callback(null, result);
-    });
+        var q = table
+          .insert(data)
+          .returning(table.star())
+          .toQuery();
+
+        //console.log("\nlog: query :",q);
+
+        var query = client.query( q );
+        query.then(function(result, s) {
+          callback(null, result);
+        });
+
+        });
+    }
+    else {
+        var q = table
+          .insert(data)
+          .returning(table.star())
+          .toQuery();
+
+        //console.log("\nlog: query :",q);
+
+        var query = client.query( q );
+        query.then(function(result, s) {
+          callback(null, result);
+        });
+
+    }
+
 };
 
 doDeleteTable = function(table, data, callback) {
